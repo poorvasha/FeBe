@@ -1,15 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:febe_frontend/models/carousel_item.dart';
-import 'package:febe_frontend/widgets/get_started_carousel_indicator.dart';
-import 'package:febe_frontend/widgets/get_started_carousel_item.dart';
+import 'package:febe_frontend/screens/get_started_screen/get_started_carousel_indicator.dart';
+import 'package:febe_frontend/screens/get_started_screen/get_started_carousel_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
-import '../configs/routes.dart';
-import '../providers/app_model.dart';
+import '../../configs/routes.dart';
+import '../../providers/app_model.dart';
 
 List<CarouselItem> carousels = [
   CarouselItem(

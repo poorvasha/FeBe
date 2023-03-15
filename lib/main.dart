@@ -1,9 +1,9 @@
 import 'package:febe_frontend/providers/app_model.dart';
-import 'package:febe_frontend/screens/flash_screen.dart';
-import 'package:febe_frontend/screens/get_started_screen.dart';
-import 'package:febe_frontend/screens/home_screen.dart';
-import 'package:febe_frontend/screens/login_screen.dart';
-import 'package:febe_frontend/screens/user_type_screen.dart';
+import 'package:febe_frontend/screens/flash_screen/flash_screen.dart';
+import 'package:febe_frontend/screens/get_started_screen/get_started_screen.dart';
+import 'package:febe_frontend/screens/home_screen/home_screen.dart';
+import 'package:febe_frontend/screens/login_screen/login_screen.dart';
+import 'package:febe_frontend/screens/user_type_screen/user_type_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -42,11 +42,15 @@ class _MyAppState extends State<MyApp> {
         inputDecorationTheme: const InputDecorationTheme(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
-            borderSide: BorderSide(width: 1, color: AppColors.white),
+            borderSide: BorderSide(width: 2, color: AppColors.white),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
-            borderSide: BorderSide(width: 1, color: AppColors.white),
+            borderSide: BorderSide(width: 2, color: AppColors.white),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderSide: BorderSide(width: 2, color: AppColors.white),
           ),
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../configs/resources.dart';
+import '../../configs/resources.dart';
 
 class UserTypeCard extends StatefulWidget {
   final String title;

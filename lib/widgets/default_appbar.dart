@@ -16,12 +16,15 @@ class DefaultAppbar extends StatelessWidget with PreferredSizeWidget {
       elevation: 0,
       leading: goBack
           ? IconButton(
-              icon: Icon(Icons.arrow_back, color: AppColors.golden),
+              icon: const Icon(
+                Icons.arrow_back,
+                color: AppColors.golden,
+              ),
               onPressed: () => Navigator.of(context).pop(),
             )
           : const SizedBox(),
       title: Text(
-        "OTP",
+        title,
         style: AppTextStyles.boldBeVietnamPro
             .copyWith(color: AppColors.golden, fontSize: 30),
       ),

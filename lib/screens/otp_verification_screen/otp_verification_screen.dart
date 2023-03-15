@@ -1,11 +1,10 @@
 import 'package:febe_frontend/configs/resources.dart';
+import 'package:febe_frontend/screens/location_access_screen/location_access_screen.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
-import 'package:febe_frontend/widgets/otp_inputs.dart';
+import 'package:febe_frontend/screens/otp_verification_screen/otp_inputs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../widgets/default_appbar.dart';
+import '../../widgets/default_appbar.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
   const OTPVerificationScreen({super.key});
@@ -17,6 +16,13 @@ class OTPVerificationScreen extends StatefulWidget {
 class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   @override
   Widget build(BuildContext context) {
+    void navigateToLocationAccess() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const LocationAccessScreen()),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: const DefaultAppbar(title: "OTP"),
@@ -101,7 +107,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
             width: 268,
             height: 50,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: navigateToLocationAccess,
               child: Text(
                 "Verfify OTP",
                 style: AppTextStyles.semiBoldBeVietnamPro16

@@ -3,8 +3,8 @@ import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../configs/routes.dart';
-import '../providers/app_model.dart';
+import '../../configs/routes.dart';
+import '../../providers/app_model.dart';
 
 class FlashScreen extends StatefulWidget {
   const FlashScreen({super.key});

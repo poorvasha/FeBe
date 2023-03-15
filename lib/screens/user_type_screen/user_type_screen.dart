@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../configs/resources.dart';
-import '../widgets/user_type_card.dart';
+import '../../configs/resources.dart';
+import 'user_type_card.dart';
 
 class UserTypeScreen extends StatefulWidget {
   const UserTypeScreen({super.key});

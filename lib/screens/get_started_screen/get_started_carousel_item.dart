@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../configs/resources.dart';
+import '../../configs/resources.dart';
 
 class GetStartedCarouselItem extends StatelessWidget {
   final CarouselItem carousel;

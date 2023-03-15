@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../configs/resources.dart';
+import '../../configs/resources.dart';
 
 class OTPInputs extends StatefulWidget {
   final Function(String? value) onChanged;

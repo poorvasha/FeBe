@@ -14,6 +14,7 @@ class AppColors {
   static const Color white = Color(0xFfffffff);
   static const Color black = Color(0xFF000000);
   static Color brown = const Color(0xFFFF0000).withOpacity(0.1);
+  static Color gray = const Color(0xFF292929);
 }
 // #endregion
 
