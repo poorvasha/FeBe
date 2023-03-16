@@ -12,8 +12,11 @@ import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:provider/provider.dart';
 
 import '../../configs/resources.dart';
+import '../../configs/routes.dart';
+import '../../providers/app_model.dart';
 import '../../widgets/default_appbar.dart';
 import '../../widgets/default_dropdown.dart';
 
@@ -32,6 +35,10 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
   Widget build(BuildContext context) {
     void moveToNextPart() {
       controller.nextPage();
+    }
+
+    void navigateToHome() {
+      context.read<AppModel>().setInitialRoute = Routes.homeScreen;
     }
 
     return Scaffold(
@@ -80,7 +87,7 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
                           width: 260,
                           height: 50,
                           child: TextButton(
-                            onPressed: moveToNextPart,
+                            onPressed: navigateToHome,
                             style: TextButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -100,7 +107,8 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
                     width: 260,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: moveToNextPart,
+                      onPressed:
+                          currentPart == 3 ? navigateToHome : moveToNextPart,
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.golden,
                           shape: RoundedRectangleBorder(
