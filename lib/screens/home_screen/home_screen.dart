@@ -28,22 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       bottomNavigationBar: SizedBox(
-        height: 70,
+        height: 60,
         child: BottomNavigationBar(
           showSelectedLabels: false,
           showUnselectedLabels: false,
           backgroundColor: AppColors.lightBlack,
           selectedItemColor: AppColors.white,
-          unselectedIconTheme:
-              const IconThemeData(color: AppColors.lightWhite, opacity: 0.5),
-          selectedIconTheme:
-              const IconThemeData(opacity: 1, color: AppColors.white, shadows: [
-            BoxShadow(
-                color: AppColors.lightWhite,
-                offset: Offset(0, 0),
-                blurRadius: 120,
-                spreadRadius: 30)
-          ]),
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Container(

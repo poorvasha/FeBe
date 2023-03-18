@@ -1,3 +1,4 @@
+import 'package:febe_frontend/screens/chat_home_screen/chats_list.dart';
 import 'package:febe_frontend/screens/chat_home_screen/post_card.dart';
 import 'package:febe_frontend/screens/chat_home_screen/user_card.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
@@ -18,18 +19,23 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: FullScreenContainer(
+          isInsideTabbar: true,
           child: Column(
-        children: const [
-          SizedBox(
-            height: 30,
-          ),
-          UserCard(),
-          SizedBox(
-            height: 30,
-          ),
-          PostCard()
-        ],
-      )),
+            children: const [
+              SizedBox(
+                height: 30,
+              ),
+              UserCard(),
+              SizedBox(
+                height: 30,
+              ),
+              PostCard(),
+              SizedBox(
+                height: 30,
+              ),
+              Expanded(child: ChatsList())
+            ],
+          )),
     );
   }
 }

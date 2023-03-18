@@ -5,8 +5,12 @@ import 'package:flutter/src/widgets/placeholder.dart';
 class FullScreenContainer extends StatelessWidget {
   final Widget child;
   final bool disablePadding;
+  final bool isInsideTabbar;
   const FullScreenContainer(
-      {super.key, required this.child, this.disablePadding = false});
+      {super.key,
+      required this.child,
+      this.disablePadding = false,
+      this.isInsideTabbar = false});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,9 @@ class FullScreenContainer extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Container(
-        height: height - kToolbarHeight - 40,
+        height: !isInsideTabbar
+            ? height - kToolbarHeight - 40
+            : height - kToolbarHeight,
         width: width,
         child: child,
         padding: !disablePadding
