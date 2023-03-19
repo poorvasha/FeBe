@@ -4,7 +4,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class UserTypePicker extends StatelessWidget {
-  const UserTypePicker({super.key});
+  final Function(String value) onSelected;
+  final String activeType;
+  const UserTypePicker(
+      {super.key, required this.onSelected, required this.activeType});
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +17,14 @@ class UserTypePicker extends StatelessWidget {
         UserTypeCard(
           image: Image.asset("assets/images/enabler.png"),
           title: "Enabler",
-          onTap: () => {print("enabler")},
+          onTap: () => {onSelected("enabler")},
+          isActive: activeType == "enabler",
         ),
         UserTypeCard(
           image: Image.asset("assets/images/enteruper.png"),
           title: "Entrepreneur",
-          onTap: () => {print("entrepreneur")},
+          onTap: () => {onSelected("entrepreneur")},
+          isActive: activeType == "entrepreneur",
         ),
       ],
     );

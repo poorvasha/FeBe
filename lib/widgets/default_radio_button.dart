@@ -20,7 +20,7 @@ class DefaultRadioButton extends StatelessWidget {
           "Designer",
           style: AppTextStyles.regularBeVietnamPro16
               .copyWith(color: AppColors.white),
-        )
+        ),
       ],
     );
   }
