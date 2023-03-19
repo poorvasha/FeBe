@@ -1,4 +1,4 @@
-import 'package:febe_frontend/widgets/user_type_screen/user_type_card.dart';
+import 'package:febe_frontend/screens/user_type_screen/user_type_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
