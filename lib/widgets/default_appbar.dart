@@ -7,7 +7,9 @@ import '../configs/resources.dart';
 class DefaultAppbar extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final bool goBack;
-  const DefaultAppbar({super.key, this.title = "", this.goBack = true});
+  final Widget? titleWidget;
+  const DefaultAppbar(
+      {super.key, this.title = "", this.goBack = true, this.titleWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +25,13 @@ class DefaultAppbar extends StatelessWidget with PreferredSizeWidget {
               onPressed: () => Navigator.of(context).pop(),
             )
           : const SizedBox(),
-      title: Text(
-        title,
-        style: AppTextStyles.boldBeVietnamPro
-            .copyWith(color: AppColors.golden, fontSize: 30),
-      ),
+      title: titleWidget != null
+          ? titleWidget
+          : Text(
+              title,
+              style: AppTextStyles.boldBeVietnamPro
+                  .copyWith(color: AppColors.golden, fontSize: 30),
+            ),
       centerTitle: true,
     );
   }
