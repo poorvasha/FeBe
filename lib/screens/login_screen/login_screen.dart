@@ -1,4 +1,6 @@
 import 'package:febe_frontend/screens/otp_verification_screen/otp_verification_screen.dart';
+import 'package:febe_frontend/services/auth_service.dart';
+import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:febe_frontend/widgets/default_text_input.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
@@ -17,14 +19,36 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isTermsAndConditionsAccepted = false;
+  String phonenumber = "";
 
   @override
   Widget build(BuildContext context) {
-    void getOTP() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const OTPVerificationScreen()),
-      );
+    void getOTP() async {
+      if (phonenumber.trim() == "") {
+        return AppHelper.showSnackbar("Please enter phonenumber", context);
+      }
+
+      try {
+        String? userType = await AppHelper.getUserType();
+        if (userType == null) {
+          AppHelper.showSnackbar(
+              "User type was not selected, please go back and select user type",
+              context);
+          return;
+        }
+
+        await AuthService.sendOTP("+91$phonenumber", userType);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OTPVerificationScreen(
+                    phoneNumber: phonenumber,
+                  )),
+        );
+      } catch (e) {
+        AppHelper.showSnackbar(
+            "Something went wrong, please try again later", context);
+      }
     }
 
     return Scaffold(
@@ -51,6 +75,13 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           DefaultTextInput(
             hint: "Enter your Phone number",
+            value: phonenumber,
+            keyboard: TextInputType.number,
+            onChanged: (value) {
+              setState(() {
+                phonenumber = value;
+              });
+            },
           ),
           const SizedBox(
             height: 15,
@@ -72,14 +103,18 @@ class _LoginScreenState extends State<LoginScreen> {
             width: double.infinity,
             height: 50,
             child: ElevatedButton(
-              onPressed: getOTP,
+              onPressed: isTermsAndConditionsAccepted ? getOTP : null,
               child: Text(
                 "Get OTP",
-                style: AppTextStyles.semiBoldBeVietnamPro16
-                    .copyWith(color: AppColors.white, fontSize: 20),
+                style: AppTextStyles.semiBoldBeVietnamPro16.copyWith(
+                    color: isTermsAndConditionsAccepted
+                        ? AppColors.white
+                        : AppColors.lightWhite,
+                    fontSize: 20),
               ),
               style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.golden,
+                  disabledBackgroundColor: AppColors.gray,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   )),

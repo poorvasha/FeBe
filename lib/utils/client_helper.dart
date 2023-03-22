@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class ClientHelper {
   static Future<Map<String, String>> getClientHeader(
       {bool authenticationRequired = true}) async {
     try {
-      var header = {"content-type": "application/json"};
+      var header = {HttpHeaders.contentTypeHeader: "application/json"};
       if (authenticationRequired) {
         var authToken = await SecureStorage().readSecureData('accesstoken');
         header["auth_token"] = authToken.toString();
@@ -33,8 +34,10 @@ class ClientHelper {
         var responseJson = utf8.decode(response.bodyBytes);
         return responseJson;
       case 400:
+        String result = utf8.decode(response.bodyBytes);
+        Map<String, dynamic> decodedResult = json.decode(result);
         throw BadRequestException(
-            utf8.decode(response.bodyBytes), response.request?.url.toString());
+            decodedResult['message'], response.request?.url.toString());
       case 401:
         throw FetchDataException(
             'Error occured with a statuscode : ${response.statusCode}',

@@ -13,6 +13,7 @@ class DefaultTextInput extends StatelessWidget {
   final String type;
   final int maxLines;
   final bool isOptional;
+  final TextInputType? keyboard;
   final TextEditingController controller = TextEditingController();
 
   DefaultTextInput(
@@ -23,7 +24,8 @@ class DefaultTextInput extends StatelessWidget {
       this.onChanged,
       this.type = "input",
       this.maxLines = 1,
-      this.isOptional = false});
+      this.isOptional = false,
+      this.keyboard});
 
   @override
   Widget build(BuildContext context) {
@@ -73,12 +75,13 @@ class DefaultTextInput extends StatelessWidget {
           height: 15,
         ),
         TextField(
-          controller: controller..text = value,
           style: TextStyle(color: AppColors.white),
           onChanged: onChanged,
           readOnly: type == "date",
+          autofocus: true,
           maxLines: maxLines,
           onTap: type == "date" ? pickDate : () {},
+          keyboardType: keyboard,
           decoration: InputDecoration(
               hintText: hint,
               hintStyle: AppTextStyles.regularBeVietnamPro16

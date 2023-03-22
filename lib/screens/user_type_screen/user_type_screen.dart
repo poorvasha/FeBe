@@ -1,7 +1,11 @@
+import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../configs/resources.dart';
+import '../../configs/routes.dart';
+import '../../providers/app_model.dart';
 import 'user_type_card.dart';
 
 class UserTypeScreen extends StatefulWidget {
@@ -16,6 +20,11 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
+    void setUserType(String value) {
+      AppHelper.setUserType(value);
+      context.read<AppModel>().setInitialRoute = Routes.loginScreen;
+    }
 
     return Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -54,13 +63,14 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                                       image: Image.asset(
                                           "assets/images/enabler.png"),
                                       title: "Enabler",
-                                      onTap: () => {print("enabler")},
+                                      onTap: () => {setUserType("enabler")},
                                     ),
                                     UserTypeCard(
                                       image: Image.asset(
                                           "assets/images/enteruper.png"),
                                       title: "Entrepreneur",
-                                      onTap: () => {print("entrepreneur")},
+                                      onTap: () =>
+                                          {setUserType("entrepreneur")},
                                     ),
                                   ]),
                             ),

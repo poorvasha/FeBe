@@ -44,10 +44,10 @@ class _OTPInputsState extends State<OTPInputs> {
         }
       }
 
-      if (!otp.contains(-1)) {
-        String otpString = otp.join().toString();
-        widget.onChanged(otpString);
-      }
+      List<int> processedOTP = List<int>.from(otp);
+      processedOTP.removeWhere((item) => item == -1);
+      String otpString = processedOTP.join().toString();
+      widget.onChanged(otpString);
     }
 
     return SizedBox(

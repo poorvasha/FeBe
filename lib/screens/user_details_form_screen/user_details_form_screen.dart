@@ -43,7 +43,10 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: const DefaultAppbar(title: "Get Started"),
+      appBar: const DefaultAppbar(
+        title: "Get Started",
+        goBack: false,
+      ),
       body: FullScreenContainer(
         disablePadding: true,
         child: Row(

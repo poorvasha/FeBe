@@ -1,4 +1,6 @@
+import 'package:febe_frontend/models/local_storage_item.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 import '../services/secure_local_storage.dart';
 
@@ -22,7 +24,7 @@ class AppHelper {
     }
   }
 
-  Future<String> checkUserType() async {
+  static Future<String?> getUserType() async {
     try {
       var isContainsKey =
           await SecureStorage().containsKeyInSecureData('userType');
@@ -32,12 +34,23 @@ class AppHelper {
           return data;
         }
       }
-      return "none";
+      return null;
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
-      return "none";
+      return null;
+    }
+  }
+
+  static Future<void> setUserType(String userType) async {
+    try {
+      await SecureStorage()
+          .writeSecureData(LocalStorageItem(key: 'userType', value: userType));
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -71,5 +84,20 @@ class AppHelper {
     } else {
       return true;
     }
+  }
+
+  static void showSnackbar(String message, BuildContext context) {
+    SnackBar snackBar = SnackBar(
+      content: Text(message),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  static String convertSecToMin({required int timeInSecond}) {
+    int sec = timeInSecond % 60;
+    int min = (timeInSecond / 60).floor();
+    String minute = min.toString().length <= 1 ? "0$min" : "$min";
+    String second = sec.toString().length <= 1 ? "0$sec" : "$sec";
+    return "$minute:$second Sec";
   }
 }
