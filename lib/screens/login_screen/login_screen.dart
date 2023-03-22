@@ -1,6 +1,9 @@
+import 'dart:isolate';
+
 import 'package:febe_frontend/screens/otp_verification_screen/otp_verification_screen.dart';
 import 'package:febe_frontend/services/auth_service.dart';
 import 'package:febe_frontend/utils/app_helper.dart';
+import 'package:febe_frontend/widgets/default_loader.dart';
 import 'package:febe_frontend/widgets/default_text_input.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +22,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isTermsAndConditionsAccepted = false;
+  bool _isLoading = false;
   String phonenumber = "";
 
   @override
@@ -29,6 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
       }
 
       try {
+        setState(() {
+          _isLoading = true;
+        });
         String? userType = await AppHelper.getUserType();
         if (userType == null) {
           AppHelper.showSnackbar(
@@ -48,6 +55,10 @@ class _LoginScreenState extends State<LoginScreen> {
       } catch (e) {
         AppHelper.showSnackbar(
             "Something went wrong, please try again later", context);
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
 
@@ -102,23 +113,25 @@ class _LoginScreenState extends State<LoginScreen> {
           SizedBox(
             width: double.infinity,
             height: 50,
-            child: ElevatedButton(
-              onPressed: isTermsAndConditionsAccepted ? getOTP : null,
-              child: Text(
-                "Get OTP",
-                style: AppTextStyles.semiBoldBeVietnamPro16.copyWith(
-                    color: isTermsAndConditionsAccepted
-                        ? AppColors.white
-                        : AppColors.lightWhite,
-                    fontSize: 20),
-              ),
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.golden,
-                  disabledBackgroundColor: AppColors.gray,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  )),
-            ),
+            child: _isLoading
+                ? const DefaultLoader()
+                : ElevatedButton(
+                    onPressed: isTermsAndConditionsAccepted ? getOTP : null,
+                    child: Text(
+                      "Get OTP",
+                      style: AppTextStyles.semiBoldBeVietnamPro16.copyWith(
+                          color: isTermsAndConditionsAccepted
+                              ? AppColors.white
+                              : AppColors.lightWhite,
+                          fontSize: 20),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.golden,
+                        disabledBackgroundColor: AppColors.gray,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        )),
+                  ),
           ),
         ],
       )),
