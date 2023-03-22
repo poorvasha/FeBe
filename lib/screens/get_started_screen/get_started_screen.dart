@@ -1,8 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:febe_frontend/configs/constants.dart';
 import 'package:febe_frontend/configs/resources.dart';
-import 'package:febe_frontend/models/carousel_item.dart';
+import 'package:febe_frontend/models/misc/local_storage_item.dart';
+import 'package:febe_frontend/models/ui/carousel_item.dart';
 import 'package:febe_frontend/screens/get_started_screen/get_started_carousel_indicator.dart';
 import 'package:febe_frontend/screens/get_started_screen/get_started_carousel_item.dart';
+import 'package:febe_frontend/services/secure_local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -48,6 +51,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   }
 
   void moveToLoginScreen() {
+    SecureStorage().writeSecureData(
+        LocalStorageItem(key: IS_USING_FOR_FIRST_TIME_KEY, value: "false"));
     context.read<AppModel>().setInitialRoute = Routes.loginScreen;
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../models/local_storage_item.dart';
+import '../models/misc/local_storage_item.dart';
 
 class SecureStorage {
   final _secureStorage = const FlutterSecureStorage();

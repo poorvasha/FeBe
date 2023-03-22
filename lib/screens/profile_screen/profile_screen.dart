@@ -1,5 +1,5 @@
 import 'package:febe_frontend/configs/resources.dart';
-import 'package:febe_frontend/models/profile_option.dart';
+import 'package:febe_frontend/models/ui/profile_option.dart';
 import 'package:febe_frontend/screens/profile_screen/user_card.dart';
 import 'package:febe_frontend/widgets/default_appbar.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';

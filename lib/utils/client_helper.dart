@@ -16,8 +16,8 @@ class ClientHelper {
     try {
       var header = {HttpHeaders.contentTypeHeader: "application/json"};
       if (authenticationRequired) {
-        var authToken = await SecureStorage().readSecureData('accesstoken');
-        header["auth_token"] = authToken.toString();
+        var authToken = await SecureStorage().readSecureData('accessToken');
+        header["Authorization"] = "Bearer ${authToken.toString()}";
       }
       return header;
     } on Exception catch (e) {
@@ -29,10 +29,10 @@ class ClientHelper {
     switch (response.statusCode) {
       case 200:
         var responseJson = utf8.decode(response.bodyBytes);
-        return responseJson;
+        return json.decode(responseJson);
       case 201:
         var responseJson = utf8.decode(response.bodyBytes);
-        return responseJson;
+        return json.decode(responseJson);
       case 400:
         String result = utf8.decode(response.bodyBytes);
         Map<String, dynamic> decodedResult = json.decode(result);

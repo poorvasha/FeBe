@@ -3,8 +3,10 @@ import 'dart:io';
 
 import 'package:febe_frontend/configs/constants.dart';
 import 'package:febe_frontend/configs/resources.dart';
+import 'package:febe_frontend/models/data/user.dart';
 import 'package:febe_frontend/screens/location_access_screen/location_access_screen.dart';
 import 'package:febe_frontend/screens/user_details_form_screen/user_details_form_screen.dart';
+import 'package:febe_frontend/services/user_service.dart';
 import 'package:febe_frontend/utils/app_exception.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:febe_frontend/screens/otp_verification_screen/otp_inputs.dart';
@@ -64,16 +66,29 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    void navigateToUserDetailScreen() {
-      Navigator.of(context).popUntil((route) => route.isFirst);
-      context.read<AppModel>().setInitialRoute = Routes.userDetailScreen;
+    void navigateToRespectiveScreen() async {
+      try {
+        User user = await UserService.getUser();
+
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        if (user.isSignupCompleted!) {
+          context.read<AppModel>().setInitialRoute = Routes.homeScreen;
+          return;
+        }
+
+        context.read<AppModel>().setInitialRoute = Routes.userDetailScreen;
+      } catch (e) {
+        AppHelper.showSnackbar(
+            "Something went wrong, please try again later", context);
+      }
     }
 
     void verifyOTP() async {
       try {
-        await AuthService.verifyOTP("+91${widget.phoneNumber}", otp);
-        // ignore: use_build_context_synchronously
-        navigateToUserDetailScreen();
+        dynamic response =
+            await AuthService.verifyOTP("+91${widget.phoneNumber}", otp);
+        AppHelper.setAccessToken(response['auth-token']);
+        navigateToRespectiveScreen();
       } on BadRequestException catch (e) {
         AppHelper.showSnackbar(
             e.message?.capitalize() ??

@@ -1,4 +1,5 @@
-import 'package:febe_frontend/models/local_storage_item.dart';
+import 'package:febe_frontend/configs/constants.dart';
+import 'package:febe_frontend/models/misc/local_storage_item.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -8,9 +9,9 @@ class AppHelper {
   Future<bool> checkIsUserLoggedIn() async {
     try {
       var isContainsKey =
-          await SecureStorage().containsKeyInSecureData('accesstoken');
+          await SecureStorage().containsKeyInSecureData('accessToken');
       if (isContainsKey) {
-        var data = await SecureStorage().readSecureData('accesstoken');
+        var data = await SecureStorage().readSecureData('accessToken');
         if (data != null && data.isNotEmpty) {
           return true;
         }
@@ -40,6 +41,17 @@ class AppHelper {
         print(e);
       }
       return null;
+    }
+  }
+
+  static Future<void> setAccessToken(String accessToken) async {
+    try {
+      await SecureStorage().writeSecureData(
+          LocalStorageItem(key: "accessToken", value: accessToken));
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -99,5 +111,12 @@ class AppHelper {
     String minute = min.toString().length <= 1 ? "0$min" : "$min";
     String second = sec.toString().length <= 1 ? "0$sec" : "$sec";
     return "$minute:$second Sec";
+  }
+
+  static Future<bool> isUserUsingForFirstTime() async {
+    String? isFirstTime =
+        await SecureStorage().readSecureData(IS_USING_FOR_FIRST_TIME_KEY);
+
+    return isFirstTime == null || isFirstTime == "true";
   }
 }

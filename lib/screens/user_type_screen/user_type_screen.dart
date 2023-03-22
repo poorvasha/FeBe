@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../configs/resources.dart';
 import '../../configs/routes.dart';
 import '../../providers/app_model.dart';
+import '../../services/secure_local_storage.dart';
 import 'user_type_card.dart';
 
 class UserTypeScreen extends StatefulWidget {
@@ -21,9 +22,11 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    void setUserType(String value) {
+    void setUserType(String value) async {
       AppHelper.setUserType(value);
-      context.read<AppModel>().setInitialRoute = Routes.loginScreen;
+      bool isUsingForFirstTime = await AppHelper.isUserUsingForFirstTime();
+      context.read<AppModel>().setInitialRoute =
+          isUsingForFirstTime ? Routes.getStartedScreen : Routes.loginScreen;
     }
 
     return Scaffold(
