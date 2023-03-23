@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:febe_frontend/models/data/user.dart';
 import 'package:febe_frontend/screens/user_details_form_screen/enabler_user_detail_1.dart';
 import 'package:febe_frontend/screens/user_details_form_screen/enabler_user_detail_2.dart';
 import 'package:febe_frontend/screens/user_details_form_screen/enabler_user_detail_3.dart';
@@ -31,14 +32,22 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
   final CarouselController controller = CarouselController();
   int currentPart = 1;
 
+  User currentUser = User();
+
   @override
   Widget build(BuildContext context) {
     void moveToNextPart() {
       controller.nextPage();
     }
 
-    void navigateToHome() {
+    void updateUser() {
       context.read<AppModel>().setInitialRoute = Routes.homeScreen;
+    }
+
+    void onUserDetailChanged(User user) {
+      setState(() {
+        currentUser = user;
+      });
     }
 
     return Scaffold(
@@ -61,11 +70,20 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
                   Expanded(
                     child: CarouselSlider(
                       carouselController: controller,
-                      items: false
+                      items: true
                           ? [
-                              EnablerUserDetail1(),
-                              EnablerUserDetail2(),
-                              EnablerUserDetail3()
+                              EnablerUserDetail1(
+                                user: currentUser,
+                                onChanged: onUserDetailChanged,
+                              ),
+                              EnablerUserDetail2(
+                                user: currentUser,
+                                onChanged: onUserDetailChanged,
+                              ),
+                              EnablerUserDetail3(
+                                user: currentUser,
+                                onChanged: onUserDetailChanged,
+                              )
                             ]
                           : [
                               EnterpreneurUserDetail1(),
@@ -90,7 +108,7 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
                           width: 260,
                           height: 50,
                           child: TextButton(
-                            onPressed: navigateToHome,
+                            onPressed: updateUser,
                             style: TextButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -111,7 +129,7 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed:
-                          currentPart == 3 ? navigateToHome : moveToNextPart,
+                          currentPart == 3 ? updateUser : moveToNextPart,
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.golden,
                           shape: RoundedRectangleBorder(

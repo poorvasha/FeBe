@@ -4,20 +4,29 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class DefaultRadioButton extends StatelessWidget {
-  const DefaultRadioButton({super.key});
+  final String title;
+  final String selectedValue;
+  final Function(String) onChanged;
+  const DefaultRadioButton(
+      {super.key,
+      required this.title,
+      required this.selectedValue,
+      required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Radio<String>(
-            value: "A",
-            groupValue: "A",
+            value: title,
+            groupValue: selectedValue,
             fillColor: MaterialStateColor.resolveWith(
                 (states) => AppColors.golden), //<-- SEE HERE
-            onChanged: (String? value) {}),
+            onChanged: (String? value) {
+              onChanged(value!);
+            }),
         Text(
-          "Designer",
+          title,
           style: AppTextStyles.regularBeVietnamPro16
               .copyWith(color: AppColors.white),
         ),

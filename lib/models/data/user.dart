@@ -12,6 +12,7 @@ class User {
   Location? location;
   DateTime? createdAt;
   DateTime? updatedAt;
+  DateTime? dob;
 
   User(
       {this.name,

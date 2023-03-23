@@ -2,6 +2,7 @@ import 'package:febe_frontend/configs/constants.dart';
 import 'package:febe_frontend/models/misc/local_storage_item.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../services/secure_local_storage.dart';
 
@@ -118,5 +119,42 @@ class AppHelper {
         await SecureStorage().readSecureData(IS_USING_FOR_FIRST_TIME_KEY);
 
     return isFirstTime == null || isFirstTime == "true";
+  }
+
+  static Future<XFile?> pickImage(BuildContext context) async {
+    final ImagePicker _picker = ImagePicker();
+    String? result = await showOptionsDialog(
+        context, "Where do you want to choose?", ["Gallery", "Camera"]);
+
+    if (result == null) {
+      return null;
+    }
+    final XFile? image = await _picker.pickImage(
+        source: result == "Gallery" ? ImageSource.gallery : ImageSource.camera);
+
+    return image;
+  }
+
+  static Future<String?> showOptionsDialog(
+    BuildContext context,
+    String title,
+    List<String> options,
+  ) async {
+    String? result = await showDialog<String>(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Text(title),
+            children: options
+                .map((e) => SimpleDialogOption(
+                      onPressed: () {
+                        Navigator.pop(context, e);
+                      },
+                      child: Text(e),
+                    ))
+                .toList(),
+          );
+        });
+    return result;
   }
 }

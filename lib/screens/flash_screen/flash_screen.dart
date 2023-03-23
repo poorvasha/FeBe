@@ -39,6 +39,7 @@ class _FlashScreenState extends State<FlashScreen> {
       context.read<AppModel>().setInitialRoute = Routes.homeScreen;
       return;
     }
-    context.read<AppModel>().setInitialRoute = Routes.userTypeScreen;
+    // context.read<AppModel>().setInitialRoute = Routes.userTypeScreen;
+    context.read<AppModel>().setInitialRoute = Routes.userDetailScreen;
   }
 }

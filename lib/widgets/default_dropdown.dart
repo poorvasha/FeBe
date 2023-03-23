@@ -47,6 +47,7 @@ class DefaultDropdown extends StatelessWidget {
           items: options.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
+              onTap: () => {onChanged!(value)},
               child: Text(value,
                   style: AppTextStyles.regularBeVietnamPro16
                       .copyWith(color: AppColors.white)),
