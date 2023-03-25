@@ -11,6 +11,30 @@ class MessageBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (isDisabled) {
+      return Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.lock,
+              color: AppColors.green,
+              size: 18,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              "Only admins can able to send messages",
+              style: AppTextStyles.regularBeVietnamPro16
+                  .copyWith(color: AppColors.white),
+            )
+          ],
+        ),
+      );
+    }
+
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: const BoxDecoration(color: AppColors.white),
@@ -22,7 +46,6 @@ class MessageBox extends StatelessWidget {
           Expanded(
             child: TextField(
               maxLines: 1,
-              enabled: !isDisabled,
               style: AppTextStyles.regularBeVietnamPro16,
               autofocus: true,
               textInputAction: TextInputAction.next,
@@ -40,8 +63,7 @@ class MessageBox extends StatelessWidget {
           IconButton(
             onPressed: () {},
             icon: SvgPicture.asset("assets/icons/send.svg",
-                color: isDisabled ? AppColors.lightWhite : AppColors.golden,
-                semanticsLabel: 'Send'),
+                color: AppColors.golden, semanticsLabel: 'Send'),
           )
         ],
       ),

@@ -33,13 +33,11 @@ class _FlashScreenState extends State<FlashScreen> {
   }
 
   void setIntialScreen() async {
-    // bool isUserLoggedIn = await AppHelper().checkIsUserLoggedIn();
-    bool isUserLoggedIn = false;
+    bool isUserLoggedIn = await AppHelper().checkIsUserLoggedIn();
     if (isUserLoggedIn) {
       context.read<AppModel>().setInitialRoute = Routes.homeScreen;
       return;
     }
-    // context.read<AppModel>().setInitialRoute = Routes.userTypeScreen;
-    context.read<AppModel>().setInitialRoute = Routes.userDetailScreen;
+    context.read<AppModel>().setInitialRoute = Routes.userTypeScreen;
   }
 }

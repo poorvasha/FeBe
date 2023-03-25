@@ -95,7 +95,7 @@ class _UserDetailEnablerDesignationState
         ),
         SingleChildScrollView(
           child: SizedBox(
-            height: 180,
+            height: 140,
             child: ListView.builder(
                 itemCount: designations.length,
                 itemBuilder: (BuildContext context, int index) {

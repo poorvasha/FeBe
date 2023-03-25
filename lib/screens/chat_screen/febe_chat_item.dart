@@ -1,29 +1,21 @@
-import 'package:febe_frontend/screens/chat_screen/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../configs/resources.dart';
+import 'chat_screen.dart';
 
-class ChatItem extends StatefulWidget {
-  final bool isVerified;
-  const ChatItem({super.key, this.isVerified = false});
+class FebeChatItem extends StatelessWidget {
+  const FebeChatItem({super.key});
 
-  @override
-  State<ChatItem> createState() => _ChatItemState();
-}
-
-class _ChatItemState extends State<ChatItem> {
   @override
   Widget build(BuildContext context) {
     void navigateToChatScreen() {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => const ChatScreen(
-                    name: "",
-                    isVerified: false,
-                  )));
+              builder: (context) =>
+                  ChatScreen(name: "FEBE", isVerified: true, isFEBE: true)));
     }
 
     return Padding(
@@ -35,11 +27,10 @@ class _ChatItemState extends State<ChatItem> {
             ClipOval(
               child: CircleAvatar(
                 radius: 28,
-                backgroundColor: AppColors.golden,
+                backgroundColor: AppColors.white,
                 child: Container(
-                  margin: const EdgeInsets.only(top: 10),
                   child: Image.asset(
-                    "assets/images/user_avatar.png",
+                    "assets/images/xander_media_golden_transparent.png",
                     height: 50,
                     width: 50,
                   ),
@@ -63,12 +54,10 @@ class _ChatItemState extends State<ChatItem> {
                       const SizedBox(
                         width: 10,
                       ),
-                      widget.isVerified
-                          ? const Icon(
-                              Icons.verified,
-                              color: AppColors.white,
-                            )
-                          : const SizedBox()
+                      const Icon(
+                        Icons.verified,
+                        color: AppColors.white,
+                      )
                     ],
                   ),
                   const SizedBox(
@@ -91,5 +80,6 @@ class _ChatItemState extends State<ChatItem> {
         ),
       ),
     );
+    ;
   }
 }

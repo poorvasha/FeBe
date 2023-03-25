@@ -5,7 +5,14 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import '../../configs/resources.dart';
 
 class ChatAppbar extends StatelessWidget with PreferredSizeWidget {
-  const ChatAppbar({super.key});
+  final String name;
+  final bool isVerified;
+  final bool isFEBE;
+  ChatAppbar(
+      {super.key,
+      required this.name,
+      required this.isVerified,
+      this.isFEBE = false});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +36,9 @@ class ChatAppbar extends StatelessWidget with PreferredSizeWidget {
               child: Container(
                 margin: const EdgeInsets.only(top: 10),
                 child: Image.asset(
-                  "assets/images/user_avatar.png",
+                  isFEBE
+                      ? "assets/images/xander_media_golden_transparent.png"
+                      : "assets/images/user_avatar.png",
                   height: 50,
                   width: 50,
                 ),
@@ -45,7 +54,7 @@ class ChatAppbar extends StatelessWidget with PreferredSizeWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Prem Kumar",
+                  name,
                   style: AppTextStyles.regularBeVietnamPro24.copyWith(
                     fontSize: 18,
                     color: AppColors.white,
@@ -54,29 +63,30 @@ class ChatAppbar extends StatelessWidget with PreferredSizeWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                Container(
-                  width: 75,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                  decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Row(children: [
-                    Text(
-                      "Verified",
-                      style: AppTextStyles.semiBoldBeVietnamPro12
-                          .copyWith(color: AppColors.golden),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    const Icon(
-                      Icons.verified,
-                      color: AppColors.golden,
-                      size: 20,
-                    )
-                  ]),
-                )
+                if (isVerified)
+                  Container(
+                    width: 75,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                    decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Row(children: [
+                      Text(
+                        "Verified",
+                        style: AppTextStyles.semiBoldBeVietnamPro12
+                            .copyWith(color: AppColors.golden),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      const Icon(
+                        Icons.verified,
+                        color: AppColors.golden,
+                        size: 20,
+                      )
+                    ]),
+                  )
               ],
             ),
           ),

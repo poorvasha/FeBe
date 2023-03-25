@@ -1,3 +1,4 @@
+import 'package:febe_frontend/screens/chat_screen/febe_chat_item.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
@@ -16,10 +17,13 @@ class _ChatsListState extends State<ChatsList> {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(8),
-      children: List.generate(10, //this is the total number of cards
-          (index) {
-        return ChatItem(isVerified: false);
-      }),
+      children: [
+        FebeChatItem(),
+        // ...List.generate(10, //this is the total number of cards
+        //     (index) {
+        //   return ChatItem(isVerified: false);
+        // })
+      ],
     );
   }
 }

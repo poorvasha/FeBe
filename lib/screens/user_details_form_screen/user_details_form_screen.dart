@@ -41,7 +41,7 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
 
   @override
   void initState() {
-    // getCurrentUserType();
+    getCurrentUserType();
     super.initState();
   }
 

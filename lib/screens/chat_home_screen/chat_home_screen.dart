@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
+import '../../models/data/user.dart';
+import '../../services/user_service.dart';
+import '../../utils/app_helper.dart';
+
 class ChatHomeScreen extends StatefulWidget {
   const ChatHomeScreen({super.key});
 
@@ -14,6 +18,25 @@ class ChatHomeScreen extends StatefulWidget {
 }
 
 class _ChatHomeScreenState extends State<ChatHomeScreen> {
+  User? user;
+
+  @override
+  void initState() {
+    fetchUserDetails();
+    super.initState();
+  }
+
+  void fetchUserDetails() async {
+    try {
+      User currentUser = await UserService.getUser();
+      setState(() {
+        user = currentUser;
+      });
+    } catch (e) {
+      AppHelper.showSnackbar("Something went wrong, please try again", context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,19 +44,22 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
       body: FullScreenContainer(
           isInsideTabbar: true,
           child: Column(
-            children: const [
-              SizedBox(
+            children: [
+              const SizedBox(
                 height: 30,
               ),
-              UserCard(),
-              SizedBox(
+              UserCard(
+                name: user?.name ?? "User",
+                locationName: "Navalur",
+              ),
+              const SizedBox(
                 height: 30,
               ),
-              PostCard(),
-              SizedBox(
-                height: 30,
-              ),
-              Expanded(child: ChatsList())
+              // const PostCard(),
+              // const SizedBox(
+              //   height: 30,
+              // ),
+              const Expanded(child: ChatsList())
             ],
           )),
     );

@@ -5,7 +5,14 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
 
 class UserCard extends StatelessWidget {
-  const UserCard({super.key});
+  final String name;
+  final bool isVerified;
+  final String locationName;
+  UserCard(
+      {super.key,
+      required this.name,
+      this.isVerified = false,
+      required this.locationName});
 
   @override
   Widget build(BuildContext context) {
@@ -40,33 +47,34 @@ class UserCard extends StatelessWidget {
               height: 3,
             ),
             Text(
-              "PremKumar",
+              name,
               style: AppTextStyles.semiBoldBeVietnamPro16
                   .copyWith(color: AppColors.golden),
             ),
             const SizedBox(
               height: 10,
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              decoration: BoxDecoration(
-                  color: AppColors.golden,
-                  borderRadius: BorderRadius.circular(5)),
-              child: Row(children: [
-                Text(
-                  "Verified",
-                  style: AppTextStyles.semiBoldBeVietnamPro16
-                      .copyWith(color: AppColors.white),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                const Icon(
-                  Icons.verified,
-                  color: AppColors.white,
-                )
-              ]),
-            )
+            if (isVerified)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                decoration: BoxDecoration(
+                    color: AppColors.golden,
+                    borderRadius: BorderRadius.circular(5)),
+                child: Row(children: [
+                  Text(
+                    "Verified",
+                    style: AppTextStyles.semiBoldBeVietnamPro16
+                        .copyWith(color: AppColors.white),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Icon(
+                    Icons.verified,
+                    color: AppColors.white,
+                  )
+                ]),
+              )
           ],
         ),
         const SizedBox(
@@ -89,7 +97,7 @@ class UserCard extends StatelessWidget {
                 width: 7,
               ),
               Text(
-                "KR Puram",
+                locationName,
                 style: AppTextStyles.semiBoldBeVietnamPro16
                     .copyWith(color: AppColors.black),
               ),
