@@ -30,11 +30,11 @@ class Entrepreneur {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['about'] = about;
-    data['industry'] = industry;
-    data['companyName'] = companyName;
-    data['websiteURL'] = websiteURL;
-    data['linkedInURL'] = linkedInURL;
+    if (about != null) data['about'] = about;
+    if (industry != null) data['industry'] = industry;
+    if (companyName != null) data['companyName'] = companyName;
+    if (websiteURL != null) data['websiteURL'] = websiteURL;
+    if (linkedInURL != null) data['linkedInURL'] = linkedInURL;
     if (companyRegistrationDocument != null) {
       data['companyRegistrationDocument'] =
           companyRegistrationDocument!.toJson();

@@ -7,11 +7,28 @@ import '../../configs/resources.dart';
 import '../../models/data/user.dart';
 import '../../widgets/default_text_input.dart';
 
-class EnablerUserDetail2 extends StatelessWidget {
+class EnablerUserDetail2 extends StatefulWidget {
   final User user;
   final Function(User) onChanged;
-  const EnablerUserDetail2(
-      {super.key, required this.user, required this.onChanged});
+  final Function(bool) onErrorChanged;
+
+  EnablerUserDetail2(
+      {super.key,
+      required this.user,
+      required this.onChanged,
+      required this.onErrorChanged});
+
+  @override
+  State<EnablerUserDetail2> createState() => _EnablerUserDetail2State();
+}
+
+class _EnablerUserDetail2State extends State<EnablerUserDetail2> {
+  List<bool> validities = [false, false];
+
+  void emitAllValid() {
+    bool isAllValid = validities.reduce((value, element) => value && element);
+    widget.onErrorChanged(isAllValid);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +43,13 @@ class EnablerUserDetail2 extends StatelessWidget {
             placeholder: "Write about yourself",
             maxLines: 8,
             onChanged: (value) {
-              user.enabler ??= Enabler();
-              user.enabler!.about = value;
-              onChanged(user);
+              widget.user.enabler ??= Enabler();
+              widget.user.enabler!.about = value;
+              widget.onChanged(widget.user);
+            },
+            errorChanged: (value) {
+              validities[0] = value;
+              emitAllValid();
             },
           ),
           const SizedBox(
@@ -37,9 +58,13 @@ class EnablerUserDetail2 extends StatelessWidget {
           DefaultTextInput(
             placeholder: "LinkedIn Link",
             onChanged: (value) {
-              user.enabler ??= Enabler();
-              user.enabler!.linkedInURL = value;
-              onChanged(user);
+              widget.user.enabler ??= Enabler();
+              widget.user.enabler!.linkedInURL = value;
+              widget.onChanged(widget.user);
+            },
+            errorChanged: (value) {
+              validities[1] = value;
+              emitAllValid();
             },
           ),
           const SizedBox(
@@ -49,9 +74,9 @@ class EnablerUserDetail2 extends StatelessWidget {
             placeholder: "Portfolio Link",
             isOptional: true,
             onChanged: (value) {
-              user.enabler ??= Enabler();
-              user.enabler!.portfolioURL = value;
-              onChanged(user);
+              widget.user.enabler ??= Enabler();
+              widget.user.enabler!.portfolioURL = value;
+              widget.onChanged(widget.user);
             },
           ),
         ],

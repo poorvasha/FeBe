@@ -21,4 +21,17 @@ class UserService {
           'API not responded in Time', url.toString());
     }
   }
+
+  static Future<void> updateUser(User user) async {
+    var url = ApiRoutes.userBase;
+    try {
+      var payload = json.encode(user.toJson());
+      await HttpClient.put(url, payload);
+    } on SocketException {
+      throw FetchDataException('No Internet Connection', url.toString());
+    } on TimeoutException {
+      throw ApiNotRespondingException(
+          'API not responded in Time', url.toString());
+    }
+  }
 }

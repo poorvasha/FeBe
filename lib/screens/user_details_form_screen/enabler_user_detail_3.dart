@@ -16,8 +16,8 @@ import '../../widgets/default_text_input.dart';
 class EnablerUserDetail3 extends StatelessWidget {
   final User user;
   final Function(User) onChanged;
-  const EnablerUserDetail3(
-      {super.key, required this.user, required this.onChanged});
+
+  EnablerUserDetail3({super.key, required this.user, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,11 @@ class EnablerUserDetail3 extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 2),
+                  border: Border.all(
+                      color: user.enabler?.aadhar?.front != null
+                          ? Colors.green
+                          : Colors.white,
+                      width: 2),
                   borderRadius: BorderRadius.circular(10)),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,7 +90,7 @@ class EnablerUserDetail3 extends StatelessWidget {
                     if (user.enabler?.aadhar?.front != null)
                       const Icon(
                         Icons.cloud_upload,
-                        color: AppColors.golden,
+                        color: AppColors.green,
                       ),
                     if (user.enabler?.aadhar?.front == null)
                       const Icon(
@@ -104,7 +108,11 @@ class EnablerUserDetail3 extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 2),
+                  border: Border.all(
+                      color: user.enabler?.aadhar?.back != null
+                          ? Colors.green
+                          : Colors.white,
+                      width: 2),
                   borderRadius: BorderRadius.circular(10)),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -117,7 +125,7 @@ class EnablerUserDetail3 extends StatelessWidget {
                     if (user.enabler?.aadhar?.back != null)
                       const Icon(
                         Icons.cloud_upload,
-                        color: AppColors.golden,
+                        color: AppColors.green,
                       ),
                     if (user.enabler?.aadhar?.back == null)
                       const Icon(

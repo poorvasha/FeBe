@@ -5,11 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../widgets/default_text_input.dart';
 
-class EnablerUserDetail1 extends StatelessWidget {
+class EnablerUserDetail1 extends StatefulWidget {
   final User user;
   final Function(User) onChanged;
+  final Function(bool) onErrorChanged;
   const EnablerUserDetail1(
-      {super.key, required this.user, required this.onChanged});
+      {super.key,
+      required this.user,
+      required this.onChanged,
+      required this.onErrorChanged});
+
+  @override
+  State<EnablerUserDetail1> createState() => _EnablerUserDetail1State();
+}
+
+class _EnablerUserDetail1State extends State<EnablerUserDetail1> {
+  List<bool> validities = [false, false];
+
+  void emitAllValid() {
+    bool isAllValid = validities.reduce((value, element) => value && element);
+    widget.onErrorChanged(isAllValid);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +39,12 @@ class EnablerUserDetail1 extends StatelessWidget {
           DefaultTextInput(
             placeholder: "Enter your name",
             onChanged: (value) {
-              user.name = value;
-              onChanged(user);
+              widget.user.name = value;
+              widget.onChanged(widget.user);
+            },
+            errorChanged: (value) {
+              validities[0] = value;
+              emitAllValid();
             },
           ),
           const SizedBox(
@@ -34,8 +54,12 @@ class EnablerUserDetail1 extends StatelessWidget {
             placeholder: "Enter your DOB",
             type: "date",
             onChanged: (value) {
-              user.dob = DateFormat('dd/MM/yyyy').parse(value);
-              onChanged(user);
+              widget.user.dob = DateFormat('dd/MM/yyyy').parse(value);
+              widget.onChanged(widget.user);
+            },
+            errorChanged: (value) {
+              validities[1] = value;
+              emitAllValid();
             },
           ),
           const SizedBox(
@@ -43,8 +67,8 @@ class EnablerUserDetail1 extends StatelessWidget {
           ),
           UserDetailEnablerDesignation(
             onChanged: (value) {
-              user.enabler ??= Enabler();
-              user.enabler!.designation = value;
+              widget.user.enabler ??= Enabler();
+              widget.user.enabler!.designation = value;
             },
           )
         ],

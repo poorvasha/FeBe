@@ -44,21 +44,22 @@ class User {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['phoneNumber'] = this.phoneNumber;
-    data['isSignupCompleted'] = this.isSignupCompleted;
-    data['type'] = this.type;
-    if (this.enabler != null) {
-      data['enabler'] = this.enabler!.toJson();
+    if (name != null) data['name'] = name;
+    if (phoneNumber != null) data['phoneNumber'] = phoneNumber;
+    if (isSignupCompleted != null)
+      data['isSignupCompleted'] = isSignupCompleted;
+    if (type != null) data['type'] = type;
+    if (enabler != null) {
+      data['enabler'] = enabler!.toJson();
     }
-    if (this.entrepreneur != null) {
-      data['entrepreneur'] = this.entrepreneur!.toJson();
+    if (entrepreneur != null) {
+      data['entrepreneur'] = entrepreneur!.toJson();
     }
-    if (this.location != null) {
-      data['location'] = this.location!.toJson();
+    if (location != null) {
+      data['location'] = location!.toJson();
     }
-    data['createdAt'] = this.createdAt.toString();
-    data['updatedAt'] = this.updatedAt.toString();
+    if (createdAt != null) data['createdAt'] = createdAt.toString();
+    if (createdAt != null) data['updatedAt'] = updatedAt.toString();
     return data;
   }
 }

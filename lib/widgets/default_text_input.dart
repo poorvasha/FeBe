@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 class DefaultTextInput extends StatefulWidget {
   final String hint;
   final Function(String)? onChanged;
+  final Function(bool)? errorChanged;
   final String value;
   final String placeholder;
   final String type;
@@ -24,7 +25,8 @@ class DefaultTextInput extends StatefulWidget {
       this.type = "input",
       this.maxLines = 1,
       this.isOptional = false,
-      this.keyboard});
+      this.keyboard,
+      this.errorChanged});
 
   @override
   State<DefaultTextInput> createState() => _DefaultTextInputState();
@@ -32,6 +34,39 @@ class DefaultTextInput extends StatefulWidget {
 
 class _DefaultTextInputState extends State<DefaultTextInput> {
   final TextEditingController controller = TextEditingController();
+  final FocusNode focus = FocusNode();
+  bool isDirty = false;
+
+  void onFocused() {
+    if (!isDirty && focus.hasFocus) {
+      setState(() {
+        isDirty = true;
+      });
+    }
+
+    if (!focus.hasFocus) {
+      if (widget.errorChanged != null) widget.errorChanged!(isValid());
+    }
+  }
+
+  @override
+  void initState() {
+    focus.addListener(onFocused);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    focus.removeListener(onFocused);
+    focus.dispose();
+  }
+
+  bool isValid() {
+    bool validity =
+        !(!widget.isOptional && isDirty && controller.text.trim() == "");
+    return validity;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +83,8 @@ class _DefaultTextInputState extends State<DefaultTextInput> {
           widget.onChanged!(formattedDate);
           controller.text = formattedDate.toString();
         }
+
+        onFocused();
       }
     }
 
@@ -82,8 +119,12 @@ class _DefaultTextInputState extends State<DefaultTextInput> {
         ),
         TextField(
           style: const TextStyle(color: AppColors.white),
-          onChanged: widget.onChanged,
+          onChanged: (value) {
+            if (widget.onChanged != null) widget.onChanged!(value);
+            if (widget.errorChanged != null) widget.errorChanged!(isValid());
+          },
           readOnly: widget.type == "date",
+          focusNode: focus,
           controller: controller,
           autofocus: true,
           maxLines: widget.maxLines,
@@ -91,6 +132,8 @@ class _DefaultTextInputState extends State<DefaultTextInput> {
           keyboardType: widget.keyboard,
           decoration: InputDecoration(
             hintText: widget.hint,
+            errorText: isValid() ? null : "* required",
+            errorStyle: const TextStyle(height: 0),
             hintStyle: AppTextStyles.regularBeVietnamPro16
                 .copyWith(color: AppColors.lightWhite),
           ),

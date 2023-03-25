@@ -25,13 +25,13 @@ class Enabler {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['about'] = this.about;
-    data['linkedInURL'] = this.linkedInURL;
-    data['portfolioURL'] = this.portfolioURL;
-    if (this.aadhar != null) {
-      data['aadhar'] = this.aadhar!.toJson();
+    if (about != null) data['about'] = about;
+    if (linkedInURL != null) data['linkedInURL'] = linkedInURL;
+    if (portfolioURL != null) data['portfolioURL'] = portfolioURL;
+    if (aadhar != null) {
+      data['aadhar'] = aadhar!.toJson();
     }
-    data['designation'] = this.designation;
+    if (designation != null) data['designation'] = designation;
     return data;
   }
 }

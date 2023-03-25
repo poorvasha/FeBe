@@ -8,6 +8,8 @@ import 'package:febe_frontend/screens/user_details_form_screen/enterpreneur_user
 import 'package:febe_frontend/screens/user_details_form_screen/enterpreneur_user_detail_3.dart';
 import 'package:febe_frontend/screens/user_details_form_screen/user_detail_form_enabler_designation.dart';
 import 'package:febe_frontend/screens/user_details_form_screen/user_detail_form_stepper.dart';
+import 'package:febe_frontend/services/user_service.dart';
+import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:febe_frontend/widgets/default_text_input.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +32,28 @@ class UserDetailsFormScreen extends StatefulWidget {
 
 class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
   final CarouselController controller = CarouselController();
+
+  String currentUserType = "entrepreneur";
   int currentPart = 1;
+  List<bool> validities = [false, false, true];
 
   User currentUser = User();
+
+  @override
+  void initState() {
+    // getCurrentUserType();
+    super.initState();
+  }
+
+  void getCurrentUserType() async {
+    String? userType = await AppHelper.getUserType();
+    if (userType == null) {
+      return;
+    }
+    setState(() {
+      currentUserType = userType;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +61,14 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
       controller.nextPage();
     }
 
-    void updateUser() {
-      context.read<AppModel>().setInitialRoute = Routes.homeScreen;
+    void updateUser() async {
+      try {
+        await UserService.updateUser(currentUser);
+        context.read<AppModel>().setInitialRoute = Routes.homeScreen;
+      } catch (e) {
+        AppHelper.showSnackbar(
+            "Something went wrong, please try again", context);
+      }
     }
 
     void onUserDetailChanged(User user) {
@@ -70,15 +97,25 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
                   Expanded(
                     child: CarouselSlider(
                       carouselController: controller,
-                      items: true
+                      items: currentUserType == "enabler"
                           ? [
                               EnablerUserDetail1(
                                 user: currentUser,
                                 onChanged: onUserDetailChanged,
+                                onErrorChanged: (value) {
+                                  setState(() {
+                                    validities[0] = value;
+                                  });
+                                },
                               ),
                               EnablerUserDetail2(
                                 user: currentUser,
                                 onChanged: onUserDetailChanged,
+                                onErrorChanged: (value) {
+                                  setState(() {
+                                    validities[1] = value;
+                                  });
+                                },
                               ),
                               EnablerUserDetail3(
                                 user: currentUser,
@@ -86,9 +123,28 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
                               )
                             ]
                           : [
-                              EnterpreneurUserDetail1(),
-                              EnterpreneurUserDetail2(),
-                              EnterpreneurUserDetail3()
+                              EnterpreneurUserDetail1(
+                                user: currentUser,
+                                onChanged: onUserDetailChanged,
+                                onErrorChanged: (value) {
+                                  setState(() {
+                                    validities[0] = value;
+                                  });
+                                },
+                              ),
+                              EnterpreneurUserDetail2(
+                                user: currentUser,
+                                onChanged: onUserDetailChanged,
+                                onErrorChanged: (value) {
+                                  setState(() {
+                                    validities[1] = value;
+                                  });
+                                },
+                              ),
+                              EnterpreneurUserDetail3(
+                                user: currentUser,
+                                onChanged: onUserDetailChanged,
+                              )
                             ],
                       options: CarouselOptions(
                         height: 760,
@@ -128,10 +184,14 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
                     width: 260,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed:
-                          currentPart == 3 ? updateUser : moveToNextPart,
+                      onPressed: !validities[currentPart - 1]
+                          ? null
+                          : currentPart == 3
+                              ? updateUser
+                              : moveToNextPart,
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.golden,
+                          disabledBackgroundColor: AppColors.gray,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           )),

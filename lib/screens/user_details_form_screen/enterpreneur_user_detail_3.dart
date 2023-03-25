@@ -1,14 +1,48 @@
+import 'dart:io';
+
+import 'package:febe_frontend/models/data/company_registration.dart';
+import 'package:febe_frontend/models/data/entrepreneur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../configs/resources.dart';
+import '../../models/data/user.dart';
+import '../../services/file_service.dart';
+import '../../utils/app_helper.dart';
 
 class EnterpreneurUserDetail3 extends StatelessWidget {
-  const EnterpreneurUserDetail3({super.key});
+  final User user;
+  final Function(User) onChanged;
+  const EnterpreneurUserDetail3({
+    super.key,
+    required this.user,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
+    void uploadAndUpdate() async {
+      try {
+        XFile? image = await AppHelper.pickImage(context);
+        if (image == null) {
+          AppHelper.showSnackbar("Please choose the image again", context);
+          return;
+        }
+
+        dynamic response = await FileService.upload(File(image.path));
+        user.entrepreneur ??= Entrepreneur();
+        user.entrepreneur!.companyRegistrationDocument ??=
+            CompanyRegistrationDocument();
+        user.entrepreneur!.companyRegistrationDocument!.url = response["url"];
+        onChanged(user);
+      } catch (e) {
+        AppHelper.showSnackbar(
+            "Something went wrong, please try again", context);
+      }
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -29,11 +63,17 @@ class EnterpreneurUserDetail3 extends StatelessWidget {
             height: 25,
           ),
           InkWell(
-            onTap: () {},
+            onTap: uploadAndUpdate,
             child: Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 2),
+                  border: Border.all(
+                      color:
+                          user.entrepreneur?.companyRegistrationDocument?.url !=
+                                  null
+                              ? AppColors.green
+                              : AppColors.white,
+                      width: 2),
                   borderRadius: BorderRadius.circular(10)),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,9 +83,13 @@ class EnterpreneurUserDetail3 extends StatelessWidget {
                       style: AppTextStyles.regularBeVietnamPro16
                           .copyWith(color: AppColors.white),
                     ),
-                    const Icon(
+                    Icon(
                       Icons.cloud_upload,
-                      color: AppColors.white,
+                      color:
+                          user.entrepreneur?.companyRegistrationDocument?.url !=
+                                  null
+                              ? AppColors.green
+                              : AppColors.white,
                     )
                   ]),
             ),
