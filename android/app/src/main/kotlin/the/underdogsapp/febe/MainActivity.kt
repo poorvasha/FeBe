@@ -1,4 +1,4 @@
-package com.example.febe_frontend
+package the.underdogsapp.febe
 
 import io.flutter.embedding.android.FlutterActivity
 

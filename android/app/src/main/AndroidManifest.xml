@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.febe_frontend">
+    package="the.underdogsapp.febe">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
    <application
         android:label="febe_frontend"
