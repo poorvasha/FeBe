@@ -15,10 +15,11 @@ class HttpClient {
     return ClientHelper.processResponse(response);
   }
 
-  static get(String url, {bool isAuthenticationRequired = true}) async {
+  static get(String url,
+      {bool isAuthenticationRequired = true, Uri? uri = null}) async {
     var client = http.Client();
-    var uri = Uri.parse(url);
-    var response = await client.get(uri,
+    var currentUri = uri ?? Uri.parse(url);
+    var response = await client.get(currentUri,
         headers: await ClientHelper.getClientHeader(
             authenticationRequired: isAuthenticationRequired));
     return ClientHelper.processResponse(response);

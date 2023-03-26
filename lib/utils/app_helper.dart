@@ -1,7 +1,9 @@
 import 'package:febe_frontend/configs/constants.dart';
 import 'package:febe_frontend/models/misc/local_storage_item.dart';
+import 'package:febe_frontend/services/user_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../services/secure_local_storage.dart';
@@ -156,5 +158,57 @@ class AppHelper {
           );
         });
     return result;
+  }
+
+  static Future<bool> _handleLocationPermission(BuildContext context) async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location services are disabled. Please enable the services')));
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Location permissions are denied')));
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location permissions are permanently denied, we cannot request permissions.')));
+      return false;
+    }
+    return true;
+  }
+
+  static Future<Position?> getUserCurrentLocation(BuildContext context) async {
+    final hasPermission = await _handleLocationPermission(context);
+    if (!hasPermission) return null;
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    return position;
+  }
+
+  static void watchUserLocation(BuildContext context) async {
+    final hasPermission = await _handleLocationPermission(context);
+    if (!hasPermission) return null;
+
+    double lastUserLat = 0.0;
+    double lastUserLong = 0.0;
+    Geolocator.getPositionStream(
+            locationSettings: const LocationSettings(distanceFilter: 100))
+        .listen((event) {
+      lastUserLat = event.latitude;
+      lastUserLong = event.longitude;
+      UserService.updateUserLocation(event.latitude, event.longitude);
+    });
   }
 }

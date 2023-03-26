@@ -1,3 +1,5 @@
+import 'package:febe_frontend/models/data/enabler_designation.dart';
+
 import 'aadhar.dart';
 
 class Enabler {
@@ -18,13 +20,12 @@ class Enabler {
     about = json['about'];
     linkedInURL = json['linkedInURL'];
     portfolioURL = json['portfolioURL'];
-    aadhar =
-        json['aadhar'] != null ? new Aadhar.fromJson(json['aadhar']) : null;
+    aadhar = json['aadhar'] != null ? Aadhar.fromJson(json['aadhar']) : null;
     designation = json['designation'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     if (about != null) data['about'] = about;
     if (linkedInURL != null) data['linkedInURL'] = linkedInURL;
     if (portfolioURL != null) data['portfolioURL'] = portfolioURL;
@@ -32,6 +33,35 @@ class Enabler {
       data['aadhar'] = aadhar!.toJson();
     }
     if (designation != null) data['designation'] = designation;
+    return data;
+  }
+}
+
+class ExpandedEnabler {
+  String? about;
+  String? linkedInURL;
+  EnablerDesignation? designation;
+  String? sId;
+
+  ExpandedEnabler({this.about, this.linkedInURL, this.designation, this.sId});
+
+  ExpandedEnabler.fromJson(Map<String, dynamic> json) {
+    about = json['about'];
+    linkedInURL = json['linkedInURL'];
+    designation = json['designation'] != null
+        ? EnablerDesignation.fromJson(json['designation'])
+        : null;
+    sId = json['_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['about'] = about;
+    data['linkedInURL'] = linkedInURL;
+    if (designation != null) {
+      data['designation'] = designation!.toJson();
+    }
+    data['_id'] = sId;
     return data;
   }
 }

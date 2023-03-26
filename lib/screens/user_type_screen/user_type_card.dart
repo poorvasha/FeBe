@@ -31,7 +31,8 @@ class _UserTypeCardState extends State<UserTypeCard> {
               color: widget.isActive != null && !widget.isActive!
                   ? AppColors.lightBlack
                   : AppColors.golden,
-              border: Border.all(color: AppColors.golden, width: 2)),
+              borderRadius: BorderRadius.circular(7),
+              border: Border.all(color: AppColors.golden, width: 3)),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [

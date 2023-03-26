@@ -4,7 +4,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class UserCard extends StatelessWidget {
-  const UserCard({super.key});
+  final String name;
+  final String designation;
+  const UserCard({super.key, required this.name, required this.designation});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class UserCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Prem",
+                name,
                 style: AppTextStyles.regularBeVietnamPro24.copyWith(
                   color: AppColors.white,
                 ),
@@ -52,34 +54,34 @@ class UserCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Full Stack Dev",
+                    designation,
                     style: AppTextStyles.regularBeVietnamPro16.copyWith(
                       color: AppColors.white,
                     ),
                   ),
-                  SizedBox(
-                    height: 25,
-                    child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: TextButton.icon(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                EdgeInsets.all(4))),
-                        icon: const Icon(
-                          Icons.edit,
-                          size: 18.0,
-                          color: AppColors.white,
-                        ),
-                        label: Text(
-                          "Edit",
-                          style: AppTextStyles.regularBeVietnamPro16.copyWith(
-                            color: AppColors.white,
-                          ),
-                        ), // <-- Text
-                      ),
-                    ),
-                  ),
+                  // SizedBox(
+                  //   height: 25,
+                  //   child: Directionality(
+                  //     textDirection: TextDirection.rtl,
+                  //     child: TextButton.icon(
+                  //       onPressed: () {},
+                  //       style: ButtonStyle(
+                  //           padding: MaterialStateProperty.all<EdgeInsets>(
+                  //               EdgeInsets.all(4))),
+                  //       icon: const Icon(
+                  //         Icons.edit,
+                  //         size: 18.0,
+                  //         color: AppColors.white,
+                  //       ),
+                  //       label: Text(
+                  //         "Edit",
+                  //         style: AppTextStyles.regularBeVietnamPro16.copyWith(
+                  //           color: AppColors.white,
+                  //         ),
+                  //       ), // <-- Text
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               )
             ],

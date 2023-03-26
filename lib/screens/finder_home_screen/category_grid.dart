@@ -5,22 +5,19 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class CategoryGrid extends StatelessWidget {
-  const CategoryGrid({super.key});
+  final String title;
+  final List<String> options;
+  final Function(String)? onTapped;
+  const CategoryGrid(
+      {super.key, required this.title, required this.options, this.onTapped});
 
   @override
   Widget build(BuildContext context) {
-    void navigateToNearbyUsersScreen() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const NearbyUsersScreen()),
-      );
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Developer",
+          title,
           style: AppTextStyles.semiBoldBeVietnamPro16
               .copyWith(color: AppColors.golden),
         ),
@@ -29,20 +26,23 @@ class CategoryGrid extends StatelessWidget {
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           crossAxisCount: 2,
-          children: List.generate(10, //this is the total number of cards
-              (index) {
-            return SizedBox(
-              width: 100,
-              height: 80,
-              child: TextButton(
-                  onPressed: navigateToNearbyUsersScreen,
-                  child: Text(
-                    "Full Stack Dev",
-                    style: AppTextStyles.regularBeVietnamPro16
-                        .copyWith(color: AppColors.white),
-                  )),
-            );
-          }),
+          children: options
+              .map((option) => SizedBox(
+                    width: 100,
+                    height: 80,
+                    child: TextButton(
+                        onPressed: () {
+                          if (onTapped != null) onTapped!(option);
+                        },
+                        style:
+                            const ButtonStyle(alignment: Alignment.centerLeft),
+                        child: Text(
+                          option,
+                          style: AppTextStyles.regularBeVietnamPro16
+                              .copyWith(color: AppColors.white),
+                        )),
+                  ))
+              .toList(),
         ),
       ],
     );

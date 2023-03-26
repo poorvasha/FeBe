@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../utils/app_helper.dart';
 import '../chat_home_screen/chat_home_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,6 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
   int activeTab = 0;
 
   List<Widget> tabs = [ChatHomeScreen(), FinderHomeScreen(), ProfileScreen()];
+
+  @override
+  void initState() {
+    AppHelper.watchUserLocation(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -5,9 +5,11 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../configs/resources.dart';
+import '../../models/data/user.dart';
 
 class NearbyUserCard extends StatelessWidget {
-  const NearbyUserCard({super.key});
+  final User user;
+  const NearbyUserCard({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +19,21 @@ class NearbyUserCard extends StatelessWidget {
       decoration: BoxDecoration(
           color: AppColors.golden, borderRadius: BorderRadius.circular(15)),
       child: Column(children: [
-        UserBasicInfo(),
+        UserBasicInfo(
+          name: user.name!,
+          isVerified: true,
+        ),
         const SizedBox(
           height: 10,
         ),
         Expanded(
-          child: Text(
-            "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem",
-            style: AppTextStyles.regularBeVietnamPro16
-                .copyWith(color: AppColors.white, height: 1.5),
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              user.enabler?.about ?? user.entrepreneur?.about ?? "Developer",
+              style: AppTextStyles.regularBeVietnamPro16
+                  .copyWith(color: AppColors.white, height: 1.5),
+            ),
           ),
         ),
         Row(

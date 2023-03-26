@@ -1,4 +1,5 @@
 import 'package:febe_frontend/configs/resources.dart';
+import 'package:febe_frontend/models/data/expanded_user.dart';
 import 'package:febe_frontend/models/ui/profile_option.dart';
 import 'package:febe_frontend/screens/profile_screen/user_card.dart';
 import 'package:febe_frontend/widgets/default_appbar.dart';
@@ -7,6 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../models/data/user.dart';
+import '../../services/user_service.dart';
+import '../../utils/app_helper.dart';
 
 List<ProfileOption> OPTIONS = [
   ProfileOption(
@@ -19,8 +24,8 @@ List<ProfileOption> OPTIONS = [
       "https://google.co.in"),
   ProfileOption("Terms and Conditions",
       SvgPicture.asset("assets/icons/info_bg.svg"), "https://google.co.in"),
-  ProfileOption("Switch Profile",
-      SvgPicture.asset("assets/icons/profile_bg.svg"), "https://google.co.in"),
+  // ProfileOption("Switch Profile",
+  //     SvgPicture.asset("assets/icons/profile_bg.svg"), "https://google.co.in"),
   ProfileOption("Logout", SvgPicture.asset("assets/icons/logout_bg.svg"), null)
 ];
 
@@ -32,6 +37,24 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  ExpandedUser? user;
+  void fetchUserDetails() async {
+    try {
+      ExpandedUser currentUser = await UserService.getExpandedUser();
+      setState(() {
+        user = currentUser;
+      });
+    } catch (e) {
+      AppHelper.showSnackbar("Something went wrong, please try again", context);
+    }
+  }
+
+  @override
+  void initState() {
+    fetchUserDetails();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +68,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           Column(
             children: [
-              UserCard(),
+              UserCard(
+                name: user?.name! ?? "User",
+                designation: user?.enabler?.designation?.name ??
+                    user?.entrepreneur?.industry?.name ??
+                    "--",
+              ),
               const SizedBox(
                 height: 20,
               ),
