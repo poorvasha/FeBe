@@ -15,9 +15,14 @@ import 'configs/routes.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => AppModel()),
-  ], child: const MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AppModel()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {

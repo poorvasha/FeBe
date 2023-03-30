@@ -8,11 +8,13 @@ class UserCard extends StatelessWidget {
   final String name;
   final bool isVerified;
   final String locationName;
+  final Function()? onLocationTap;
   UserCard(
       {super.key,
       required this.name,
       this.isVerified = false,
-      required this.locationName});
+      required this.locationName,
+      this.onLocationTap});
 
   @override
   Widget build(BuildContext context) {
@@ -83,25 +85,28 @@ class UserCard extends StatelessWidget {
         Expanded(
             child: Container(
           alignment: Alignment.centerRight,
-          child: Container(
-            width: 120,
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                color: AppColors.white,
-                border: Border.all(color: AppColors.golden),
-                borderRadius: BorderRadius.circular(30)),
-            child: Row(children: [
-              SvgPicture.asset("assets/icons/location_pin.svg"),
-              const SizedBox(
-                width: 7,
-              ),
-              Text(
-                locationName,
-                style: AppTextStyles.semiBoldBeVietnamPro16
-                    .copyWith(color: AppColors.black),
-              ),
-            ]),
+          child: InkWell(
+            onTap: onLocationTap ?? null,
+            child: Container(
+              width: 120,
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: AppColors.white,
+                  border: Border.all(color: AppColors.golden),
+                  borderRadius: BorderRadius.circular(30)),
+              child: Row(children: [
+                SvgPicture.asset("assets/icons/location_pin.svg"),
+                const SizedBox(
+                  width: 7,
+                ),
+                Text(
+                  locationName,
+                  style: AppTextStyles.semiBoldBeVietnamPro16
+                      .copyWith(color: AppColors.black),
+                ),
+              ]),
+            ),
           ),
         ))
       ],

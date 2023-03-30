@@ -37,6 +37,8 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
     }
   }
 
+  void navigateToMapScreen() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +53,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
               UserCard(
                 name: user?.name ?? "User",
                 locationName: "Navalur",
+                onLocationTap: navigateToMapScreen,
               ),
               const SizedBox(
                 height: 30,

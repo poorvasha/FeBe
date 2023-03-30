@@ -28,6 +28,10 @@ class AppHelper {
     }
   }
 
+  static Future<void> logoutUser() async {
+    await SecureStorage().deleteSecureData('accessToken');
+  }
+
   static Future<String?> getUserType() async {
     try {
       var isContainsKey =

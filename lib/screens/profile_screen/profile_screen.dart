@@ -8,26 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
+import '../../configs/routes.dart';
 import '../../models/data/user.dart';
+import '../../providers/app_model.dart';
 import '../../services/user_service.dart';
 import '../../utils/app_helper.dart';
-
-List<ProfileOption> OPTIONS = [
-  ProfileOption(
-      "Suggestions",
-      SvgPicture.asset("assets/icons/suggestion_bg.svg"),
-      "https://google.co.in"),
-  ProfileOption("About us", SvgPicture.asset("assets/icons/info_bg.svg"),
-      "https://google.co.in"),
-  ProfileOption("Privacy Policy", SvgPicture.asset("assets/icons/info_bg.svg"),
-      "https://google.co.in"),
-  ProfileOption("Terms and Conditions",
-      SvgPicture.asset("assets/icons/info_bg.svg"), "https://google.co.in"),
-  // ProfileOption("Switch Profile",
-  //     SvgPicture.asset("assets/icons/profile_bg.svg"), "https://google.co.in"),
-  ProfileOption("Logout", SvgPicture.asset("assets/icons/logout_bg.svg"), null)
-];
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -37,7 +24,50 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  List<ProfileOption> OPTIONS = [
+    ProfileOption(
+      "Suggestions",
+      SvgPicture.asset("assets/icons/suggestion_bg.svg"),
+      "https://google.co.in",
+      () {},
+    ),
+    ProfileOption(
+      "About us",
+      SvgPicture.asset(
+        "assets/icons/info_bg.svg",
+      ),
+      "https://google.co.in",
+      () {},
+    ),
+    ProfileOption(
+      "Privacy Policy",
+      SvgPicture.asset("assets/icons/info_bg.svg"),
+      "https://google.co.in",
+      () {},
+    ),
+    ProfileOption(
+      "Terms and Conditions",
+      SvgPicture.asset("assets/icons/info_bg.svg"),
+      "https://google.co.in",
+      () {},
+    ),
+    // ProfileOption("Switch Profile",
+    // SvgPicture.asset("assets/icons/profile_bg.svg"), "https://google.co.in"),
+    ProfileOption(
+      "Logout",
+      SvgPicture.asset("assets/icons/logout_bg.svg"),
+      null,
+      () {},
+    )
+  ];
+
   ExpandedUser? user;
+
+  void logoutUser() async {
+    AppHelper.logoutUser();
+    context.read<AppModel>().setInitialRoute = Routes.loginScreen;
+  }
+
   void fetchUserDetails() async {
     try {
       ExpandedUser currentUser = await UserService.getExpandedUser();
@@ -83,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     ProfileOption item = OPTIONS[index];
                     return InkWell(
-                      onTap: () {},
+                      onTap: item.title == "Logout" ? logoutUser : () {},
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         child: Row(
