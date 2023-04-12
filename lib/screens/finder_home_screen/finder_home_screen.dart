@@ -20,6 +20,7 @@ class FinderHomeScreen extends StatefulWidget {
 
 class _FinderHomeScreenState extends State<FinderHomeScreen> {
   String userType = "";
+  bool isFinderTapped = false;
 
   void navigateToNearbyUsersScreen(String targetIdentity, String title) async {
     Navigator.push(
@@ -61,13 +62,14 @@ class _FinderHomeScreenState extends State<FinderHomeScreen> {
             ),
           ],
           UserTypePicker(
-            onSelected: (value) {
-              setState(() {
-                userType = value;
-              });
-            },
-            activeType: userType,
-          ),
+              onSelected: (value) {
+                setState(() {
+                  userType = value;
+                  isFinderTapped = true;
+                });
+              },
+              activeType: userType,
+              isFinderTapped: isFinderTapped),
           if (userType == "enabler") ...[
             const SizedBox(
               height: 20,
