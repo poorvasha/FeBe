@@ -36,7 +36,7 @@ List<CarouselItem> enablerCarousels = [
 List<CarouselItem> entrepreneurCarousels = [
   CarouselItem(
       image: "assets/images/enabler_carousel_1.png",
-      title: "dhvsdcvsdjcnsdcwdijwdj",
+      title: "Find Your Near Mate",
       description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur"),
   CarouselItem(
@@ -86,9 +86,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   void checkUserType() async {
     var userType;
     await AppHelper.getUserType().then((value) => userType = value);
-    carousels =
-        userType == "enabler" ? enablerCarousels : entrepreneurCarousels;
-    setState(() {});
+
+    setState(() {
+      carousels =
+          userType == "enabler" ? enablerCarousels : entrepreneurCarousels;
+    });
   }
 
   @override
