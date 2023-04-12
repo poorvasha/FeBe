@@ -6,6 +6,7 @@ import 'package:febe_frontend/models/ui/carousel_item.dart';
 import 'package:febe_frontend/screens/get_started_screen/get_started_carousel_indicator.dart';
 import 'package:febe_frontend/screens/get_started_screen/get_started_carousel_item.dart';
 import 'package:febe_frontend/services/secure_local_storage.dart';
+import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -14,10 +15,28 @@ import 'package:provider/provider.dart';
 import '../../configs/routes.dart';
 import '../../providers/app_model.dart';
 
-List<CarouselItem> carousels = [
+List<CarouselItem> enablerCarousels = [
   CarouselItem(
       image: "assets/images/enabler_carousel_1.png",
       title: "Find Your Near Mate",
+      description:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur"),
+  CarouselItem(
+      image: "assets/images/enabler_carousel_2.png",
+      title: "Most Personalized App",
+      description:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur"),
+  CarouselItem(
+      image: "assets/images/enabler_carousel_3.png",
+      title: "One App for your needs",
+      description:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur")
+];
+
+List<CarouselItem> entrepreneurCarousels = [
+  CarouselItem(
+      image: "assets/images/enabler_carousel_1.png",
+      title: "dhvsdcvsdjcnsdcwdijwdj",
       description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur"),
   CarouselItem(
@@ -42,7 +61,7 @@ class GetStartedScreen extends StatefulWidget {
 class _GetStartedScreenState extends State<GetStartedScreen> {
   CarouselController controller = CarouselController();
   int currentCarousel = 1;
-
+  List<CarouselItem> carousels = [];
   void moveToNextSlide() {
     if (currentCarousel == carousels.length) {
       return moveToLoginScreen();
@@ -54,6 +73,22 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     SecureStorage().writeSecureData(
         LocalStorageItem(key: IS_USING_FOR_FIRST_TIME_KEY, value: "false"));
     context.read<AppModel>().setInitialRoute = Routes.loginScreen;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    checkUserType();
+  }
+
+  void checkUserType() async {
+    var userType;
+    await AppHelper.getUserType().then((value) => userType = value);
+    carousels =
+        userType == "enabler" ? enablerCarousels : entrepreneurCarousels;
+    setState(() {});
   }
 
   @override
