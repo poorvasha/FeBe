@@ -94,77 +94,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: "Profile",
       ),
       body: FullScreenContainer(
-          child: Stack(
-        children: [
-          Column(
-            children: [
-              UserCard(
-                name: user?.name! ?? "User",
-                designation: user?.enabler?.designation?.name ??
-                    user?.entrepreneur?.industry?.name ??
-                    "--",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: OPTIONS.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    ProfileOption item = OPTIONS[index];
-                    return InkWell(
-                      onTap: item.title == "Logout" ? logoutUser : () {},
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            item.icon,
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                item.title,
-                                textAlign: TextAlign.start,
-                                style: AppTextStyles.regularBeVietnamPro20
-                                    .copyWith(
-                                        color: AppColors.white, fontSize: 18),
-                              ),
-                            ),
-                            item.url != null
-                                ? const Icon(
-                                    Icons.chevron_right_sharp,
-                                    color: AppColors.white,
-                                  )
-                                : const SizedBox()
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Text(
-                "Made in 💛 with India",
-                style: AppTextStyles.mediumBeVietnamPro.copyWith(
-                  fontSize: 20,
-                  color: AppColors.white,
-                ),
-              ),
-              const SizedBox(
-                height: 90,
-              )
-            ],
-          ),
-          Positioned(
-            bottom: -80,
-            child: SvgPicture.asset(
-              "assets/images/wave_3.svg",
+        child: Column(
+          children: [
+            UserCard(
+              name: user?.name! ?? "User",
+              designation: user?.enabler?.designation?.name ??
+                  user?.entrepreneur?.industry?.name ??
+                  "--",
             ),
-          ),
-        ],
-      )),
+            const SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                itemCount: OPTIONS.length,
+                itemBuilder: (BuildContext context, int index) {
+                  ProfileOption item = OPTIONS[index];
+                  return InkWell(
+                    onTap: item.title == "Logout" ? logoutUser : () {},
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          item.icon,
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Text(
+                              item.title,
+                              textAlign: TextAlign.start,
+                              style: AppTextStyles.regularBeVietnamPro20
+                                  .copyWith(
+                                      color: AppColors.white, fontSize: 18),
+                            ),
+                          ),
+                          item.url != null
+                              ? const Icon(
+                                  Icons.chevron_right_sharp,
+                                  color: AppColors.white,
+                                )
+                              : const SizedBox()
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Text(
+              "Made in 💛 with India",
+              style: AppTextStyles.mediumBeVietnamPro.copyWith(
+                fontSize: 20,
+                color: AppColors.white,
+              ),
+            ),
+            const SizedBox(
+              height: 90,
+            )
+          ],
+        ),
+      ),
     );
   }
 }
