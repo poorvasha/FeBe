@@ -86,16 +86,6 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                           ]),
                     )),
               ),
-              Container(
-                color: Theme.of(context).backgroundColor,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    SvgPicture.asset("assets/images/wave.svg",
-                        semanticsLabel: 'Wave')
-                  ],
-                ),
-              )
             ],
           ),
         ));
