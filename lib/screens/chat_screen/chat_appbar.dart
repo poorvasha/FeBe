@@ -93,7 +93,9 @@ class ChatAppbar extends StatelessWidget with PreferredSizeWidget {
         ],
       ),
       centerTitle: false,
-      actions: [IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))],
+      actions: isFEBE
+          ? List.empty()
+          : [IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))],
     );
   }
 
