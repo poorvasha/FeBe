@@ -26,7 +26,7 @@ class _UserTypeCardState extends State<UserTypeCard> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(7),
         child: Container(
-          width: 175,
+          height: 90,
           decoration: BoxDecoration(
               color: widget.isActive != null && !widget.isActive!
                   ? AppColors.lightBlack
@@ -34,20 +34,21 @@ class _UserTypeCardState extends State<UserTypeCard> {
               borderRadius: BorderRadius.circular(7),
               border: Border.all(color: AppColors.golden, width: 3)),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width / 5,
+                vertical: 16),
+            child:
+                Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
               widget.image,
               const SizedBox(
                 width: 10,
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text(widget.title,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTextStyles.extraBoldBeVietnamPro.copyWith(
-                          color: AppColors.lightWhite, fontSize: 18.0)),
-                ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Text(widget.title,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyles.extraBoldBeVietnamPro
+                        .copyWith(color: AppColors.lightWhite, fontSize: 18.0)),
               )
             ]),
           ),

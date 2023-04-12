@@ -57,7 +57,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                             ),
                             Container(
                               width: width,
-                              child: Row(
+                              child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -67,6 +67,9 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                                           "assets/images/enabler.png"),
                                       title: "Enabler",
                                       onTap: () => {setUserType("enabler")},
+                                    ),
+                                    const SizedBox(
+                                      height: 30,
                                     ),
                                     UserTypeCard(
                                       image: Image.asset(
