@@ -52,7 +52,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
               ),
               UserCard(
                 name: user?.name ?? "User",
-                locationName: "Navalur",
+                locationName: "Current location",
                 onLocationTap: navigateToMapScreen,
               ),
               const SizedBox(

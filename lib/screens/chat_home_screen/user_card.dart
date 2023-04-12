@@ -88,12 +88,12 @@ class UserCard extends StatelessWidget {
           child: InkWell(
             onTap: onLocationTap ?? null,
             child: Container(
-              width: 120,
+              width: 160,
               alignment: Alignment.center,
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                  color: AppColors.white,
-                  border: Border.all(color: AppColors.golden),
+                  color: AppColors.lightBlack,
+                  boxShadow: AppShaddows.customShadow,
                   borderRadius: BorderRadius.circular(30)),
               child: Row(children: [
                 SvgPicture.asset("assets/icons/location_pin.svg"),
@@ -103,7 +103,7 @@ class UserCard extends StatelessWidget {
                 Text(
                   locationName,
                   style: AppTextStyles.semiBoldBeVietnamPro16
-                      .copyWith(color: AppColors.black),
+                      .copyWith(color: AppColors.golden),
                 ),
               ]),
             ),

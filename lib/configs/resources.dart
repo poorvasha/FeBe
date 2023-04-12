@@ -83,17 +83,11 @@ class AppTextStyles {
 class AppShaddows {
   static List<BoxShadow> customShadow = [
     BoxShadow(
-        color: AppColors.white.withOpacity(0.15),
+        color: AppColors.golden.withOpacity(0.20),
         spreadRadius: 0,
-        offset: const Offset(4, 4),
-        blurRadius: 8,
-        blurStyle: BlurStyle.normal),
-    BoxShadow(
-        color: AppColors.white.withOpacity(0.60),
-        spreadRadius: 0,
-        offset: const Offset(-4, -4),
+        offset: const Offset(0, 4),
         blurRadius: 4,
-        blurStyle: BlurStyle.normal)
+        blurStyle: BlurStyle.normal),
   ];
 }
 // #endregion
