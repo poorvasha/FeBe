@@ -12,27 +12,7 @@ class MessageBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isDisabled) {
-      return Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.lock,
-              color: AppColors.green,
-              size: 18,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              "Only admins can able to send messages",
-              style: AppTextStyles.regularBeVietnamPro16
-                  .copyWith(color: AppColors.white),
-            )
-          ],
-        ),
-      );
+      return Container();
     }
 
     return Container(
