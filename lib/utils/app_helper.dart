@@ -8,6 +8,8 @@ import 'package:image_picker/image_picker.dart';
 
 import '../services/secure_local_storage.dart';
 
+enum LocationStatus { turnedOff, denied, blocked, granted, yetToRequest }
+
 class AppHelper {
   Future<bool> checkIsUserLoggedIn() async {
     try {
@@ -164,6 +166,24 @@ class AppHelper {
     return result;
   }
 
+  static Future<LocationStatus> getLocationStatus(BuildContext context) async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return LocationStatus.turnedOff;
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      return LocationStatus.denied;
+    }
+
+    if (permission == LocationPermission.unableToDetermine) {
+      return LocationStatus.yetToRequest;
+    }
+
+    return LocationStatus.granted;
+  }
+
   static Future<bool> _handleLocationPermission(BuildContext context) async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -191,6 +211,12 @@ class AppHelper {
       return false;
     }
     return true;
+  }
+
+  static Future<LocationPermission> requestLocationPermission(
+      BuildContext context) async {
+    LocationPermission permission = await Geolocator.requestPermission();
+    return permission;
   }
 
   static Future<Position?> getUserCurrentLocation(BuildContext context) async {

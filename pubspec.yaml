@@ -46,6 +46,8 @@ dependencies:
   geolocator: ^9.0.2
   geocoding: ^2.1.0
   google_maps_flutter: ^2.2.5
+  location: ^4.4.0
+  focus_detector: ^2.0.1
 
 dev_dependencies:
   flutter_test:

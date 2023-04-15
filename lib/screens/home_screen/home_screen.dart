@@ -1,5 +1,6 @@
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:febe_frontend/screens/finder_home_screen/finder_home_screen.dart';
+import 'package:febe_frontend/screens/location_access_screen/location_access_screen.dart';
 import 'package:febe_frontend/screens/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -26,8 +27,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    AppHelper.watchUserLocation(context);
+    initiateLocationService();
+    // AppHelper.watchUserLocation(context);
     super.initState();
+  }
+
+  void initiateLocationService() async {
+    LocationStatus locationStatus = await AppHelper.getLocationStatus(context);
+    if (locationStatus != LocationStatus.granted) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => LocationAccessScreen(
+                  shouldGoBack: false,
+                ),
+            fullscreenDialog: true),
+      );
+    }
   }
 
   @override
