@@ -28,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     initiateLocationService();
-    // AppHelper.watchUserLocation(context);
     super.initState();
   }
 
@@ -44,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
             fullscreenDialog: true),
       );
     }
+    AppHelper.watchUserLocation(context);
   }
 
   @override
