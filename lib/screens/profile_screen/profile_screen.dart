@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../../configs/routes.dart';
 import '../../models/data/user.dart';
+import '../../popups/logout_confirmation_popup.dart';
 import '../../providers/app_model.dart';
 import '../../services/user_service.dart';
 import '../../utils/app_helper.dart';
@@ -63,7 +64,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   ExpandedUser? user;
 
+  void showLogoutConfirmationPopup() async {
+    showAlertDialog(context,
+        title: "Confirmation",
+        message: "Are you sure you wish to proceed with the logout?",
+        buttonTitle: "Logout",
+        onSuccess: logoutUser);
+  }
+
   void logoutUser() async {
+    Navigator.of(context).pop();
     AppHelper.logoutUser();
     context.read<AppModel>().setInitialRoute = Routes.loginScreen;
   }
@@ -113,7 +123,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   ProfileOption item = OPTIONS[index];
                   return InkWell(
-                    onTap: item.title == "Logout" ? logoutUser : () {},
+                    onTap: item.title == "Logout"
+                        ? showLogoutConfirmationPopup
+                        : () {},
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: Row(
