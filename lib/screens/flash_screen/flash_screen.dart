@@ -26,10 +26,10 @@ class _FlashScreenState extends State<FlashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: AppColors.white,
       body: Container(
           margin: const EdgeInsets.only(left: 16, right: 16),
-          color: Theme.of(context).backgroundColor,
+          color: AppColors.white,
           child: Center(child: Image.asset("assets/images/xander_media.png"))),
     );
   }

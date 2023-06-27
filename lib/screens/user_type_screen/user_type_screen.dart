@@ -30,63 +30,71 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
     }
 
     return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: Container(
-          height: height,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: Container(
-                    color: Theme.of(context).backgroundColor,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset("assets/images/who_you_are.png"),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            Text("Are You ?",
-                                style: AppTextStyles.boldBeVietnamPro.copyWith(
-                                    color: Theme.of(context).primaryColor)),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Container(
-                              width: width,
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    UserTypeCard(
-                                      image: Image.asset(
-                                          "assets/images/enabler.png"),
-                                      title: "Enabler",
-                                      onTap: () => {setUserType("enabler")},
-                                    ),
-                                    const SizedBox(
-                                      height: 30,
-                                    ),
-                                    UserTypeCard(
-                                      image: Image.asset(
-                                          "assets/images/enteruper.png"),
-                                      title: "Entrepreneur",
-                                      onTap: () =>
-                                          {setUserType("entrepreneur")},
-                                    ),
-                                  ]),
-                            ),
-                            const SizedBox(
-                              height: 60,
-                            )
-                          ]),
-                    )),
-              ),
-            ],
+        backgroundColor: AppColors.white,
+        body: SingleChildScrollView(
+          child: Container(
+            height: height,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: Container(
+                      color: AppColors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset("assets/images/welcome.png"),
+                              const SizedBox(
+                                height: 40,
+                              ),
+                              Text("Welcome!",
+                                  style: AppTextStyles.boldBeVietnamPro.copyWith(
+                                      color: Theme.of(context).primaryColor, fontSize: 32)),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              Text("What suits you better",
+                                  style: AppTextStyles.semiBoldBeVietnamPro20.copyWith(
+                                      color: AppColors.lightBlack,)),       
+                              const SizedBox(
+                                height: 18,
+                              ),
+                              Container(
+                                width: width,
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      UserTypeCard(
+                                        image: Image.asset(
+                                            "assets/images/enabler.png"),
+                                        title: "Enabler",
+                                        onTap: () => {setUserType("enabler")},
+                                      ),
+                                      const SizedBox(
+                                        height: 24,
+                                      ),
+                                      UserTypeCard(
+                                        image: Image.asset(
+                                            "assets/images/enteruper.png"),
+                                        title: "Entrepreneur",
+                                        onTap: () =>
+                                            {setUserType("entrepreneur")},
+                                      ),
+                                    ]),
+                              ),
+                              const SizedBox(
+                                height: 60,
+                              ),
+                            ]),
+                      )),
+                ),
+              ],
+            ),
           ),
         ));
   }

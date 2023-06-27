@@ -27,15 +27,33 @@ class _UserTypeCardState extends State<UserTypeCard> {
     return InkWell(
       onTap: () => {widget.onTap()},
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(7),
+        borderRadius: BorderRadius.circular(4),
         child:
             widget.displayWaveUserCard != null && !widget.displayWaveUserCard!
-                ? Container(
+                ? 
+                // Card(
+                //   child: Row(
+                //     children: [
+                //       CircleAvatar(child: Icon(Icons.construction),)
+                //     ],
+                //   ),
+                // )
+                Container(
                     height: 90,
                     decoration: BoxDecoration(
-                        color: AppColors.golden,
+                        color: AppColors.white,
                         borderRadius: BorderRadius.circular(7),
-                        border: Border.all(color: AppColors.golden, width: 3)),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: AppColors.black,
+                            blurRadius: 30, // soften the shadow
+                            spreadRadius: 20, //extend the shadow
+                            offset: Offset(
+                              4, // Move to right 5  horizontally
+                              4, // Move to bottom 5 Vertically
+                            ),
+                          )
+                        ]),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: MediaQuery.of(context).size.width / 5,

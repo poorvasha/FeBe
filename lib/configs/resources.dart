@@ -25,12 +25,17 @@ class AppResources {
             borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(width: 2, color: AppColors.red),
           ));
+
+  static ButtonStyle buttonStyle = ButtonStyle(
+      minimumSize: const MaterialStatePropertyAll(Size(double.infinity, 50)),
+      backgroundColor: const MaterialStatePropertyAll(AppColors.golden));
 }
 
 // #region Colors
 class AppColors {
-  static const Color golden = Color(0xFFE5B369);
-  static const Color lightBlack = Color(0xFF121212);
+  static const Color golden = Color(0xFFEBB61F);
+  static const Color lightGolden = Color(0xFFFFF4D6);
+  static const Color lightBlack = Color(0xFF1E1E1E);
   static const Color lightWhite = Color(0xFFE0E0E0);
   static const Color linkBlue = Color(0xFF0d99ff);
   static const Color white = Color(0xFfffffff);

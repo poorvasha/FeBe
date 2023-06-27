@@ -20,7 +20,7 @@ List<CarouselItem> enablerCarousels = [
       image: "assets/images/enabler_carousel_1.png",
       title: "Find Your Near Mate",
       description:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur"),
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur"),
   CarouselItem(
       image: "assets/images/enabler_carousel_2.png",
       title: "Most Personalized App",
@@ -98,75 +98,86 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: AppColors.white,
       body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          height: screenSize.height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: double.infinity,
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: TextButton(
-                    onPressed: () => {moveToLoginScreen()},
-                    child: Text(
-                      "Skip",
-                      style: AppTextStyles.boldBeVietnamPro
-                          .copyWith(color: AppColors.golden, fontSize: 16),
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            height: screenSize.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: TextButton(
+                      onPressed: () => {moveToLoginScreen()},
+                      child: Text(
+                        "Skip",
+                        style: AppTextStyles.boldBeVietnamPro.copyWith(
+                            color: Colors.transparent,
+                            fontSize: 16,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColors.lightBlack,
+                            shadows: [Shadow(
+                              color: AppColors.lightBlack,
+                              offset: Offset(0, -2)
+                            )]),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: CarouselSlider(
-                  carouselController: controller,
-                  items: carousels.map((item) {
-                    return GetStartedCarouselItem(carousel: item);
-                  }).toList(),
-                  options: CarouselOptions(
-                      height: 600,
-                      viewportFraction: 1,
-                      enableInfiniteScroll: false,
-                      onPageChanged: (val, _) {
-                        setState(() {
-                          currentCarousel = val + 1;
-                        });
-                      }),
-                ),
-              ),
-              GetStartedCarouselIndicator(
-                total: carousels.length,
-                current: currentCarousel,
-              ),
-              const SizedBox(
-                height: 60,
-              ),
-              SizedBox(
-                width: 200, // <-- Your width
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () => {moveToNextSlide()},
-                  child: Text(
-                    currentCarousel == carousels.length
-                        ? "Get Started"
-                        : "Next",
-                    style: AppTextStyles.semiBoldBeVietnamPro16
-                        .copyWith(color: AppColors.white, fontSize: 20),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: CarouselSlider(
+                    carouselController: controller,
+                    items: carousels.map((item) {
+                      return GetStartedCarouselItem(carousel: item);
+                    }).toList(),
+                    options: CarouselOptions(
+                        height: screenSize.height,
+                        enlargeCenterPage: true,
+                        enlargeFactor: 1,
+                        viewportFraction: 1,
+                        enableInfiniteScroll: false,
+                        onPageChanged: (val, _) {
+                          setState(() {
+                            currentCarousel = val + 1;
+                          });
+                        }),
                   ),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.golden,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      )),
                 ),
-              ),
-              const SizedBox(
-                height: 90,
-              )
-            ],
+                if(screenSize.height < 800)
+                  const SizedBox(
+                    height: 40,
+                  ),
+                GetStartedCarouselIndicator(
+                  total: carousels.length,
+                  current: currentCarousel,
+                ),
+                const SizedBox(
+                  height: 80,
+                ),
+                SizedBox(
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () => {moveToNextSlide()},
+                    child: Text(
+                      currentCarousel == carousels.length
+                          ? "Get Started"
+                          : "Next",
+                      style: AppTextStyles.boldBeVietnamPro
+                          .copyWith(color: AppColors.lightBlack, fontSize: 18),
+                    ),
+                    style: AppResources.buttonStyle,
+                  ),
+                ),
+                const SizedBox(
+                  height: 90,
+                )
+              ],
+            ),
           ),
         ),
       ),

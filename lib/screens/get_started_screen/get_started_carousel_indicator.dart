@@ -36,15 +36,15 @@ class Indicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double size = 20.0;
-    return new Container(
+    double size = 8.0;
+    return  Container(
         width: size,
         height: size,
         margin: const EdgeInsets.symmetric(horizontal: 6),
-        decoration: new BoxDecoration(
+        decoration: BoxDecoration(
           color: isActive ? AppColors.golden : AppColors.lightWhite,
           shape: BoxShape.circle,
         ),
-        child: new SizedBox());
+        child: const SizedBox());
   }
 }

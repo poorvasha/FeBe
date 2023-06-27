@@ -11,27 +11,27 @@ class GetStartedCarouselItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          Image.asset(carousel.image),
-          const SizedBox(
-            height: 30,
-          ),
-          Text(carousel.title,
-              overflow: TextOverflow.ellipsis,
-              style: AppTextStyles.extraBoldBeVietnamPro
-                  .copyWith(color: AppColors.golden, fontSize: 30.0)),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(carousel.description,
+    return Column(
+
+      children: [
+        Image.asset(carousel.image),
+        const SizedBox(
+          height: 30,
+        ),
+        Text(carousel.title,
+            overflow: TextOverflow.ellipsis,
+            style: AppTextStyles.boldBeVietnamPro
+                .copyWith(color: AppColors.golden, fontSize: 24.0)),
+        const SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          child: Text(carousel.description,
               textAlign: TextAlign.center,
               style: AppTextStyles.regularBeVietnamPro16.copyWith(
-                  color: AppColors.lightWhite, fontSize: 16.0, height: 1.5)),
-        ],
-      ),
+                  color: AppColors.lightBlack, fontSize: 14.0, height: 1.5)),
+        ),
+      ],
     );
   }
 }
