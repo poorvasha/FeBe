@@ -2,8 +2,6 @@ import 'package:febe_frontend/models/data/entrepreneur_industry.dart';
 import 'package:febe_frontend/services/entrepreneur_industry_service.dart';
 import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import 'category_grid.dart';
 

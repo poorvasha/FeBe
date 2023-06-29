@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class FullScreenContainer extends StatelessWidget {
   final Widget child;
@@ -23,10 +21,10 @@ class FullScreenContainer extends StatelessWidget {
             ? height - kToolbarHeight - 40
             : height - kToolbarHeight,
         width: width,
-        child: child,
         padding: !disablePadding
             ? const EdgeInsets.all(24)
             : const EdgeInsets.all(0),
+        child: child,
       ),
     );
   }

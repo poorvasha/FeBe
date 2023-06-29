@@ -1,15 +1,12 @@
-import 'dart:math';
 
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:febe_frontend/models/data/entrepreneur_industry.dart';
 import 'package:febe_frontend/models/ui/identity_tile_item.dart';
 import 'package:febe_frontend/services/enabler_category_service.dart';
 import 'package:febe_frontend/services/entrepreneur_industry_service.dart';
-import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:febe_frontend/widgets/default_appbar.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../models/data/enabler_category.dart';
 import 'identification_tile.dart';
@@ -50,7 +47,7 @@ class _FinderUserSearchScreenState extends State<FinderUserSearchScreen> {
       List<EnablerCategoryWithDesignation> designations =
           await EnablerCategoryService.getCategoriesWithDesignations();
 
-      List<IdentityTile> _identities = designations.fold(
+      List<IdentityTile> identities = designations.fold(
           [],
           (value, element) =>
               value +
@@ -59,8 +56,8 @@ class _FinderUserSearchScreenState extends State<FinderUserSearchScreen> {
                   .toList());
 
       setState(() {
-        idendities = _identities;
-        rawIdendities = _identities;
+        idendities = identities;
+        rawIdendities = identities;
       });
     } catch (e) {}
   }
@@ -70,12 +67,12 @@ class _FinderUserSearchScreenState extends State<FinderUserSearchScreen> {
       List<EntrepreneurIndustry> industries =
           await EntrepreneurIndustryService.getIndustries();
 
-      List<IdentityTile> _identities =
+      List<IdentityTile> identities =
           industries.map((e) => IdentityTile(e.sId!, e.name!)).toList();
 
       setState(() {
-        idendities = _identities;
-        rawIdendities = _identities;
+        idendities = identities;
+        rawIdendities = identities;
       });
     } catch (e) {}
   }

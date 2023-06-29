@@ -13,7 +13,7 @@ class AppModel with ChangeNotifier {
     notifyListeners();
   }
 
-  String? _userType = "none";
+  final String _userType = "none";
   String? get getUserType {
     return _userType;
   }

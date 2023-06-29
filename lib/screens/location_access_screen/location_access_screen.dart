@@ -1,4 +1,3 @@
-import 'package:febe_frontend/screens/user_details_form_screen/user_details_form_screen.dart';
 import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';

@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:febe_frontend/models/data/company_registration.dart';
 import 'package:febe_frontend/models/data/entrepreneur.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../configs/resources.dart';

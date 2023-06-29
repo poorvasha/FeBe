@@ -1,5 +1,3 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../configs/resources.dart';
@@ -7,7 +5,7 @@ import '../../configs/resources.dart';
 class ChatMessage extends StatelessWidget {
   final String messageType;
   final String message;
-  ChatMessage({super.key, required this.messageType, required this.message});
+  const ChatMessage({super.key, required this.messageType, required this.message});
 
   @override
   Widget build(BuildContext context) {

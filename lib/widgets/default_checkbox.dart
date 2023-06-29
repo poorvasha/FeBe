@@ -1,7 +1,5 @@
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class DefaultCheckbox extends StatelessWidget {
   final bool isChecked;
@@ -32,6 +30,5 @@ class DefaultCheckbox extends StatelessWidget {
         ),
       ],
     );
-    ;
   }
 }

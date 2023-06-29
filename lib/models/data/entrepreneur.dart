@@ -31,7 +31,7 @@ class Entrepreneur {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (about != null) data['about'] = about;
     if (industry != null) data['industry'] = industry;
     if (companyName != null) data['companyName'] = companyName;
@@ -79,7 +79,7 @@ class ExpandedEntrepreneur {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['about'] = about;
     data['companyName'] = companyName;
     data['websiteURL'] = websiteURL;

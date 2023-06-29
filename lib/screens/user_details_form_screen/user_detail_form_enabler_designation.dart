@@ -1,4 +1,3 @@
-import 'package:febe_frontend/models/data/enabler.dart';
 import 'package:febe_frontend/models/data/enabler_category.dart';
 import 'package:febe_frontend/models/data/enabler_designation.dart';
 import 'package:febe_frontend/services/enabler_category_service.dart';
@@ -6,9 +5,7 @@ import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:febe_frontend/widgets/default_dropdown.dart';
 import 'package:febe_frontend/widgets/default_radio_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/basic.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+ 
 
 class UserDetailEnablerDesignation extends StatefulWidget {
   final Function(String) onChanged;
@@ -83,7 +80,7 @@ class _UserDetailEnablerDesignationState
     return Column(
       children: [
         DefaultDropdown(
-          options: categories.length == 0
+          options: categories.isEmpty
               ? [""]
               : categories.map((e) => e.name!).toList(),
           value: selectedCategory?.name ?? "",

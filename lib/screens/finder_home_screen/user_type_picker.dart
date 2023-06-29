@@ -1,10 +1,7 @@
 import 'package:febe_frontend/screens/user_type_screen/user_type_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../configs/resources.dart';
 
 class UserTypePicker extends StatelessWidget {
   final Function(String value) onSelected;
@@ -29,7 +26,7 @@ class UserTypePicker extends StatelessWidget {
                   onSelected("enabler"),
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               UserTypeCard(

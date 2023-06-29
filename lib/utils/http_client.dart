@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'client_helper.dart';
@@ -16,7 +15,7 @@ class HttpClient {
   }
 
   static get(String url,
-      {bool isAuthenticationRequired = true, Uri? uri = null}) async {
+      {bool isAuthenticationRequired = true, Uri? uri}) async {
     var client = http.Client();
     var currentUri = uri ?? Uri.parse(url);
     var response = await client.get(currentUri,

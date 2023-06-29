@@ -1,9 +1,6 @@
 import 'package:febe_frontend/screens/chat_screen/febe_chat_item.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
 
-import 'chat_item.dart';
 
 class ChatsList extends StatefulWidget {
   const ChatsList({super.key});
@@ -17,7 +14,7 @@ class _ChatsListState extends State<ChatsList> {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(8),
-      children: [
+      children: const [
         FebeChatItem(),
         // ...List.generate(10, //this is the total number of cards
         //     (index) {

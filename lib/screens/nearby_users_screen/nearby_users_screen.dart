@@ -7,8 +7,6 @@ import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:febe_frontend/widgets/default_appbar.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../widgets/default_loader.dart';

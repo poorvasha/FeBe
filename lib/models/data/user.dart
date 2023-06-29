@@ -31,23 +31,24 @@ class User {
     isSignupCompleted = json['isSignupCompleted'];
     type = json['type'];
     enabler =
-        json['enabler'] != null ? new Enabler.fromJson(json['enabler']) : null;
+        json['enabler'] != null ? Enabler.fromJson(json['enabler']) : null;
     entrepreneur = json['entrepreneur'] != null
-        ? new Entrepreneur.fromJson(json['entrepreneur'])
+        ? Entrepreneur.fromJson(json['entrepreneur'])
         : null;
     location = json['location'] != null
-        ? new Location.fromJson(json['location'])
+        ? Location.fromJson(json['location'])
         : null;
     createdAt = DateTime.parse(json['createdAt']);
     updatedAt = DateTime.parse(json['updatedAt']);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (name != null) data['name'] = name;
     if (phoneNumber != null) data['phoneNumber'] = phoneNumber;
-    if (isSignupCompleted != null)
+    if (isSignupCompleted != null) {
       data['isSignupCompleted'] = isSignupCompleted;
+    }
     if (type != null) data['type'] = type;
     if (enabler != null) {
       data['enabler'] = enabler!.toJson();

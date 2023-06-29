@@ -5,11 +5,8 @@ import 'package:febe_frontend/screens/nearby_users_screen/nearby_users_screen.da
 import 'package:febe_frontend/widgets/default_appbar.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../configs/resources.dart';
-import 'category_grid.dart';
 
 class FinderHomeScreen extends StatefulWidget {
   const FinderHomeScreen({super.key});
@@ -35,7 +32,7 @@ class _FinderHomeScreenState extends State<FinderHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppbar(
+      appBar: const DefaultAppbar(
         goBack: false,
         title: "Find your mate",
       ),

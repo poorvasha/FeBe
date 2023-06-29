@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../configs/resources.dart';
 import 'chat_screen.dart';
@@ -15,7 +13,7 @@ class FebeChatItem extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  ChatScreen(name: "FEBE", isVerified: true, isFEBE: true)));
+                  const ChatScreen(name: "FEBE", isVerified: true, isFEBE: true)));
     }
 
     return Padding(
@@ -80,6 +78,5 @@ class FebeChatItem extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

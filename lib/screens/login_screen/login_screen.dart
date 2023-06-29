@@ -1,4 +1,3 @@
-import 'dart:isolate';
 
 import 'package:febe_frontend/screens/otp_verification_screen/otp_verification_screen.dart';
 import 'package:febe_frontend/services/auth_service.dart';
@@ -7,8 +6,6 @@ import 'package:febe_frontend/widgets/default_loader.dart';
 import 'package:febe_frontend/widgets/default_text_input.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import '../../configs/resources.dart';
 import '../../widgets/default_checkbox.dart';
@@ -117,6 +114,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ? const DefaultLoader()
                 : ElevatedButton(
                     onPressed: isTermsAndConditionsAccepted ? getOTP : null,
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.golden,
+                        disabledBackgroundColor: AppColors.gray,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        )),
                     child: Text(
                       "Get OTP",
                       style: AppTextStyles.semiBoldBeVietnamPro16.copyWith(
@@ -125,12 +128,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               : AppColors.lightWhite,
                           fontSize: 20),
                     ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.golden,
-                        disabledBackgroundColor: AppColors.gray,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        )),
                   ),
           ),
         ],

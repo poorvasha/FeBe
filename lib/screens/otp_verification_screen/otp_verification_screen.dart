@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:febe_frontend/configs/constants.dart';
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:febe_frontend/models/data/user.dart';
-import 'package:febe_frontend/screens/location_access_screen/location_access_screen.dart';
-import 'package:febe_frontend/screens/user_details_form_screen/user_details_form_screen.dart';
 import 'package:febe_frontend/services/user_service.dart';
 import 'package:febe_frontend/utils/app_exception.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
@@ -199,7 +196,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
             length: 4,
             fieldWidth: 50,
             width: 285,
-            style: TextStyle(color: AppColors.white, fontSize: 30),
+            style: const TextStyle(color: AppColors.white, fontSize: 30),
             textFieldAlignment: MainAxisAlignment.spaceAround,
             fieldStyle: FieldStyle.box,
             otpFieldStyle: OtpFieldStyle(
@@ -251,6 +248,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                 ? const DefaultLoader()
                 : ElevatedButton(
                     onPressed: otp.length == 4 ? verifyOTP : null,
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.golden,
+                        disabledBackgroundColor: AppColors.gray,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        )),
                     child: Text(
                       "Verfify OTP",
                       style: AppTextStyles.semiBoldBeVietnamPro16.copyWith(
@@ -259,12 +262,6 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                               : AppColors.lightWhite,
                           fontSize: 20),
                     ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.golden,
-                        disabledBackgroundColor: AppColors.gray,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        )),
                   ),
           ),
         ]),

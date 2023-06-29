@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:math';
 
 
 class AppResources {
@@ -49,9 +47,9 @@ class AppResources {
         borderSide: BorderSide.none,
       ));
 
-  static ButtonStyle buttonStyle = ButtonStyle(
-      minimumSize: const MaterialStatePropertyAll(Size(double.infinity, 50)),
-      backgroundColor: const MaterialStatePropertyAll(AppColors.golden));
+  static ButtonStyle buttonStyle = const ButtonStyle(
+      minimumSize: MaterialStatePropertyAll(Size(double.infinity, 50)),
+      backgroundColor: MaterialStatePropertyAll(AppColors.golden));
 }
 
 // #region Colors

@@ -1,12 +1,10 @@
 import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../configs/resources.dart';
 import '../../configs/routes.dart';
 import '../../providers/app_model.dart';
-import '../../services/secure_local_storage.dart';
 import 'user_type_card.dart';
 
 class UserTypeScreen extends StatefulWidget {
@@ -32,7 +30,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
     return Scaffold(
         backgroundColor: AppColors.white,
         body: SingleChildScrollView(
-          child: Container(
+          child: SizedBox(
             height: height,
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -62,7 +60,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                               const SizedBox(
                                 height: 18,
                               ),
-                              Container(
+                              SizedBox(
                                 width: width,
                                 child: Column(
                                     mainAxisSize: MainAxisSize.max,

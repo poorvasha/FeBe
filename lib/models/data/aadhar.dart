@@ -10,9 +10,9 @@ class Aadhar {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['front'] = this.front;
-    data['back'] = this.back;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['front'] = front;
+    data['back'] = back;
     return data;
   }
 }
