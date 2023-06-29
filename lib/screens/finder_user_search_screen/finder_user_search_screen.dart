@@ -9,6 +9,7 @@ import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/data/enabler_category.dart';
+import '../../utils/app_helper.dart';
 import 'identification_tile.dart';
 
 class FinderUserSearchScreen extends StatefulWidget {

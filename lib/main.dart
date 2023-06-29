@@ -5,6 +5,7 @@ import 'package:febe_frontend/screens/get_started_screen/get_started_screen.dart
 import 'package:febe_frontend/screens/login_screen/login_screen.dart';
 import 'package:febe_frontend/screens/user_details_form_screen/user_details_form_screen.dart';
 import 'package:febe_frontend/screens/user_type_screen/user_type_screen.dart';
+import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

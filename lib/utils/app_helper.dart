@@ -10,6 +10,8 @@ import '../services/secure_local_storage.dart';
 
 enum LocationStatus { turnedOff, denied, blocked, granted, yetToRequest }
 
+enum UserType { enabler, entrepreneur}
+
 class AppHelper {
   Future<bool> checkIsUserLoggedIn() async {
     try {
