@@ -1,10 +1,12 @@
 import 'package:febe_frontend/providers/app_model.dart';
+import 'package:febe_frontend/screens/finder_user_search_screen/finder_user_search_screen.dart';
 import 'package:febe_frontend/screens/flash_screen/flash_screen.dart';
 import 'package:febe_frontend/screens/get_started_screen/get_started_screen.dart';
 import 'package:febe_frontend/screens/home_screen/home_screen.dart';
 import 'package:febe_frontend/screens/login_screen/login_screen.dart';
 import 'package:febe_frontend/screens/user_details_form_screen/user_details_form_screen.dart';
 import 'package:febe_frontend/screens/user_type_screen/user_type_screen.dart';
+import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -43,11 +45,10 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Cloud Contacts',
       theme: ThemeData(
-        useMaterial3: true,
-        backgroundColor: AppColors.lightBlack,
-        primaryColor: AppColors.golden,
-        inputDecorationTheme: AppResources.defaultInputDecoration,
-      ),
+          backgroundColor: AppColors.lightBlack,
+          primaryColor: AppColors.golden,
+          inputDecorationTheme: AppResources.defaultInputDecoration,
+          useMaterial3: true),
       onGenerateRoute: Routes.controller,
       home: displayHome(),
     );
@@ -61,7 +62,10 @@ class _MyAppState extends State<MyApp> {
       case 'loginScreen':
         return const LoginScreen();
       case 'homeScreen':
-        return const HomeScreen();
+        // return const HomeScreen();
+        return const FinderUserSearchScreen(
+          targetUserType: UserType.entrepreneur,
+        );
       case 'getStartedScreen':
         return const GetStartedScreen();
       case 'userTypeScreen':

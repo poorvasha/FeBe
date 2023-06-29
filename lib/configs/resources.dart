@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:math';
+
 
 class AppResources {
   static var screenMargin = const EdgeInsets.fromLTRB(20, 30, 20, 30);
@@ -25,6 +27,27 @@ class AppResources {
             borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(width: 2, color: AppColors.red),
           ));
+  static InputDecoration bareInputDecoration = const InputDecoration(
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(0)),
+        borderSide: BorderSide.none,
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(0)),
+        borderSide: BorderSide.none,
+      ),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(0)),
+        borderSide: BorderSide.none,
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(0)),
+        borderSide: BorderSide.none,
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(0)),
+        borderSide: BorderSide.none,
+      ));
 
   static ButtonStyle buttonStyle = ElevatedButton.styleFrom(
       minimumSize: Size(double.infinity, 50),
@@ -45,6 +68,7 @@ class AppColors {
   static const Color black = Color(0xFF000000);
   static Color brown = const Color(0xFFFF0000).withOpacity(0.1);
   static const Color gray = Color(0xFF292929);
+  static const Color lightGray = Color(0xFF1D1B20);
   static const Color red = Color(0xFFDB4437);
   static const Color green = Color(0xFF0F9D58);
   static const Color extraLightBlack = Color(0XFF676767);

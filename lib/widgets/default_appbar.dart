@@ -1,38 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+ 
 
 import '../configs/resources.dart';
 
-class DefaultAppbar extends StatelessWidget with PreferredSizeWidget {
+class DefaultAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool goBack;
+  final bool wideTitle;
   final Widget? titleWidget;
+  final List<Widget>? actions;
   const DefaultAppbar(
-      {super.key, this.title = "", this.goBack = true, this.titleWidget});
+      {super.key,
+      this.title = "",
+      this.goBack = true,
+      this.wideTitle = false,
+      this.titleWidget,
+      this.actions});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Theme.of(context).backgroundColor,
-      elevation: 0,
+      backgroundColor: AppColors.lightGolden,
       leading: goBack
           ? IconButton(
               icon: const Icon(
                 Icons.arrow_back,
-                color: AppColors.golden,
+                color: AppColors.lightBlack,
               ),
               onPressed: () => Navigator.of(context).pop(),
             )
           : const SizedBox(),
-      title: titleWidget != null
-          ? titleWidget
-          : Text(
-              title,
-              style: AppTextStyles.boldBeVietnamPro
-                  .copyWith(color: AppColors.golden, fontSize: 30),
-            ),
-      centerTitle: true,
+      title: titleWidget ??
+          Text(
+            title,
+            style: AppTextStyles.boldBeVietnamPro
+                .copyWith(color: AppColors.lightBlack, fontSize: 24),
+          ),
+      actions: actions,
+      titleSpacing: wideTitle ? -14 : 0,
     );
   }
 
