@@ -1,5 +1,4 @@
 import 'package:febe_frontend/models/data/enabler_designation.dart';
-import 'package:febe_frontend/screens/finder_home_screen/user_designations.dart';
 
 class EnablerCategory {
   String? sId;
@@ -17,7 +16,7 @@ class EnablerCategory {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['_id'] = sId;
     data['name'] = name;
     data['designations'] = designations;
@@ -48,7 +47,7 @@ class EnablerCategoryWithDesignation {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['_id'] = sId;
     data['name'] = name;
     if (designations != null) {

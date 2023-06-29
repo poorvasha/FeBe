@@ -9,15 +9,11 @@ import 'package:febe_frontend/screens/user_details_form_screen/enabler_user_deta
 import 'package:febe_frontend/screens/user_details_form_screen/enterpreneur_user_detail_1.dart';
 import 'package:febe_frontend/screens/user_details_form_screen/enterpreneur_user_detail_2.dart';
 import 'package:febe_frontend/screens/user_details_form_screen/enterpreneur_user_detail_3.dart';
-import 'package:febe_frontend/screens/user_details_form_screen/user_detail_form_enabler_designation.dart';
 import 'package:febe_frontend/screens/user_details_form_screen/user_detail_form_stepper.dart';
 import 'package:febe_frontend/services/user_service.dart';
 import 'package:febe_frontend/utils/app_helper.dart';
-import 'package:febe_frontend/widgets/default_text_input.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 import 'package:searchfield/searchfield.dart';
 

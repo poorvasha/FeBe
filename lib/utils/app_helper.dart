@@ -130,14 +130,14 @@ class AppHelper {
   }
 
   static Future<XFile?> pickImage(BuildContext context) async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     String? result = await showOptionsDialog(
         context, "Where do you want to choose?", ["Gallery", "Camera"]);
 
     if (result == null) {
       return null;
     }
-    final XFile? image = await _picker.pickImage(
+    final XFile? image = await picker.pickImage(
         source: result == "Gallery" ? ImageSource.gallery : ImageSource.camera);
 
     return image;
@@ -231,13 +231,9 @@ class AppHelper {
     final hasPermission = await _handleLocationPermission(context);
     if (!hasPermission) return null;
 
-    double lastUserLat = 0.0;
-    double lastUserLong = 0.0;
     Geolocator.getPositionStream(
             locationSettings: const LocationSettings(distanceFilter: 100))
         .listen((event) {
-      lastUserLat = event.latitude;
-      lastUserLong = event.longitude;
       UserService.updateUserLocation(event.latitude, event.longitude);
     });
   }

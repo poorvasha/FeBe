@@ -25,7 +25,7 @@ class Enabler {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (about != null) data['about'] = about;
     if (linkedInURL != null) data['linkedInURL'] = linkedInURL;
     if (portfolioURL != null) data['portfolioURL'] = portfolioURL;
@@ -55,7 +55,7 @@ class ExpandedEnabler {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['about'] = about;
     data['linkedInURL'] = linkedInURL;
     if (designation != null) {

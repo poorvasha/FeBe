@@ -8,8 +8,6 @@ import 'package:febe_frontend/screens/get_started_screen/get_started_carousel_it
 import 'package:febe_frontend/services/secure_local_storage.dart';
 import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 import '../../configs/routes.dart';
@@ -120,7 +118,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             fontSize: 16,
                             decoration: TextDecoration.underline,
                             decorationColor: AppColors.lightBlack,
-                            shadows: [Shadow(
+                            shadows: [const Shadow(
                               color: AppColors.lightBlack,
                               offset: Offset(0, -2)
                             )]),
@@ -155,6 +153,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () => {moveToNextSlide()},
+                    style: AppResources.buttonStyle,
                     child: Text(
                       currentCarousel == carousels.length
                           ? "Get Started"
@@ -162,7 +161,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                       style: AppTextStyles.boldBeVietnamPro
                           .copyWith(color: AppColors.lightBlack, fontSize: 18),
                     ),
-                    style: AppResources.buttonStyle,
                   ),
                 ),
                 const SizedBox(

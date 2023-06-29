@@ -3,8 +3,6 @@ import 'package:febe_frontend/models/data/entrepreneur_industry.dart';
 import 'package:febe_frontend/services/entrepreneur_industry_service.dart';
 import 'package:febe_frontend/widgets/default_dropdown.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 
 import '../../models/data/user.dart';

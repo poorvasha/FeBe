@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../configs/resources.dart';
 
-class ChatAppbar extends StatelessWidget with PreferredSizeWidget {
+class ChatAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String name;
   final bool isVerified;
   final bool isFEBE;
-  ChatAppbar(
+  const ChatAppbar(
       {super.key,
       required this.name,
       required this.isVerified,
@@ -95,7 +93,7 @@ class ChatAppbar extends StatelessWidget with PreferredSizeWidget {
       centerTitle: false,
       actions: isFEBE
           ? List.empty()
-          : [IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))],
+          : [IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))],
     );
   }
 

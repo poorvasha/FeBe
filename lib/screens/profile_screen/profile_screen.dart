@@ -5,13 +5,10 @@ import 'package:febe_frontend/screens/profile_screen/user_card.dart';
 import 'package:febe_frontend/widgets/default_appbar.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../configs/routes.dart';
-import '../../models/data/user.dart';
 import '../../popups/logout_confirmation_popup.dart';
 import '../../providers/app_model.dart';
 import '../../services/user_service.dart';

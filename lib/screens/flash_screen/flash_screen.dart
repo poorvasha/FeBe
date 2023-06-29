@@ -1,6 +1,5 @@
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:febe_frontend/models/data/user.dart';
-import 'package:febe_frontend/services/secure_local_storage.dart';
 import 'package:febe_frontend/services/user_service.dart';
 import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';

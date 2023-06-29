@@ -6,18 +6,15 @@ import 'package:febe_frontend/models/data/enabler.dart';
 import 'package:febe_frontend/services/file_service.dart';
 import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../models/data/user.dart';
-import '../../widgets/default_text_input.dart';
 
 class EnablerUserDetail3 extends StatelessWidget {
   final User user;
   final Function(User) onChanged;
 
-  EnablerUserDetail3({super.key, required this.user, required this.onChanged});
+  const EnablerUserDetail3({super.key, required this.user, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {

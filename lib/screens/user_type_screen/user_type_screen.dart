@@ -1,12 +1,10 @@
 import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../configs/resources.dart';
 import '../../configs/routes.dart';
 import '../../providers/app_model.dart';
-import '../../services/secure_local_storage.dart';
 import 'user_type_card.dart';
 
 class UserTypeScreen extends StatefulWidget {

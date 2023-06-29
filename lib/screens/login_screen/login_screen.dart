@@ -1,4 +1,3 @@
-import 'dart:isolate';
 
 import 'package:febe_frontend/screens/otp_verification_screen/otp_verification_screen.dart';
 import 'package:febe_frontend/services/auth_service.dart';
@@ -8,8 +7,6 @@ import 'package:febe_frontend/widgets/default_loader.dart';
 import 'package:febe_frontend/widgets/default_text_input.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import '../../configs/resources.dart';
 import '../../widgets/default_checkbox.dart';

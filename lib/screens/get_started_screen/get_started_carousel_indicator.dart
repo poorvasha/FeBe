@@ -1,7 +1,5 @@
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class GetStartedCarouselIndicator extends StatefulWidget {
   final int total;
@@ -21,7 +19,7 @@ class _GetStartedCarouselIndicatorState
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: new List<int>.generate(widget.total, (i) => i + 1)
+        children: List<int>.generate(widget.total, (i) => i + 1)
             .map((index) => Indicator(isActive: index == widget.current))
             .toList(),
       ),

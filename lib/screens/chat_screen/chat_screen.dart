@@ -1,14 +1,7 @@
-import 'package:febe_frontend/configs/resources.dart';
-import 'package:febe_frontend/models/data/user.dart';
 import 'package:febe_frontend/screens/chat_screen/chat_appbar.dart';
 import 'package:febe_frontend/screens/chat_screen/chat_message.dart';
-import 'package:febe_frontend/services/user_service.dart';
-import 'package:febe_frontend/utils/app_helper.dart';
-import 'package:febe_frontend/widgets/default_appbar.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import 'message_box.dart';
 
@@ -49,12 +42,12 @@ class _ChatScreenState extends State<ChatScreen> {
               Expanded(
                   child: ListView(
                 reverse: false,
-                children: [
+                children: const [
                   ChatMessage(
                       messageType: "receiver", message: "Welcome to FEBE"),
                 ],
               )),
-              MessageBox(
+              const MessageBox(
                 isDisabled: true,
               )
             ],

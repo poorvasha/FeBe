@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:febe_frontend/configs/constants.dart';
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:febe_frontend/models/data/user.dart';
-import 'package:febe_frontend/screens/location_access_screen/location_access_screen.dart';
-import 'package:febe_frontend/screens/user_details_form_screen/user_details_form_screen.dart';
 import 'package:febe_frontend/services/user_service.dart';
 import 'package:febe_frontend/utils/app_exception.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
@@ -160,8 +157,41 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
               "assets/images/eoe_logo.png",
               // height: 180,
             ),
-            const SizedBox(
-              height: 73,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Text(
+                "+91${widget.phoneNumber}",
+                style: AppTextStyles.semiBoldBeVietnamPro16
+                    .copyWith(color: AppColors.golden),
+              ),
+              IconButton(
+                  onPressed: goBack,
+                  icon: const Icon(
+                    Icons.edit,
+                    color: AppColors.golden,
+                    size: 20,
+                  ))
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          OTPTextField(
+            length: 4,
+            fieldWidth: 50,
+            width: 285,
+            style: const TextStyle(color: AppColors.white, fontSize: 30),
+            textFieldAlignment: MainAxisAlignment.spaceAround,
+            fieldStyle: FieldStyle.box,
+            otpFieldStyle: OtpFieldStyle(
+              borderColor: AppColors.white,
+              focusBorderColor: AppColors.golden,
+              disabledBorderColor: AppColors.white,
+              enabledBorderColor: AppColors.white,
             ),
             Text(
               "OTP Verification",
@@ -170,100 +200,34 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                 fontSize: 32,
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              "You would have received an OTP on your device right now",
-              textAlign: TextAlign.center,
-              style: AppTextStyles.regularBeVietnamPro12.copyWith(
-                color: AppColors.extraLightBlack,
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: OTPTextField(
-                outlineBorderRadius: 5,
-                spaceBetween: 5,
-                length: 4,
-                fieldWidth: 50,
-                width: MediaQuery.of(context).size.width,
-                style: AppTextStyles.semiBoldBeVietnamPro20.copyWith(color: AppColors.lightBlack),
-                textFieldAlignment: MainAxisAlignment.spaceAround,
-                fieldStyle: FieldStyle.box,
-                otpFieldStyle: OtpFieldStyle(
-                  borderColor: AppColors.lightBlack,
-                  focusBorderColor: AppColors.golden,
-                  disabledBorderColor: AppColors.lightBlack,
-                  enabledBorderColor: AppColors.lightBlack,
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    otp = value;
-                  });
-                },
-              ),
-            ),
-            Spacer(),
-            Center(
-              child: Container(
-                width: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppHelper.convertSecToMin(timeInSecond: _currentTime),
-                      style: AppTextStyles.regularBeVietnamPro12
-                          .copyWith(color: AppColors.lightBlack),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          SizedBox(
+            width: 268,
+            height: 50,
+            child: _isLoading
+                ? const DefaultLoader()
+                : ElevatedButton(
+                    onPressed: otp.length == 4 ? verifyOTP : null,
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.golden,
+                        disabledBackgroundColor: AppColors.gray,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        )),
+                    child: Text(
+                      "Verfify OTP",
+                      style: AppTextStyles.semiBoldBeVietnamPro16.copyWith(
+                          color: otp.length == 4
+                              ? AppColors.white
+                              : AppColors.lightWhite,
+                          fontSize: 20),
                     ),
-                    TextButton(
-                        onPressed: _timer != null && !_timer!.isActive
-                            ? resendOTP
-                            : null,
-                        child: Text(
-                          "Resend OTP",
-                          style: AppTextStyles.regularBeVietnamPro12
-                              .copyWith(color: AppColors.lightBlack),
-                        ))
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: _isLoading
-                  ? const DefaultLoader()
-                  : ElevatedButton(
-                      onPressed: otp.length == 4 ? verifyOTP : null,
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.golden,
-                          disabledBackgroundColor: AppColors.lightWhite,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                          )),
-                      child: Text(
-                        "Next",
-                        style: AppTextStyles.boldBeVietnamPro.copyWith(
-                            color: otp.length == 4
-                                ? AppColors.lightBlack
-                                : AppColors.gray.withOpacity(0.50),
-                            fontSize: 18),
-                      ),
-                    ),
-            ),
-            const SizedBox(
-              height: 70,
-            ),
-          ]),
-        ),
+                  ),
+          ),
+        ]),
       ),
     );
   }

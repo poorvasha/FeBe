@@ -1,25 +1,23 @@
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
 
 class UserDetailFormStepper extends StatelessWidget {
   final int activeIndex;
-  UserDetailFormStepper({super.key, required this.activeIndex});
+  const UserDetailFormStepper({super.key, required this.activeIndex});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 60,
       height: 680,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: AppColors.gray,
-          borderRadius: const BorderRadius.only(
+          borderRadius: BorderRadius.only(
             topRight: Radius.circular(15),
             bottomRight: Radius.circular(15),
           ),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
               color: AppColors.golden,
               offset: Offset(0, 2),

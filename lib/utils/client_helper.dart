@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 
-import '../configs/api_routes.dart';
 import '../services/secure_local_storage.dart';
 import 'app_exception.dart';
 import 'dialog_helper.dart';
@@ -20,7 +19,7 @@ class ClientHelper {
         header["Authorization"] = "Bearer ${authToken.toString()}";
       }
       return header;
-    } on Exception catch (e) {
+    } on Exception {
       return {};
     }
   }

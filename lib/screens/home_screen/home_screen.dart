@@ -3,8 +3,6 @@ import 'package:febe_frontend/screens/finder_home_screen/finder_home_screen.dart
 import 'package:febe_frontend/screens/location_access_screen/location_access_screen.dart';
 import 'package:febe_frontend/screens/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../utils/app_helper.dart';
@@ -23,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int activeTab = 0;
 
-  List<Widget> tabs = [ChatHomeScreen(), FinderHomeScreen(), ProfileScreen()];
+  List<Widget> tabs = [const ChatHomeScreen(), const FinderHomeScreen(), const ProfileScreen()];
 
   @override
   void initState() {
@@ -37,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => LocationAccessScreen(
+            builder: (context) => const LocationAccessScreen(
                   shouldGoBack: false,
                 ),
             fullscreenDialog: true),

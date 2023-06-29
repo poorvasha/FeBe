@@ -1,8 +1,5 @@
 import 'package:febe_frontend/configs/resources.dart';
-import 'package:febe_frontend/screens/nearby_users_screen/nearby_users_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class CategoryGrid extends StatelessWidget {
   final String title;
@@ -24,7 +21,7 @@ class CategoryGrid extends StatelessWidget {
         GridView.count(
           childAspectRatio: 3.5,
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           crossAxisCount: 2,
           children: options
               .map((option) => SizedBox(

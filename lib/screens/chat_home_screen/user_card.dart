@@ -1,7 +1,5 @@
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
 
 class UserCard extends StatelessWidget {
@@ -9,7 +7,7 @@ class UserCard extends StatelessWidget {
   final bool isVerified;
   final String locationName;
   final Function()? onLocationTap;
-  UserCard(
+  const UserCard(
       {super.key,
       required this.name,
       this.isVerified = false,
@@ -86,7 +84,7 @@ class UserCard extends StatelessWidget {
             child: Container(
           alignment: Alignment.centerRight,
           child: InkWell(
-            onTap: onLocationTap ?? null,
+            onTap: onLocationTap,
             child: Container(
               width: 160,
               alignment: Alignment.center,

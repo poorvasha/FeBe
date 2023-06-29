@@ -1,7 +1,5 @@
 import 'package:febe_frontend/screens/chat_screen/chat_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../configs/resources.dart';
 

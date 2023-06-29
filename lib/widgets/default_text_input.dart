@@ -1,8 +1,5 @@
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 
 class DefaultTextInput extends StatefulWidget {
@@ -18,7 +15,7 @@ class DefaultTextInput extends StatefulWidget {
   final String label;
   final String helperText;
 
-  DefaultTextInput(
+  const DefaultTextInput(
       {super.key,
       this.hint = "",
       this.value = "",

@@ -4,8 +4,6 @@ import 'package:febe_frontend/screens/finder_home_screen/category_grid.dart';
 import 'package:febe_frontend/services/enabler_category_service.dart';
 import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class UserDesignations extends StatefulWidget {
   final Function(String, String) onIdentitySelected;
