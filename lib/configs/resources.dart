@@ -26,11 +26,12 @@ class AppResources {
             borderSide: BorderSide(width: 2, color: AppColors.red),
           ));
 
-  static ButtonStyle buttonStyle = ButtonStyle(
-      minimumSize: const MaterialStatePropertyAll(Size(double.infinity, 50)),
-      backgroundColor: const MaterialStatePropertyAll(AppColors.golden), shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                            ));
+  static ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+      minimumSize: Size(double.infinity, 50),
+      backgroundColor:AppColors.golden,     
+      shape: 
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+      );
 }
 
 // #region Colors

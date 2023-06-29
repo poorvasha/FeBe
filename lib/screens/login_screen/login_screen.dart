@@ -107,8 +107,10 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: FullScreenContainer(
-          fullScreen : true,
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        padding: const EdgeInsets.all(25.0),
+        child: SingleChildScrollView(
           child: Column(
             children: [
               const SizedBox(
@@ -182,9 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               
-              const SizedBox(
-                height: 60,
-              ),
+            SizedBox(height: 40),
               SizedBox(
                 width: double.infinity,
                 height: 50,
@@ -196,21 +196,24 @@ class _LoginScreenState extends State<LoginScreen> {
                             backgroundColor: AppColors.golden,
                             disabledBackgroundColor: AppColors.lightWhite,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(5.0),
                             )),
                         child: Text(
                           
                           "Next",
-                          style: AppTextStyles.semiBoldBeVietnamPro16.copyWith(
+                          style: AppTextStyles.boldBeVietnamPro.copyWith(
                               color: enbleButton
                                   ? AppColors.lightBlack
                                   : AppColors.gray.withOpacity(0.50),
-                              fontSize: 20),
+                              fontSize: 18),
                         ),
                       ),
               ),
+              SizedBox(height: 40)
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

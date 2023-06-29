@@ -100,10 +100,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            height: screenSize.height,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          height: screenSize.height,
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -128,37 +128,29 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                     ),
                   ),
                 ),
-                Flexible(
-                  fit: FlexFit.loose,
-                  child: CarouselSlider(
-                    carouselController: controller,
-                    items: carousels.map((item) {
-                      return GetStartedCarouselItem(carousel: item);
-                    }).toList(),
-                    options: CarouselOptions(
-                        height: screenSize.height,
-                        enlargeCenterPage: true,
-                        enlargeFactor: 1,
-                        viewportFraction: 1,
-                        enableInfiniteScroll: false,
-                        onPageChanged: (val, _) {
-                          setState(() {
-                            currentCarousel = val + 1;
-                          });
-                        }),
-                  ),
+                CarouselSlider(
+                  carouselController: controller,
+                  items: carousels.map((item) {
+                    return GetStartedCarouselItem(carousel: item);
+                  }).toList(),
+                  options: CarouselOptions(
+                      height: screenSize.height/1.4,
+                      enlargeCenterPage: true,
+                      enlargeFactor: 1,
+                      viewportFraction: 1,
+                      enableInfiniteScroll: false,
+                      onPageChanged: (val, _) {
+                        setState(() {
+                          currentCarousel = val + 1;
+                        });
+                      }),
                 ),
-                if(screenSize.height < 800)
-                  const SizedBox(
-                    height: 40,
-                  ),
+                
                 GetStartedCarouselIndicator(
                   total: carousels.length,
                   current: currentCarousel,
                 ),
-                const SizedBox(
-                  height: 80,
-                ),
+                SizedBox(height: 60,),
                 SizedBox(
                   height: 50,
                   child: ElevatedButton(
@@ -174,7 +166,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 90,
+                  height: 70,
                 )
               ],
             ),

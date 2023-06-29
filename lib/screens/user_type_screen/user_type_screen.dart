@@ -53,7 +53,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(25.0),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -123,6 +123,9 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                         ),
                       ),
                     ]),
+              ),
+              const SizedBox(
+                height: 80,
               ),
             ],
           ),
