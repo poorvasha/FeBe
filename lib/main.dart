@@ -43,6 +43,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Cloud Contacts',
       theme: ThemeData(
+        useMaterial3: true,
         backgroundColor: AppColors.lightBlack,
         primaryColor: AppColors.golden,
         inputDecorationTheme: AppResources.defaultInputDecoration,

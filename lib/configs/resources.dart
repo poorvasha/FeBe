@@ -28,7 +28,9 @@ class AppResources {
 
   static ButtonStyle buttonStyle = ButtonStyle(
       minimumSize: const MaterialStatePropertyAll(Size(double.infinity, 50)),
-      backgroundColor: const MaterialStatePropertyAll(AppColors.golden));
+      backgroundColor: const MaterialStatePropertyAll(AppColors.golden), shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                            ));
 }
 
 // #region Colors
@@ -44,6 +46,7 @@ class AppColors {
   static const Color gray = Color(0xFF292929);
   static const Color red = Color(0xFFDB4437);
   static const Color green = Color(0xFF0F9D58);
+  static const Color extraLightBlack = Color(0XFF676767);
 }
 // #endregion
 

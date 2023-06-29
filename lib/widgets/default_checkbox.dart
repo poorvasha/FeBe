@@ -13,7 +13,8 @@ class DefaultCheckbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       children: [
         Checkbox(
@@ -26,8 +27,9 @@ class DefaultCheckbox extends StatelessWidget {
         Flexible(
           child: Text(
             label,
+            softWrap : true,
             style: AppTextStyles.regularBeVietnamPro16
-                .copyWith(color: AppColors.lightWhite, height: 1.5),
+                .copyWith(color: AppColors.lightBlack, height: 1.5, fontSize: 14),
           ),
         ),
       ],

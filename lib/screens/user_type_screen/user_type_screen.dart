@@ -17,6 +17,9 @@ class UserTypeScreen extends StatefulWidget {
 }
 
 class _UserTypeScreenState extends State<UserTypeScreen> {
+  bool enablerRadioSelected = true;
+  bool entrepreneurRadioSelected = false;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -29,72 +32,99 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
           isUsingForFirstTime ? Routes.getStartedScreen : Routes.loginScreen;
     }
 
+    void onRadioButtonSelected(String value) {
+      if (value == "enabler") {
+        setState(() {
+          enablerRadioSelected = true;
+          entrepreneurRadioSelected = false;
+        });
+      } else {
+        setState(() {
+          entrepreneurRadioSelected = true;
+          enablerRadioSelected = false;
+        });
+      }
+    }
+
     return Scaffold(
         backgroundColor: AppColors.white,
         body: SingleChildScrollView(
-          child: Container(
-            height: height,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: Container(
-                      color: AppColors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset("assets/images/welcome.png"),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text("Welcome!",
+                          style: AppTextStyles.boldBeVietnamPro.copyWith(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 32)),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Text("What suits you better",
+                          style: AppTextStyles.semiBoldBeVietnamPro20.copyWith(
+                            color: AppColors.lightBlack,
+                          )),
+                      const SizedBox(
+                        height: 18,
+                      ),
+                      Container(
+                        width: width,
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Image.asset("assets/images/welcome.png"),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                              Text("Welcome!",
-                                  style: AppTextStyles.boldBeVietnamPro.copyWith(
-                                      color: Theme.of(context).primaryColor, fontSize: 32)),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              Text("What suits you better",
-                                  style: AppTextStyles.semiBoldBeVietnamPro20.copyWith(
-                                      color: AppColors.lightBlack,)),       
-                              const SizedBox(
-                                height: 18,
-                              ),
-                              Container(
-                                width: width,
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      UserTypeCard(
-                                        image: Image.asset(
-                                            "assets/images/enabler.png"),
-                                        title: "Enabler",
-                                        onTap: () => {setUserType("enabler")},
-                                      ),
-                                      const SizedBox(
-                                        height: 24,
-                                      ),
-                                      UserTypeCard(
-                                        image: Image.asset(
-                                            "assets/images/enteruper.png"),
-                                        title: "Entrepreneur",
-                                        onTap: () =>
-                                            {setUserType("entrepreneur")},
-                                      ),
-                                    ]),
+                              UserTypeCard(
+                                title: "Enabler",
+                                subtitle:
+                                    "One who helps the entreprenuers to achieve their goals",
+                                displayRadioUserCard: true,
+                                radioSelected: enablerRadioSelected,
+                                onTap: () => {onRadioButtonSelected("enabler")},
                               ),
                               const SizedBox(
-                                height: 60,
+                                height: 24,
+                              ),
+                              UserTypeCard(
+                                title: "Entrepreneur",
+                                subtitle:
+                                    "One who helps the entreprenuers to achieve their goals",
+                                displayRadioUserCard: true,
+                                radioSelected: entrepreneurRadioSelected,
+                                onTap: () =>
+                                    {onRadioButtonSelected("entrepreneur")},
                               ),
                             ]),
-                      )),
-                ),
-              ],
-            ),
+                      ),
+                      const SizedBox(
+                        height: 60,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (enablerRadioSelected) {
+                            setUserType("enabler");
+                          } else if (entrepreneurRadioSelected) {
+                            setUserType("Entrepreneur");
+                          }
+                        },
+                        style: AppResources.buttonStyle,
+                        child: Text(
+                          "Next",
+                          style: AppTextStyles.boldBeVietnamPro.copyWith(
+                              color: AppColors.lightBlack, fontSize: 18),
+                        ),
+                      ),
+                    ]),
+              ),
+            ],
           ),
         ));
   }

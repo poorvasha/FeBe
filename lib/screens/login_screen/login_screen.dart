@@ -3,6 +3,7 @@ import 'dart:isolate';
 import 'package:febe_frontend/screens/otp_verification_screen/otp_verification_screen.dart';
 import 'package:febe_frontend/services/auth_service.dart';
 import 'package:febe_frontend/utils/app_helper.dart';
+import 'package:febe_frontend/utils/extensions.dart';
 import 'package:febe_frontend/widgets/default_loader.dart';
 import 'package:febe_frontend/widgets/default_text_input.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
@@ -22,14 +23,44 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isTermsAndConditionsAccepted = false;
+  bool isWhatsappNotificationAccepted = false;
   bool _isLoading = false;
   String phonenumber = "";
+  bool enbleButton = false;
+  String userType = "";
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    // var isContainsKey =
+    //       await SecureStorage().containsKeyInSecureData('accessToken');
+    //   if (isContainsKey) {
+    //     var data = await SecureStorage().readSecureData('accessToken');
+    //     if (data != null && data.isNotEmpty) {
+    //       return true;
+    //     }
+    //   }
+    Future.delayed(const Duration(seconds: 500));
+    getUserType().then((value) { 
+      setState(() {
+        userType = value.toString().capitalize();
+      });
+    });
+    // AppHelper.getUserType().then((value){ 
+    //   userType = value.toString();
+    // });
+  }
+
+  Future<String?> getUserType() async{
+    return await AppHelper.getUserType();
+  }
   @override
   Widget build(BuildContext context) {
     void getOTP() async {
-      if (phonenumber.trim() == "") {
-        return AppHelper.showSnackbar("Please enter phonenumber", context);
+      if (phonenumber.trim() == "" || phonenumber.length != 10) {
+        return AppHelper.showSnackbar("Please enter valid phone number", context);
       }
 
       try {
@@ -62,79 +93,124 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
 
+    void validateAllInputsToEnableButton(){
+      if((phonenumber != null && phonenumber.isNotEmpty) && isTermsAndConditionsAccepted){
+        setState(() {
+          enbleButton = true;
+        });
+      }
+      else{
+        setState(() {
+          enbleButton = false;
+        });
+      }
+    }
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: AppColors.white,
       body: FullScreenContainer(
+          fullScreen : true,
           child: Column(
-        children: [
-          Image.asset(
-            "assets/images/xander_media.png",
-            height: 180,
-          ),
-          const SizedBox(
-            height: 40,
-          ),
-          Text(
-            "Log in",
-            style: AppTextStyles.boldBeVietnamPro.copyWith(
-              color: Theme.of(context).primaryColor,
-              fontSize: 30,
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          DefaultTextInput(
-            hint: "Enter your Phone number",
-            value: phonenumber,
-            keyboard: TextInputType.number,
-            onChanged: (value) {
-              setState(() {
-                phonenumber = value;
-              });
-            },
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          DefaultCheckbox(
-            isChecked: isTermsAndConditionsAccepted,
-            label:
-                "By Signing up, you agree to the Terms of Service and Privacy Policy",
-            onChanged: (value) => {
-              setState(() {
-                isTermsAndConditionsAccepted = value!;
-              })
-            },
-          ),
-          const SizedBox(
-            height: 60,
-          ),
-          SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: _isLoading
-                ? const DefaultLoader()
-                : ElevatedButton(
-                    onPressed: isTermsAndConditionsAccepted ? getOTP : null,
-                    child: Text(
-                      "Get OTP",
-                      style: AppTextStyles.semiBoldBeVietnamPro16.copyWith(
-                          color: isTermsAndConditionsAccepted
-                              ? AppColors.white
-                              : AppColors.lightWhite,
-                          fontSize: 20),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.golden,
-                        disabledBackgroundColor: AppColors.gray,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        )),
-                  ),
-          ),
-        ],
-      )),
+            children: [
+              const SizedBox(
+                height: 73,
+              ),
+              
+              Image.asset(
+                "assets/images/eoe_logo.png",
+                // height: 180,
+              ),
+              const SizedBox(
+                height: 73,
+              ),
+              Text(
+                "LOGIN",
+                style: AppTextStyles.boldBeVietnamPro.copyWith(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 32,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                "You’re logging in as $userType",
+                style: AppTextStyles.regularBeVietnamPro12.copyWith(
+                  color: AppColors.extraLightBlack,
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              DefaultTextInput(
+                hint: "Enter your phone number",
+                helperText: "This will create an account if you don’t have one",
+                label: "Phone Number",
+                value: phonenumber,
+                keyboard: TextInputType.number,
+                onChanged: (value) {
+                  setState(() {
+                    phonenumber = value;
+                  });
+                  validateAllInputsToEnableButton();
+                },
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              DefaultCheckbox(
+                isChecked: isTermsAndConditionsAccepted,
+                label:
+                    "I’m hearby accepting the terms and conditions of FEBE to use this app",
+                onChanged: (value) => {
+                  setState(() {
+                    isTermsAndConditionsAccepted = value!;
+                  }),
+                  validateAllInputsToEnableButton()
+                },
+              ),
+              const SizedBox(
+                height: 18,
+              ),
+              DefaultCheckbox(
+                isChecked: isWhatsappNotificationAccepted,
+                label:
+                    "Receive Whatsapp notifications",
+                onChanged: (value) => {
+                  setState(() {
+                    isWhatsappNotificationAccepted = value!;
+                  }),
+                },
+              ),
+              
+              const SizedBox(
+                height: 60,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: _isLoading
+                    ? const DefaultLoader()
+                    : ElevatedButton(
+                        onPressed: enbleButton ? getOTP : null,
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.golden,
+                            disabledBackgroundColor: AppColors.lightWhite,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                        child: Text(
+                          
+                          "Next",
+                          style: AppTextStyles.semiBoldBeVietnamPro16.copyWith(
+                              color: enbleButton
+                                  ? AppColors.lightBlack
+                                  : AppColors.gray.withOpacity(0.50),
+                              fontSize: 20),
+                        ),
+                      ),
+              ),
+            ],
+          )),
     );
   }
 }

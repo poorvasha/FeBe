@@ -22,19 +22,20 @@ class UserTypePicker extends StatelessWidget {
         ? Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              UserTypeCard(
-                image: Image.asset("assets/images/enabler.png"),
-                title: "Enabler",
-                onTap: () => {
-                  onSelected("enabler"),
-                },
-              ),
+              // UserTypeCard(
+              //   image: Image.asset("assets/images/enabler.png"),
+              //   title: "Enabler",
+              //   onTap: () => {
+              //     onSelected("enabler"),
+              //   },
+              // ),
               SizedBox(
                 height: 30,
               ),
               UserTypeCard(
-                image: Image.asset("assets/images/enteruper.png"),
+                // image: Image.asset("assets/images/enteruper.png"),
                 title: "Entrepreneur",
+                subtitle: "One who helps the entreprenuers to achieve their goals",
                 onTap: () => {onSelected("entrepreneur")},
               ),
             ],
@@ -43,25 +44,25 @@ class UserTypePicker extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               UserTypeCard(
-                  image: SvgPicture.asset(
-                    "assets/images/wave_2.svg",
-                    semanticsLabel: 'Wave',
-                    width: MediaQuery.of(context).size.width / 2.4,
-                  ),
+                  // image: SvgPicture.asset(
+                  //   "assets/images/wave_2.svg",
+                  //   semanticsLabel: 'Wave',
+                  //   width: MediaQuery.of(context).size.width / 2.4,
+                  // ),
                   title: "enabler",
+                  subtitle: "One who helps the entreprenuers to achieve their goals",
                   onTap: () => {onSelected("enabler")},
-                  isActive: activeType == "enabler",
-                  displayWaveUserCard: true),
+                  isActive: activeType == "enabler",),
               UserTypeCard(
-                  image: SvgPicture.asset(
-                    "assets/images/wave_2.svg",
-                    semanticsLabel: 'Wave',
-                    width: MediaQuery.of(context).size.width / 2.4,
-                  ),
+                  // image: SvgPicture.asset(
+                  //   "assets/images/wave_2.svg",
+                  //   semanticsLabel: 'Wave',
+                  //   width: MediaQuery.of(context).size.width / 2.4,
+                  // ),
                   title: "Entrepreneur",
+                  subtitle: "One who helps the entreprenuers to achieve their goals",
                   onTap: () => {onSelected("entrepreneur")},
-                  isActive: activeType == "entrepreneur",
-                  displayWaveUserCard: true),
+                  isActive: activeType == "entrepreneur",),
             ],
           );
   }
