@@ -121,54 +121,61 @@ class _DefaultTextInputState extends State<DefaultTextInput> {
         const SizedBox(
           height: 15,
         ),
-        TextField(
-          maxLength: widget.keyboard == TextInputType.number ? 10 : null,
-          // inputFormatters: widget.keyboard == TextInputType.number ?  [
-          //   FilteringTextInputFormatter.allow(RegExp(r'([0-9][10-12])'))
-          // ] : [],
-          style: AppTextStyles.regularBeVietnamPro16
-              .copyWith(color: AppColors.extraLightBlack),
-          onChanged: (value) {
-            if (widget.onChanged != null) widget.onChanged!(value);
-            //if (widget.errorChanged != null) widget.errorChanged!(isValid());
-          },
-          readOnly: widget.type == "date",
-          focusNode: focus,
-          controller: controller,
-          autofocus: true,
-          maxLines: widget.maxLines,
-          onTap: widget.type == "date" ? pickDate : null,
-          keyboardType: widget.keyboard,
-          decoration: InputDecoration(
-              labelStyle: AppTextStyles.semiBoldBeVietnamPro12.copyWith(
-                color: AppColors.lightBlack,
-              ),
-              floatingLabelStyle: AppTextStyles.semiBoldBeVietnamPro12.copyWith(
+        SizedBox(
+          width: double.infinity,
+          height: 80,
+          child: TextField(
+            maxLength: widget.keyboard == TextInputType.number ? 10 : null,
+            // inputFormatters: widget.keyboard == TextInputType.number ?  [
+            //   FilteringTextInputFormatter.allow(RegExp(r'([0-9][10-12])'))
+            // ] : [],
+            style: AppTextStyles.regularBeVietnamPro16
+                .copyWith(color: AppColors.extraLightBlack),
+            onChanged: (value) {
+              if (widget.onChanged != null) widget.onChanged!(value);
+              //if (widget.errorChanged != null) widget.errorChanged!(isValid());
+            },
+            textAlignVertical: TextAlignVertical.center,
+            readOnly: widget.type == "date",
+            focusNode: focus,
+            controller: controller,
+            autofocus: true,
+            maxLines: widget.maxLines,
+            onTap: widget.type == "date" ? pickDate : null,
+            keyboardType: widget.keyboard,
+            decoration: InputDecoration(
+                labelStyle: AppTextStyles.semiBoldBeVietnamPro12.copyWith(
                   color: AppColors.lightBlack,
-                  backgroundColor: AppColors.lightGolden.withOpacity(0.50)),
-              labelText: widget.label ?? "",
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: BorderSide(
+                ),
+                floatingLabelStyle: AppTextStyles.semiBoldBeVietnamPro12.copyWith(
                     color: AppColors.lightBlack,
-                  )),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: BorderSide(color: AppColors.lightBlack)),
-              errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: BorderSide(color: AppColors.red)),
-              focusedErrorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: BorderSide(color: AppColors.red)),
-              hintText: widget.hint,
-              errorText: isValid() ? null : "* required",
-              errorStyle: const TextStyle(height: 0),
-              hintStyle: AppTextStyles.regularBeVietnamPro16
-                  .copyWith(color: AppColors.lightWhite),
-              helperText: widget.helperText ?? "",
-              helperStyle: AppTextStyles.regularBeVietnamPro12
-                  .copyWith(color: AppColors.extraLightBlack)),
+                    backgroundColor: AppColors.lightGolden.withOpacity(0.50)),
+                labelText: widget.label ?? "",
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: BorderSide(
+                      color: AppColors.lightBlack,
+                    )),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide:
+                                BorderSide(color: AppColors.golden, width: 2)),
+                errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: BorderSide(color: AppColors.red)),
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: BorderSide(color: AppColors.red)),
+                hintText: widget.hint,
+                errorText: isValid() ? null : "* required",
+                errorStyle: const TextStyle(height: 0),
+                hintStyle: AppTextStyles.regularBeVietnamPro16
+                    .copyWith(color: AppColors.lightWhite),
+                helperText: widget.helperText ?? "",
+                helperStyle: AppTextStyles.regularBeVietnamPro12
+                    .copyWith(color: AppColors.extraLightBlack)),
+          ),
         ),
       ],
     );
