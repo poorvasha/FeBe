@@ -17,16 +17,17 @@ class FullScreenContainer extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    return Container(
-      height: fullScreen
-          ? height
-          : !isInsideTabbar
-              ? height - kToolbarHeight - 40
-              : height - kToolbarHeight,
-      width: width,
-      padding:
-          !disablePadding ? const EdgeInsets.all(24) : const EdgeInsets.all(0),
-      child: SingleChildScrollView(
+    return SingleChildScrollView(
+      child: Container(
+        height: fullScreen
+            ? height
+            : !isInsideTabbar
+                ? height - kToolbarHeight - 40
+                : height - kToolbarHeight,
+        width: width,
+        padding: !disablePadding
+            ? const EdgeInsets.all(24)
+            : const EdgeInsets.all(0),
         child: child,
       ),
     );
