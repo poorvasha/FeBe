@@ -26,6 +26,7 @@ import '../../services/enabler_category_service.dart';
 import '../../widgets/default_appbar.dart';
 import '../../widgets/default_dropdown.dart';
 import '../../widgets/default_loader.dart';
+import '../../widgets/default_text_input.dart';
 
 class UserDetailsFormScreen extends StatefulWidget {
   const UserDetailsFormScreen({super.key});

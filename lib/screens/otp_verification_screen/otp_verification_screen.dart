@@ -144,91 +144,89 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.white,
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.all(25.0),
-          child: Column(children: [
-            const SizedBox(
-              height: 73,
-            ),
-            Image.asset(
-              "assets/images/eoe_logo.png",
-              // height: 180,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              Text(
-                "+91${widget.phoneNumber}",
-                style: AppTextStyles.semiBoldBeVietnamPro16
-                    .copyWith(color: AppColors.golden),
+        backgroundColor: AppColors.white,
+        body: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            padding: const EdgeInsets.all(25.0),
+            child: Column(children: [
+              const SizedBox(
+                height: 73,
               ),
-              IconButton(
-                  onPressed: goBack,
-                  icon: const Icon(
-                    Icons.edit,
-                    color: AppColors.golden,
-                    size: 20,
-                  ))
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          OTPTextField(
-            length: 4,
-            fieldWidth: 50,
-            width: 285,
-            style: const TextStyle(color: AppColors.white, fontSize: 30),
-            textFieldAlignment: MainAxisAlignment.spaceAround,
-            fieldStyle: FieldStyle.box,
-            otpFieldStyle: OtpFieldStyle(
-              borderColor: AppColors.white,
-              focusBorderColor: AppColors.golden,
-              disabledBorderColor: AppColors.white,
-              enabledBorderColor: AppColors.white,
-            ),
-            Text(
-              "OTP Verification",
-              style: AppTextStyles.boldBeVietnamPro.copyWith(
-                color: Theme.of(context).primaryColor,
-                fontSize: 32,
+              Image.asset(
+                "assets/images/eoe_logo.png",
+                // height: 180,
               ),
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          SizedBox(
-            width: 268,
-            height: 50,
-            child: _isLoading
-                ? const DefaultLoader()
-                : ElevatedButton(
-                    onPressed: otp.length == 4 ? verifyOTP : null,
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.golden,
-                        disabledBackgroundColor: AppColors.gray,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        )),
-                    child: Text(
-                      "Verfify OTP",
-                      style: AppTextStyles.semiBoldBeVietnamPro16.copyWith(
-                          color: otp.length == 4
-                              ? AppColors.white
-                              : AppColors.lightWhite,
-                          fontSize: 20),
-                    ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Text(
+                    "+91${widget.phoneNumber}",
+                    style: AppTextStyles.semiBoldBeVietnamPro16
+                        .copyWith(color: AppColors.golden),
                   ),
+                  IconButton(
+                      onPressed: goBack,
+                      icon: const Icon(
+                        Icons.edit,
+                        color: AppColors.golden,
+                        size: 20,
+                      ))
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              OTPTextField(
+                  length: 4,
+                  fieldWidth: 50,
+                  width: 285,
+                  style: const TextStyle(color: AppColors.white, fontSize: 30),
+                  textFieldAlignment: MainAxisAlignment.spaceAround,
+                  fieldStyle: FieldStyle.box,
+                  otpFieldStyle: OtpFieldStyle(
+                    borderColor: AppColors.white,
+                    focusBorderColor: AppColors.golden,
+                    disabledBorderColor: AppColors.white,
+                    enabledBorderColor: AppColors.white,
+                  )),
+              Text(
+                "OTP Verification",
+                style: AppTextStyles.boldBeVietnamPro.copyWith(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 32,
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                width: 268,
+                height: 50,
+                child: _isLoading
+                    ? const DefaultLoader()
+                    : ElevatedButton(
+                        onPressed: otp.length == 4 ? verifyOTP : null,
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.golden,
+                            disabledBackgroundColor: AppColors.gray,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            )),
+                        child: Text(
+                          "Verfify OTP",
+                          style: AppTextStyles.semiBoldBeVietnamPro16.copyWith(
+                              color: otp.length == 4
+                                  ? AppColors.white
+                                  : AppColors.lightWhite,
+                              fontSize: 20),
+                        ),
+                      ),
+              ),
+            ]),
           ),
-        ]),
-      ),
-    );
+        ));
   }
 }
