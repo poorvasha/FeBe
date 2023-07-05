@@ -3,7 +3,6 @@ import 'package:febe_frontend/screens/finder_home_screen/finder_home_screen.dart
 import 'package:febe_frontend/screens/location_access_screen/location_access_screen.dart';
 import 'package:febe_frontend/screens/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../utils/app_helper.dart';
 import '../chat_home_screen/chat_home_screen.dart';
@@ -16,12 +15,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double ICON_WIDTH = 30;
-  double ICON_HEIGHT = 30;
-
   int activeTab = 0;
 
-  List<Widget> tabs = [const ChatHomeScreen(), const FinderHomeScreen(), const ProfileScreen()];
+  List<Widget> tabs = [
+    const ChatHomeScreen(),
+    const FinderHomeScreen(),
+    const ProfileScreen()
+  ];
 
   @override
   void initState() {
@@ -47,79 +47,41 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      bottomNavigationBar: SizedBox(
-        height: 60,
-        child: BottomNavigationBar(
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          backgroundColor: AppColors.lightBlack,
-          selectedItemColor: AppColors.white,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Container(
-                decoration: BoxDecoration(
-                  boxShadow: activeTab == 0
-                      ? const [
-                          BoxShadow(
-                              color: AppColors.lightWhite,
-                              offset: Offset(0, 0),
-                              blurRadius: 100,
-                              spreadRadius: 0.5)
-                        ]
-                      : [],
-                ),
-                width: ICON_WIDTH,
-                height: ICON_HEIGHT,
-                child: SvgPicture.asset("assets/icons/home.svg"),
-              ),
-              label: "",
+      bottomNavigationBar: NavigationBar(
+        backgroundColor: AppColors.lightGolden,
+        selectedIndex: activeTab,
+        onDestinationSelected: (int index) {
+          setState(() {
+            activeTab = index;
+          });
+        },
+        indicatorColor: AppColors.goldenTint,
+        destinations: const <NavigationDestination>[
+          NavigationDestination(
+            selectedIcon: Icon(
+              Icons.message,
+              color: AppColors.darkGolden,
             ),
-            BottomNavigationBarItem(
-              icon: Container(
-                decoration: BoxDecoration(
-                  boxShadow: activeTab == 1
-                      ? const [
-                          BoxShadow(
-                              color: AppColors.lightWhite,
-                              offset: Offset(0, 0),
-                              blurRadius: 100,
-                              spreadRadius: 0.5)
-                        ]
-                      : [],
-                ),
-                height: ICON_WIDTH,
-                width: ICON_HEIGHT,
-                child: SvgPicture.asset("assets/icons/map.svg"),
-              ),
-              label: "",
+            icon: Icon(Icons.message),
+            label: 'Chats',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(
+              Icons.travel_explore,
+              color: AppColors.darkGolden,
             ),
-            BottomNavigationBarItem(
-              icon: Container(
-                decoration: BoxDecoration(
-                  boxShadow: activeTab == 2
-                      ? const [
-                          BoxShadow(
-                              color: AppColors.lightWhite,
-                              offset: Offset(0, 0),
-                              blurRadius: 100,
-                              spreadRadius: 0.5)
-                        ]
-                      : [],
-                ),
-                height: ICON_WIDTH,
-                width: ICON_HEIGHT,
-                child: SvgPicture.asset("assets/icons/user.svg"),
-              ),
-              label: "",
+            icon: Icon(Icons.travel_explore),
+            label: 'Finder',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(
+              Icons.person,
+              color: AppColors.darkGolden,
             ),
-          ],
-          onTap: (value) => {
-            setState(() {
-              activeTab = value;
-            })
-          },
-        ),
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
       ),
       body: tabs[activeTab],
     );

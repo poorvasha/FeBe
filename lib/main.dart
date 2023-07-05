@@ -3,15 +3,16 @@ import 'package:febe_frontend/screens/finder_user_search_screen/finder_user_sear
 import 'package:febe_frontend/screens/flash_screen/flash_screen.dart';
 import 'package:febe_frontend/screens/get_started_screen/get_started_screen.dart';
 import 'package:febe_frontend/screens/login_screen/login_screen.dart';
+import 'package:febe_frontend/screens/nearby_users_screen/nearby_users_screen.dart';
 import 'package:febe_frontend/screens/user_details_form_screen/user_details_form_screen.dart';
 import 'package:febe_frontend/screens/user_type_screen/user_type_screen.dart';
-import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'configs/resources.dart';
 import 'configs/routes.dart';
+import 'screens/home_screen/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,10 +62,7 @@ class _MyAppState extends State<MyApp> {
       case 'loginScreen':
         return const LoginScreen();
       case 'homeScreen':
-        // return const HomeScreen();
-        return const FinderUserSearchScreen(
-          targetUserType: UserType.entrepreneur,
-        );
+        return const HomeScreen();
       case 'getStartedScreen':
         return const GetStartedScreen();
       case 'userTypeScreen':

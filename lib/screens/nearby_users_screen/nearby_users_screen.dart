@@ -1,5 +1,7 @@
 import 'package:febe_frontend/configs/constants.dart';
 import 'package:febe_frontend/configs/resources.dart';
+import 'package:febe_frontend/models/data/enabler.dart';
+import 'package:febe_frontend/models/data/entrepreneur.dart';
 import 'package:febe_frontend/models/data/user.dart';
 import 'package:febe_frontend/screens/nearby_users_screen/nearby_user_card.dart';
 import 'package:febe_frontend/services/finder_service.dart';
@@ -46,20 +48,95 @@ class _NearbyUsersScreenState extends State<NearbyUsersScreen> {
     return usersResponse;
   }
 
+  Future<List<User>> mockNearbyUsers() async {
+    return [
+      User(
+          name: "Navayuvan SB",
+          phoneNumber: "6384017614",
+          enabler: Enabler(
+              about:
+                  "Full stack mobile app developer 🚀 | Mentor 🎯 | UI/UX Designer ✅"),
+          entrepreneur: Entrepreneur(
+              about: "I'm a passionate developer with skills in JS")),
+      User(
+          name: "Navayuvan SB",
+          phoneNumber: "6384017614",
+          enabler:
+              Enabler(about: "I'm a passionate developer with skills in JS"),
+          entrepreneur: Entrepreneur(
+              about: "I'm a passionate developer with skills in JS")),
+      User(
+          name: "Navayuvan SB",
+          phoneNumber: "6384017614",
+          enabler:
+              Enabler(about: "I'm a passionate developer with skills in JS"),
+          entrepreneur: Entrepreneur(
+              about: "I'm a passionate developer with skills in JS")),
+      User(
+          name: "Navayuvan SB",
+          phoneNumber: "6384017614",
+          enabler:
+              Enabler(about: "I'm a passionate developer with skills in JS"),
+          entrepreneur: Entrepreneur(
+              about: "I'm a passionate developer with skills in JS")),
+      User(
+          name: "Navayuvan SB",
+          phoneNumber: "6384017614",
+          enabler:
+              Enabler(about: "I'm a passionate developer with skills in JS"),
+          entrepreneur: Entrepreneur(
+              about: "I'm a passionate developer with skills in JS")),
+      User(
+          name: "Navayuvan SB",
+          phoneNumber: "6384017614",
+          enabler:
+              Enabler(about: "I'm a passionate developer with skills in JS"),
+          entrepreneur: Entrepreneur(
+              about: "I'm a passionate developer with skills in JS")),
+      User(
+          name: "Navayuvan SB",
+          phoneNumber: "6384017614",
+          enabler:
+              Enabler(about: "I'm a passionate developer with skills in JS"),
+          entrepreneur: Entrepreneur(
+              about: "I'm a passionate developer with skills in JS")),
+      User(
+          name: "Navayuvan SB",
+          phoneNumber: "6384017614",
+          enabler:
+              Enabler(about: "I'm a passionate developer with skills in JS"),
+          entrepreneur: Entrepreneur(
+              about: "I'm a passionate developer with skills in JS")),
+      User(
+          name: "Navayuvan SB",
+          phoneNumber: "6384017614",
+          enabler:
+              Enabler(about: "I'm a passionate developer with skills in JS"),
+          entrepreneur: Entrepreneur(
+              about: "I'm a passionate developer with skills in JS")),
+      User(
+          name: "Navayuvan SB",
+          phoneNumber: "6384017614",
+          enabler:
+              Enabler(about: "I'm a passionate developer with skills in JS"),
+          entrepreneur: Entrepreneur(
+              about: "I'm a passionate developer with skills in JS"))
+    ];
+  }
+
   @override
   void initState() {
-    fetchNearbyUsers();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
       appBar: DefaultAppbar(title: widget.title),
       body: FullScreenContainer(
+        disablePadding: true,
         child: FutureBuilder(
-          future: fetchNearbyUsers(),
+          future: mockNearbyUsers(),
           builder: (ctx, snapshot) {
             // Checking if future is resolved or not
             if (snapshot.connectionState == ConnectionState.done) {
@@ -93,11 +170,8 @@ class _NearbyUsersScreenState extends State<NearbyUsersScreen> {
                   itemCount: data.length,
                   itemBuilder: (BuildContext context, int index) {
                     User currentUser = data[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: NearbyUserCard(
-                        user: currentUser,
-                      ),
+                    return NearbyUserCard(
+                      user: currentUser,
                     );
                   },
                 );
