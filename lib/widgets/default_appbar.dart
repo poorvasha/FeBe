@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
- 
 
 import '../configs/resources.dart';
 
@@ -20,25 +19,24 @@ class DefaultAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.lightGolden,
-      leading: goBack
-          ? IconButton(
-              icon: const Icon(
-                Icons.arrow_back,
-                color: AppColors.lightBlack,
-              ),
-              onPressed: () => Navigator.of(context).pop(),
-            )
-          : const SizedBox(),
-      title: titleWidget ??
-          Text(
-            title,
-            style: AppTextStyles.boldBeVietnamPro
-                .copyWith(color: AppColors.lightBlack, fontSize: 24),
-          ),
-      actions: actions,
-      titleSpacing: wideTitle ? -14 : 0,
-    );
+        backgroundColor: AppColors.lightGolden,
+        leading: goBack
+            ? IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: AppColors.lightBlack,
+                ),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            : null,
+        title: titleWidget ??
+            Text(
+              title,
+              style: AppTextStyles.semiBoldBeVietnamPro20
+                  .copyWith(color: AppColors.lightBlack, fontSize: 20),
+            ),
+        actions: actions,
+        titleSpacing: wideTitle ? -14 : null);
   }
 
   @override

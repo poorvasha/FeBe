@@ -1,11 +1,13 @@
 import 'package:febe_frontend/screens/chat_home_screen/chats_list.dart';
-import 'package:febe_frontend/screens/chat_home_screen/user_card.dart';
+import 'package:febe_frontend/widgets/default_appbar.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/data/user.dart';
 import '../../services/user_service.dart';
 import '../../utils/app_helper.dart';
+import '../chat_screen/febe_chat_item.dart';
+import 'empty_chat.dart';
 
 class ChatHomeScreen extends StatefulWidget {
   const ChatHomeScreen({super.key});
@@ -38,28 +40,19 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+    return const Scaffold(
+      appBar: DefaultAppbar(
+        title: "Recents",
+        goBack: false,
+      ),
       body: FullScreenContainer(
           isInsideTabbar: true,
+          disablePadding: true,
           child: Column(
             children: [
-              const SizedBox(
-                height: 30,
-              ),
-              UserCard(
-                name: user?.name ?? "User",
-                locationName: "Current location",
-                onLocationTap: navigateToMapScreen,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              // const PostCard(),
-              // const SizedBox(
-              //   height: 30,
-              // ),
-              const Expanded(child: ChatsList())
+              FebeChatItem(),
+              // EmptyChat(),
+              Expanded(child: ChatsList()),
             ],
           )),
     );

@@ -11,45 +11,30 @@ class NearbyUserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 220,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-          color: AppColors.golden, borderRadius: BorderRadius.circular(15)),
-      child: Column(children: [
-        UserBasicInfo(
-          name: user.name!,
-          isVerified: true,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Expanded(
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              user.enabler?.about ?? user.entrepreneur?.about ?? "Developer",
-              style: AppTextStyles.regularBeVietnamPro16
-                  .copyWith(color: AppColors.white, height: 1.5),
-            ),
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "2KM Away",
-              style: AppTextStyles.mediumBeVietnamPro
-                  .copyWith(fontSize: 14, color: AppColors.white),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset("assets/icons/send.svg",
-                  semanticsLabel: 'Send'),
-            )
-          ],
-        )
-      ]),
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      title: Text(
+        user.name!,
+        style: AppTextStyles.mediumBeVietnamPro
+            .copyWith(fontSize: 16, color: AppColors.black),
+      ),
+      subtitle: Text(
+        user.enabler?.about ?? user.entrepreneur?.about ?? "-",
+        style: AppTextStyles.regularBeVietnamPro12
+            .copyWith(fontSize: 14, color: AppColors.lightGray),
+      ),
+      leading: CircleAvatar(
+          backgroundColor: AppColors.lightGolden,
+          radius: 25,
+          child: Text(
+            user.name![0],
+            style: AppTextStyles.mediumBeVietnamPro
+                .copyWith(fontSize: 16, color: AppColors.golden),
+          )),
+      trailing: IconButton(
+        icon: const Icon(Icons.message, color: AppColors.lightGray),
+        onPressed: () {},
+      ),
     );
   }
 }

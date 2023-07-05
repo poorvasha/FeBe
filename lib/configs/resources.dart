@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class AppResources {
   static var screenMargin = const EdgeInsets.fromLTRB(20, 30, 20, 30);
   static InputDecorationTheme defaultInputDecoration =
@@ -55,17 +54,20 @@ class AppResources {
 // #region Colors
 class AppColors {
   static const Color golden = Color(0xFFEBB61F);
-  static const Color lightGolden = Color(0xFFFFF4D6);
+  static const Color lightGolden = Color(0xFFFFFAEC);
   static const Color lightBlack = Color(0xFF1E1E1E);
-  static const Color lightWhite = Color(0xFFE0E0E0);
+  static const Color lightWhite = Color(0xFFFFFCF3);
   static const Color linkBlue = Color(0xFF0d99ff);
   static const Color white = Color(0xFfffffff);
   static const Color black = Color(0xFF000000);
   static Color brown = const Color(0xFFFF0000).withOpacity(0.1);
   static const Color gray = Color(0xFF292929);
-  static const Color lightGray = Color(0xFF1D1B20);
+  static const Color lightGray = Color(0xFF49454F);
   static const Color red = Color(0xFFDB4437);
   static const Color green = Color(0xFF0F9D58);
+  static const Color goldenTint = Color(0xFFFFEAAF);
+  static const Color darkGolden = Color(0xFFF4B400);
+
 }
 // #endregion
 

@@ -76,7 +76,7 @@ flutter:
     - assets/images/
     - assets/icons/
   fonts:
-    - family: BeVietnamPro-ExtraBold
+    - family: BeVietnamPro
       fonts:
         - asset: assets/fonts/BeVietnamPro-Bold.ttf
         - asset: assets/fonts/BeVietnamPro-Medium.ttf
