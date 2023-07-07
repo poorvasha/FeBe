@@ -7,6 +7,7 @@ import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../configs/resources.dart';
+import '../user_type_screen/user_type_card.dart';
 
 class FinderHomeScreen extends StatefulWidget {
   const FinderHomeScreen({super.key});
@@ -34,57 +35,43 @@ class _FinderHomeScreenState extends State<FinderHomeScreen> {
     return Scaffold(
       appBar: const DefaultAppbar(
         goBack: false,
-        title: "Find your mate",
+        title: "Finder",
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
       body: FullScreenContainer(
-        isInsideTabbar: true,
-        child: Column(children: [
-          if (userType == "") ...[
-            Image.asset(
-              "assets/images/boy_girl_looking.png",
-              height: 200,
-              width: 200,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              "Are you looking for?",
-              style: AppTextStyles.regularBeVietnamPro24
-                  .copyWith(color: AppColors.golden),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
-          UserTypePicker(
-              onSelected: (value) {
-                setState(() {
-                  userType = value;
-                  isFinderTapped = true;
-                });
-              },
-              activeType: userType,
-              isFinderTapped: isFinderTapped),
-          if (userType == "enabler") ...[
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(
-                child: UserDesignations(
-                    onIdentitySelected: navigateToNearbyUsersScreen))
-          ],
-          if (userType == "entrepreneur") ...[
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(
-                child: UserIndustries(
-                    onIdentitySelected: navigateToNearbyUsersScreen))
-          ]
-        ]),
-      ),
+          isInsideTabbar: true,
+          child: Column(
+            children: [
+              Image.asset(
+                "assets/images/search.png",
+                height: 250,
+              ),
+              Text(
+                "Select whom you want to connect with",
+                style: AppTextStyles.regularBeVietnamPro16.copyWith(
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              UserTypeCard(
+                title: "Enabler",
+                subtitle:
+                    "One who helps the entreprenuers to achieve their goals",
+                onTap: () => {},
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              UserTypeCard(
+                // image: Image.asset("assets/images/enteruper.png"),
+                title: "Entrepreneur",
+                subtitle:
+                    "One who drives the growth of the product and visions its benefits",
+                onTap: () => {},
+              ),
+            ],
+          )),
     );
   }
 }

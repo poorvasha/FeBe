@@ -49,11 +49,13 @@ class _UserTypeCardState extends State<UserTypeCard> {
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
               child: Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     backgroundColor: AppColors.lightGolden,
                     radius: 30,
                     child: Icon(
-                      Icons.construction,
+                      widget.title == "Enabler"
+                          ? Icons.construction
+                          : Icons.business_center,
                       color: AppColors.golden,
                     ),
                   ),

@@ -94,7 +94,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                               UserTypeCard(
                                 title: "Entrepreneur",
                                 subtitle:
-                                    "One who helps the entreprenuers to achieve their goals",
+                                    "One who drives the growth of the product and visions its benefits",
                                 displayRadioUserCard: true,
                                 radioSelected: entrepreneurRadioSelected,
                                 onTap: () =>
