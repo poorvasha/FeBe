@@ -1,18 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:febe_frontend/models/data/enabler.dart';
 import 'package:febe_frontend/models/data/entrepreneur.dart';
+import 'package:febe_frontend/models/data/entrepreneur_industry.dart';
 import 'package:febe_frontend/models/data/user.dart';
-import 'package:febe_frontend/screens/user_details_form_screen/enabler_user_detail_1.dart';
-import 'package:febe_frontend/screens/user_details_form_screen/enabler_user_detail_2.dart';
-import 'package:febe_frontend/screens/user_details_form_screen/enabler_user_detail_3.dart';
-import 'package:febe_frontend/screens/user_details_form_screen/enterpreneur_user_detail_1.dart';
-import 'package:febe_frontend/screens/user_details_form_screen/enterpreneur_user_detail_2.dart';
-import 'package:febe_frontend/screens/user_details_form_screen/enterpreneur_user_detail_3.dart';
-import 'package:febe_frontend/screens/user_details_form_screen/user_detail_form_stepper.dart';
+import 'package:febe_frontend/screens/user_details_form_screen/searchable_input.dart';
+import 'package:febe_frontend/services/entrepreneur_industry_service.dart';
 import 'package:febe_frontend/services/user_service.dart';
 import 'package:febe_frontend/utils/app_helper.dart';
-import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchfield/searchfield.dart';
@@ -23,8 +17,6 @@ import '../../models/data/enabler_category.dart';
 import '../../models/data/enabler_designation.dart';
 import '../../providers/app_model.dart';
 import '../../services/enabler_category_service.dart';
-import '../../widgets/default_appbar.dart';
-import '../../widgets/default_dropdown.dart';
 import '../../widgets/default_loader.dart';
 import '../../widgets/default_text_input.dart';
 
@@ -39,30 +31,46 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
   final CarouselController controller = CarouselController();
 
   String currentUserType = "entrepreneur";
-  int currentPart = 1;
-  List<bool> validities = [false, false, true];
   String userName = "";
   String linkedinUrl = "";
   String about = "";
   String designation = "";
   String? designationId = "";
+
+  String industry = "";
+  String? industryId = "";
+
   bool _isLoading = false;
   bool enbleButton = false;
   bool isOptional = false;
   bool isDirty = false;
-  List<String> statesOfIndia = ["Tamil", "English", "Chennai"];
   final FocusNode focus = FocusNode();
 
   List<EnablerCategory> categories = [];
   List<EnablerDesignation> designations = [];
+
+  List<EntrepreneurIndustry> industries = [];
 
   User currentUser = User();
 
   @override
   void initState() {
     getCurrentUserType();
-    fetchCategories();
+    fetchData();
     super.initState();
+  }
+
+  void fetchData() {
+    fetchCategories();
+    fetchIndustries();
+  }
+
+  void fetchIndustries() async {
+    List<EntrepreneurIndustry> response =
+        await EntrepreneurIndustryService.getIndustries();
+    setState(() {
+      industries = response;
+    });
   }
 
   void fetchCategories() async {
@@ -73,9 +81,6 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
         for (var element in element.designations!) {
           designations.add(element);
         }
-        // element.designations!.map((e) async{
-        //   designations.add(e);
-        //   });
       }
     } catch (e) {
       AppHelper.showSnackbar("Something went wrong, please try again", context);
@@ -92,84 +97,62 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
     });
   }
 
-  void addUser() async {
-    try {
-
-        
-        await UserService.updateUser(currentUser);
-        context.read<AppModel>().setInitialRoute = Routes.homeScreen;
-      } catch (e) {
-        AppHelper.showSnackbar(
-            "Something went wrong, please try again", context);
-      }
+  void assignValuestoCurrentUser() {
+    if (currentUserType == "enabler") {
+      return assignEnablerValues();
+    }
+    assignEntrepreneurValues();
   }
 
-  void validateAllInputsToEnableButton(){
-      if((userName != null && userName.isNotEmpty) && (linkedinUrl != null && linkedinUrl.isNotEmpty) && (designation != null && designation.isNotEmpty)){
-        setState(() {
-          enbleButton = true;
-        });
-      }
-      else{
-        setState(() {
-          enbleButton = false;
-        });
-      }
+  void assignEnablerValues() {
+    currentUser.enabler = currentUser.enabler ?? Enabler();
+    currentUser.enabler!.about = about;
+    currentUser.name = userName;
+    currentUser.enabler!.linkedInURL = linkedinUrl;
+    currentUser.enabler!.designation = designationId;
+  }
+
+  void assignEntrepreneurValues() {
+    currentUser.entrepreneur = currentUser.entrepreneur ?? Entrepreneur();
+    currentUser.entrepreneur!.about = about;
+    currentUser.name = userName;
+    currentUser.entrepreneur!.linkedInURL = linkedinUrl;
+    currentUser.entrepreneur!.industry = industryId;
+  }
+
+  void addUser() async {
+    try {
+      assignValuestoCurrentUser();
+      await UserService.updateUser(currentUser);
+      context.read<AppModel>().setInitialRoute = Routes.homeScreen;
+    } catch (e) {
+      AppHelper.showSnackbar("Something went wrong, please try again", context);
     }
+  }
+
+  void validateAllInputsToEnableButton() {
+    if ((userName != null && userName.isNotEmpty) &&
+        (linkedinUrl != null && linkedinUrl.isNotEmpty) &&
+        (about != null && about.isNotEmpty) &&
+        ((designation != null && designation.isNotEmpty) || (industry != null && industry.isNotEmpty))) {
+      setState(() {
+        enbleButton = true;
+      });
+    } else {
+      setState(() {
+        enbleButton = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    void moveToNextPart() {
-      controller.nextPage();
-    }
-
-    void updateUser() async {
-      try {
-        setState(() {
-          _isLoading = true;
-        });
-        currentUser.name = userName;
-        if(currentUserType == "entrepreneur"){
-          currentUser.entrepreneur = Entrepreneur();
-        }
-        else {
-           currentUser.enabler = Enabler(linkedInURL: linkedinUrl, designation: designationId);
-        }
-        await UserService.updateUser(currentUser);
-        context.read<AppModel>().setInitialRoute = Routes.homeScreen;
-        
-      } catch (e) {
-        AppHelper.showSnackbar(
-            "Something went wrong, please try again", context);
-      }
-      finally {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    }
-
-    void onUserDetailChanged(User user) {
-      setState(() {
-        currentUser = user;
-      });
-    }
-
-    bool isValid() {
-      bool validity = !(!isOptional && isDirty && designation.trim() == "");
-      return false;
-    }
-
     void onFocused() {
       if (!isDirty && focus.hasFocus) {
         setState(() {
           isDirty = true;
         });
       }
-
-      // if (!focus.hasFocus) {
-      //  // if (widget.errorChanged != null) widget.errorChanged!(isValid());
-      // }
     }
 
     @override
@@ -188,7 +171,6 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
     return Scaffold(
         backgroundColor: AppColors.white,
         body: GestureDetector(
-         
           onTap: () {
             focus.unfocus();
           },
@@ -248,114 +230,74 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
                   },
                 ),
                 const SizedBox(
+                  height: 15,
+                ),
+                DefaultTextInput(
+                  hint: "I'm a passionate developer",
+                  helperText: "We'll show this on your profile",
+                  label: "About",
+                  value: about,
+                  keyboard: TextInputType.url,
+                  onChanged: (value) {
+                    setState(() {
+                      about = value;
+                    });
+                    validateAllInputsToEnableButton();
+                  },
+                ),
+                const SizedBox(
                   height: 30,
                 ),
                 SizedBox(
                   width: double.infinity,
                   height: 80,
-                  child: SearchField(
-                      key: Key("Searchkey"),
-                      suggestions: designations
-                          .map((e) =>
-                              SearchFieldListItem(e.name.toString(), item: e))
-                          .toList(),
-                      suggestionState: Suggestion.expand,
-                      textInputAction: TextInputAction.done,
-                      searchStyle: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black.withOpacity(0.8),
-                      ),
+                  child: SearchableInput(
+                      value:
+                          currentUserType == "enabler" ? designation : industry,
+                      currentUserType: currentUserType,
+                      designations: designations,
+                      industries: industries,
                       validator: (x) {
-                        if (designation.isEmpty) {
-                          return 'Please Enter a valid State';
+                        if (currentUserType == "enabler") {
+                          if (designation.isEmpty) {
+                            return 'Please Enter a valid State';
+                          }
                         }
+
+                        if (currentUserType != "enabler") {
+                          if (industry.isEmpty) {
+                            return 'Please Enter a valid State';
+                          }
+                        }
+
                         return null;
                       },
-                      // onSearchTextChanged: (p0) {
-                      //   if (p0.isEmpty) {
-                          
-                      //   }
-                      //   return null;
-                      // },
-                      scrollbarAlwaysVisible: false,
-                      controller: TextEditingController(text: designation),
-                      searchInputDecoration: InputDecoration(
-                        suffixIcon: InkWell(
-                            onTap: () {
-                              setState(() {
-                                designation = "";
-                              });
-                            },
-                            child: const Icon(
-                              Icons.cancel_outlined,
-                              size: 26,
-                              color: AppColors.lightBlack,
-                            )),
-                        labelStyle:
-                            AppTextStyles.semiBoldBeVietnamPro12.copyWith(
-                          color: AppColors.lightBlack,
-                        ),
-                        floatingLabelStyle: AppTextStyles.semiBoldBeVietnamPro12
-                            .copyWith(
-                                color: AppColors.lightBlack,
-                                backgroundColor:
-                                    AppColors.lightGolden.withOpacity(0.50)),
-                        labelText: "Designation",
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
-                              color: AppColors.lightBlack,
-                            )),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide:
-                                BorderSide(color: AppColors.golden, width: 2)),
-                        errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(color: AppColors.red)),
-                        focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(color: AppColors.red)),
-                        hintText: "Select the Desgination",
-                        errorText: isValid() ? null : "* required",
-                        errorStyle: const TextStyle(height: 0),
-                        hintStyle: AppTextStyles.regularBeVietnamPro16
-                            .copyWith(color: AppColors.lightWhite),
-                      ),
-                      suggestionStyle: AppTextStyles.regularBeVietnamPro16
-                          .copyWith(color: AppColors.lightBlack),
-                      suggestionItemDecoration:
-                          const BoxDecoration(border: Border()),
-                      suggestionsDecoration: SuggestionDecoration(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.circular(5),
-                          boxShadow: [
-                            BoxShadow(
-                                color: AppColors.black.withOpacity(0.15),
-                                spreadRadius: 0,
-                                offset: const Offset(0, 4),
-                                blurRadius: 6,
-                                blurStyle: BlurStyle.normal),
-                            BoxShadow(
-                                color: AppColors.black.withOpacity(0.15),
-                                spreadRadius: 0,
-                                offset: const Offset(4, 0),
-                                blurRadius: 6,
-                                blurStyle: BlurStyle.normal),
-                          ]),
-                      maxSuggestionsInViewPort: 4,
-                      itemHeight: 50,
-                      focusNode: focus,
-                      onSuggestionTap:
-                          (SearchFieldListItem<EnablerDesignation> selectedItem) {
+                      focus: focus,
+                      onEnablerSuggestionTap:
+                          (SearchFieldListItem<EnablerDesignation>
+                              selectedItem) {
                         setState(() {
                           designation = selectedItem.searchKey;
                           designationId = selectedItem.item!.sId;
                         });
                         validateAllInputsToEnableButton();
                         focus.unfocus();
+                      },
+                      onEntrepreneurSuggestionTap:
+                          (SearchFieldListItem<EntrepreneurIndustry>
+                              selectedItem) {
+                        setState(() {
+                          industry = selectedItem.searchKey;
+                          industryId = selectedItem.item!.sId;
+                        });
+                        validateAllInputsToEnableButton();
+                        focus.unfocus();
+                      },
+                      onClear: () {
+                        setState(() {
+                          designation = "";
+                          industry = "";
+                        });
                       }),
                 ),
                 const SizedBox(

@@ -15,25 +15,19 @@ import '../../widgets/default_loader.dart';
 
 class NearbyUsersScreen extends StatefulWidget {
   final String targetIdentity;
-  final String type;
+  final UserType type;
   final String title;
-  final double? userLatitude;
-  final double? userLongitude;
   const NearbyUsersScreen(
       {super.key,
       required this.targetIdentity,
       required this.type,
-      required this.title,
-      this.userLatitude,
-      this.userLongitude});
+      required this.title});
 
   @override
   State<NearbyUsersScreen> createState() => _NearbyUsersScreenState();
 }
 
 class _NearbyUsersScreenState extends State<NearbyUsersScreen> {
-  List<User> users = [];
-
   Future<List<User>> fetchNearbyUsers() async {
     Position? position = await AppHelper.getUserCurrentLocation(context);
     if (position == null) {
@@ -43,85 +37,9 @@ class _NearbyUsersScreenState extends State<NearbyUsersScreen> {
         position.latitude,
         position.longitude,
         SEARCH_RADIUS,
-        widget.type,
+        widget.type == UserType.enabler ? "enabler" : "entrepreneur",
         widget.targetIdentity);
     return usersResponse;
-  }
-
-  Future<List<User>> mockNearbyUsers() async {
-    return [
-      User(
-          name: "Navayuvan SB",
-          phoneNumber: "6384017614",
-          enabler: Enabler(
-              about:
-                  "Full stack mobile app developer 🚀 | Mentor 🎯 | UI/UX Designer ✅"),
-          entrepreneur: Entrepreneur(
-              about: "I'm a passionate developer with skills in JS")),
-      User(
-          name: "Navayuvan SB",
-          phoneNumber: "6384017614",
-          enabler:
-              Enabler(about: "I'm a passionate developer with skills in JS"),
-          entrepreneur: Entrepreneur(
-              about: "I'm a passionate developer with skills in JS")),
-      User(
-          name: "Navayuvan SB",
-          phoneNumber: "6384017614",
-          enabler:
-              Enabler(about: "I'm a passionate developer with skills in JS"),
-          entrepreneur: Entrepreneur(
-              about: "I'm a passionate developer with skills in JS")),
-      User(
-          name: "Navayuvan SB",
-          phoneNumber: "6384017614",
-          enabler:
-              Enabler(about: "I'm a passionate developer with skills in JS"),
-          entrepreneur: Entrepreneur(
-              about: "I'm a passionate developer with skills in JS")),
-      User(
-          name: "Navayuvan SB",
-          phoneNumber: "6384017614",
-          enabler:
-              Enabler(about: "I'm a passionate developer with skills in JS"),
-          entrepreneur: Entrepreneur(
-              about: "I'm a passionate developer with skills in JS")),
-      User(
-          name: "Navayuvan SB",
-          phoneNumber: "6384017614",
-          enabler:
-              Enabler(about: "I'm a passionate developer with skills in JS"),
-          entrepreneur: Entrepreneur(
-              about: "I'm a passionate developer with skills in JS")),
-      User(
-          name: "Navayuvan SB",
-          phoneNumber: "6384017614",
-          enabler:
-              Enabler(about: "I'm a passionate developer with skills in JS"),
-          entrepreneur: Entrepreneur(
-              about: "I'm a passionate developer with skills in JS")),
-      User(
-          name: "Navayuvan SB",
-          phoneNumber: "6384017614",
-          enabler:
-              Enabler(about: "I'm a passionate developer with skills in JS"),
-          entrepreneur: Entrepreneur(
-              about: "I'm a passionate developer with skills in JS")),
-      User(
-          name: "Navayuvan SB",
-          phoneNumber: "6384017614",
-          enabler:
-              Enabler(about: "I'm a passionate developer with skills in JS"),
-          entrepreneur: Entrepreneur(
-              about: "I'm a passionate developer with skills in JS")),
-      User(
-          name: "Navayuvan SB",
-          phoneNumber: "6384017614",
-          enabler:
-              Enabler(about: "I'm a passionate developer with skills in JS"),
-          entrepreneur: Entrepreneur(
-              about: "I'm a passionate developer with skills in JS"))
-    ];
   }
 
   @override
@@ -136,7 +54,7 @@ class _NearbyUsersScreenState extends State<NearbyUsersScreen> {
       body: FullScreenContainer(
         disablePadding: true,
         child: FutureBuilder(
-          future: mockNearbyUsers(),
+          future: fetchNearbyUsers(),
           builder: (ctx, snapshot) {
             // Checking if future is resolved or not
             if (snapshot.connectionState == ConnectionState.done) {
@@ -146,7 +64,7 @@ class _NearbyUsersScreenState extends State<NearbyUsersScreen> {
                   child: Text(
                     "Something went wrong, please try again",
                     style: AppTextStyles.semiBoldBeVietnamPro16
-                        .copyWith(color: AppColors.white),
+                        .copyWith(color: AppColors.black),
                   ),
                 );
 
@@ -161,7 +79,7 @@ class _NearbyUsersScreenState extends State<NearbyUsersScreen> {
                       "No users found for your location, please try someother designation",
                       textAlign: TextAlign.center,
                       style: AppTextStyles.semiBoldBeVietnamPro16
-                          .copyWith(color: AppColors.white, height: 1.5),
+                          .copyWith(color: AppColors.black, height: 1.5),
                     ),
                   );
                 }

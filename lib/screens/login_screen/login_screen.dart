@@ -1,4 +1,3 @@
-
 import 'package:febe_frontend/screens/otp_verification_screen/otp_verification_screen.dart';
 import 'package:febe_frontend/services/auth_service.dart';
 import 'package:febe_frontend/utils/app_helper.dart';
@@ -31,33 +30,27 @@ class _LoginScreenState extends State<LoginScreen> {
     // TODO: implement initState
     super.initState();
 
-    // var isContainsKey =
-    //       await SecureStorage().containsKeyInSecureData('accessToken');
-    //   if (isContainsKey) {
-    //     var data = await SecureStorage().readSecureData('accessToken');
-    //     if (data != null && data.isNotEmpty) {
-    //       return true;
-    //     }
-    //   }
     Future.delayed(const Duration(seconds: 500));
-    getUserType().then((value) { 
+    getUserType().then((value) {
       setState(() {
-        userType = value.toString().capitalize();
+        userType = value.toString().toLowerCase();
       });
     });
-    // AppHelper.getUserType().then((value){ 
+    // AppHelper.getUserType().then((value){
     //   userType = value.toString();
     // });
   }
 
-  Future<String?> getUserType() async{
+  Future<String?> getUserType() async {
     return await AppHelper.getUserType();
   }
+
   @override
   Widget build(BuildContext context) {
     void getOTP() async {
       if (phonenumber.trim() == "" || phonenumber.length != 10) {
-        return AppHelper.showSnackbar("Please enter valid phone number", context);
+        return AppHelper.showSnackbar(
+            "Please enter valid phone number", context);
       }
 
       try {
@@ -72,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
           return;
         }
 
-        await AuthService.sendOTP("+91$phonenumber", userType);
+        await AuthService.sendOTP("+91$phonenumber", userType.toLowerCase());
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -90,18 +83,19 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
 
-    void validateAllInputsToEnableButton(){
-      if((phonenumber != null && phonenumber.isNotEmpty) && isTermsAndConditionsAccepted){
+    void validateAllInputsToEnableButton() {
+      if ((phonenumber != null && phonenumber.isNotEmpty) &&
+          isTermsAndConditionsAccepted) {
         setState(() {
           enbleButton = true;
         });
-      }
-      else{
+      } else {
         setState(() {
           enbleButton = false;
         });
       }
     }
+
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Container(
@@ -113,7 +107,6 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 73,
               ),
-              
               Image.asset(
                 "assets/images/eoe_logo.png",
                 // height: 180,
@@ -172,16 +165,14 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               DefaultCheckbox(
                 isChecked: isWhatsappNotificationAccepted,
-                label:
-                    "Receive Whatsapp notifications",
+                label: "Receive Whatsapp notifications",
                 onChanged: (value) => {
                   setState(() {
                     isWhatsappNotificationAccepted = value!;
                   }),
                 },
               ),
-              
-            SizedBox(height: 40),
+              SizedBox(height: 40),
               SizedBox(
                 width: double.infinity,
                 height: 50,
@@ -196,7 +187,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(5.0),
                             )),
                         child: Text(
-                          
                           "Next",
                           style: AppTextStyles.boldBeVietnamPro.copyWith(
                               color: enbleButton

@@ -1,7 +1,7 @@
-
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:febe_frontend/models/data/entrepreneur_industry.dart';
 import 'package:febe_frontend/models/ui/identity_tile_item.dart';
+import 'package:febe_frontend/screens/nearby_users_screen/nearby_users_screen.dart';
 import 'package:febe_frontend/services/enabler_category_service.dart';
 import 'package:febe_frontend/services/entrepreneur_industry_service.dart';
 import 'package:febe_frontend/widgets/default_appbar.dart';
@@ -106,7 +106,17 @@ class _FinderUserSearchScreenState extends State<FinderUserSearchScreen> {
     });
   }
 
-  void onIdentitySelected(IdentityTile identity) {}
+  void onIdentitySelected(IdentityTile identity) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => NearbyUsersScreen(
+            targetIdentity: identity.id,
+            title: identity.title,
+            type: widget.targetUserType),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
