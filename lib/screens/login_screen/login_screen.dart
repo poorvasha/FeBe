@@ -175,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: enbleButton ? getOTP : null,
                         style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.golden,
-                            disabledBackgroundColor: AppColors.lightWhite,
+                            disabledBackgroundColor: AppColors.extraLightgrey,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             )),

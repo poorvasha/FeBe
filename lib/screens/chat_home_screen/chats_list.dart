@@ -11,12 +11,14 @@ class ChatsList extends StatefulWidget {
 }
 
 class _ChatsListState extends State<ChatsList> {
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: 20,
       itemBuilder: (BuildContext context, int index) {
-        return const ChatItem(
+        return  ChatItem(
+          selectChatIndex: index,
           isVerified: false,
         );
       },

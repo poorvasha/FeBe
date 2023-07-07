@@ -5,7 +5,8 @@ import '../../configs/resources.dart';
 
 class ChatItem extends StatefulWidget {
   final bool isVerified;
-  const ChatItem({super.key, this.isVerified = false});
+  int selectChatIndex;
+  ChatItem({super.key, this.selectChatIndex = 0, this.isVerified = false});
 
   @override
   State<ChatItem> createState() => _ChatItemState();
@@ -25,7 +26,9 @@ class _ChatItemState extends State<ChatItem> {
     }
 
     return ListTile(
-      onTap: () {},
+      onTap: (){
+        navigateToChatScreen();
+      },
       leading: CircleAvatar(
         backgroundColor: AppColors.lightGolden,
         child: Text(
