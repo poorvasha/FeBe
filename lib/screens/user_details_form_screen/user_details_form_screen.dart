@@ -354,7 +354,7 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
                           onPressed: enbleButton ? addUser : null,
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.golden,
-                              disabledBackgroundColor: AppColors.lightWhite,
+                              disabledBackgroundColor: AppColors.extraLightgrey,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               )),

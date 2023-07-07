@@ -35,12 +35,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  @override
+  @override       
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarBrightness: Brightness.dark,
-    ));
+    ));                       
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Cloud Contacts',
@@ -48,7 +48,8 @@ class _MyAppState extends State<MyApp> {
           backgroundColor: AppColors.white,
           primaryColor: AppColors.golden,
           inputDecorationTheme: AppResources.defaultInputDecoration,
-          useMaterial3: true),
+          useMaterial3: true
+          ),
       onGenerateRoute: Routes.controller,
       home: displayHome(),
     );

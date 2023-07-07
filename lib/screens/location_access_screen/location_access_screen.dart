@@ -79,7 +79,7 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
     return FocusDetector(
       onFocusGained: _shouldCheckForLocation ? checkforLocationStatus : null,
       child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: AppColors.white,
         appBar: DefaultAppbar(
           title: "Location",
           goBack: widget.shouldGoBack,
@@ -106,7 +106,7 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
               Text(
                 "To provide better experience",
                 style: AppTextStyles.regularBeVietnamPro16
-                    .copyWith(color: AppColors.white),
+                    .copyWith(color: AppColors.lightBlack),
               ),
               const SizedBox(
                 height: 5,
@@ -114,7 +114,7 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
               Text(
                 "Please allow us the following permissions",
                 style: AppTextStyles.regularBeVietnamPro16
-                    .copyWith(color: AppColors.white),
+                    .copyWith(color: AppColors.lightBlack),
               ),
               const SizedBox(
                 height: 60,
@@ -132,7 +132,7 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                   child: Text(
                     "Allow us",
                     style: AppTextStyles.semiBoldBeVietnamPro16
-                        .copyWith(color: AppColors.white, fontSize: 20),
+                        .copyWith(color: AppColors.lightBlack, fontSize: 20),
                   ),
                 ),
               ),

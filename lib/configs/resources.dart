@@ -56,7 +56,7 @@ class AppResources {
 
 // #region Colors
 class AppColors {
-  static const Color golden = Color(0xFFEBB61F);
+  static const Color golden = Color(0xFFF4B400);
   static const Color lightGolden = Color(0xFFFFFAEC);
   static const Color lightBlack = Color(0xFF1E1E1E);
   static const Color lightWhite = Color(0xFFECECEC);
@@ -71,6 +71,9 @@ class AppColors {
   static const Color extraLightBlack = Color(0XFF676767);
   static const Color goldenTint = Color(0xFFFFEAAF);
   static const Color darkGolden = Color(0xFFF4B400);
+  static const Color extraLightBlue = Color(0xFFD5E8F0);
+  static const Color extraLightgrey = Color(0xFFE0E0E0);
+
 }
 // #endregion
 

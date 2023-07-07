@@ -40,7 +40,7 @@ class Indicator extends StatelessWidget {
         height: size,
         margin: const EdgeInsets.symmetric(horizontal: 6),
         decoration: BoxDecoration(
-          color: isActive ? AppColors.golden : AppColors.lightWhite,
+          color: isActive ? AppColors.golden : AppColors.extraLightBlue,
           shape: BoxShape.circle,
         ),
         child: const SizedBox());
