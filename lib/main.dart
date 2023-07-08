@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget displayHome() {
-    var currentroute = context.watch<AppModel>().getInitialRoute;
+    var currentroute = context.watch<AppModel> ().getInitialRoute;
     switch (currentroute) {
       case 'flashScreen':
         return const FlashScreen();
@@ -72,5 +72,5 @@ class _MyAppState extends State<MyApp> {
       default:
         return const LoginScreen();
     }
-  }
+}
 }

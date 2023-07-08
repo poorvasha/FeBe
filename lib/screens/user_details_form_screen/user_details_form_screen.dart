@@ -39,6 +39,8 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
 
   String industry = "";
   String? industryId = "";
+  String companyName = "";
+  String companyURL = "";
 
   bool _isLoading = false;
   bool enbleButton = false;
@@ -118,6 +120,8 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
     currentUser.name = userName;
     currentUser.entrepreneur!.linkedInURL = linkedinUrl;
     currentUser.entrepreneur!.industry = industryId;
+    currentUser.entrepreneur!.companyName = companyName;
+    currentUser.entrepreneur!.websiteURL = companyURL;
   }
 
   void addUser() async {
@@ -134,7 +138,8 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
     if ((userName != null && userName.isNotEmpty) &&
         (linkedinUrl != null && linkedinUrl.isNotEmpty) &&
         (about != null && about.isNotEmpty) &&
-        ((designation != null && designation.isNotEmpty) || (industry != null && industry.isNotEmpty))) {
+        ((designation != null && designation.isNotEmpty) ||
+            (industry != null && industry.isNotEmpty))) {
       setState(() {
         enbleButton = true;
       });
@@ -241,6 +246,38 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
                   onChanged: (value) {
                     setState(() {
                       about = value;
+                    });
+                    validateAllInputsToEnableButton();
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                DefaultTextInput(
+                  hint: "Google",
+                  helperText: "This will be used to display on your profile",
+                  label: "Company Name",
+                  value: companyName,
+                  keyboard: TextInputType.text,
+                  onChanged: (value) {
+                    setState(() {
+                      companyName = value;
+                    });
+                    validateAllInputsToEnableButton();
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                DefaultTextInput(
+                  hint: "https://google.com",
+                  helperText: "This will be used to display on your profile",
+                  label: "Company Website URL",
+                  value: companyURL,
+                  keyboard: TextInputType.text,
+                  onChanged: (value) {
+                    setState(() {
+                      companyURL = value;
                     });
                     validateAllInputsToEnableButton();
                   },
