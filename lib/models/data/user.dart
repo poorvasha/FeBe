@@ -1,3 +1,5 @@
+import 'package:febe_frontend/models/data/expanded_user.dart';
+
 import 'enabler.dart';
 import 'entrepreneur.dart';
 import 'location.dart';
@@ -35,11 +37,32 @@ class User {
     entrepreneur = json['entrepreneur'] != null
         ? Entrepreneur.fromJson(json['entrepreneur'])
         : null;
-    location = json['location'] != null
-        ? Location.fromJson(json['location'])
-        : null;
+    location =
+        json['location'] != null ? Location.fromJson(json['location']) : null;
     createdAt = DateTime.parse(json['createdAt']);
     updatedAt = DateTime.parse(json['updatedAt']);
+  }
+
+  User.fromExpandedUser(ExpandedUser user) {
+    createdAt = user.createdAt;
+    updatedAt = user.updatedAt;
+    enabler = Enabler(
+        about: user.enabler?.about,
+        designation: user.enabler?.designation?.sId,
+        linkedInURL: user.enabler?.linkedInURL,
+        portfolioURL: user.enabler?.portfolioURL);
+    entrepreneur = Entrepreneur(
+        about: user.entrepreneur?.about,
+        companyName: user.entrepreneur?.companyName,
+        websiteURL: user.entrepreneur?.websiteURL,
+        industry: user.entrepreneur?.industry?.sId,
+        linkedInURL: user.entrepreneur?.linkedInURL);
+    type = user.type;
+    location = user.location;
+    phoneNumber = user.phoneNumber;
+    isSignupCompleted = user.isSignupCompleted;
+    name = user.name;
+    dob = user.dateOfBirth;
   }
 
   Map<String, dynamic> toJson() {

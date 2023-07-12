@@ -42,12 +42,19 @@ class ExpandedEnabler {
   String? linkedInURL;
   EnablerDesignation? designation;
   String? sId;
+  String? portfolioURL;
 
-  ExpandedEnabler({this.about, this.linkedInURL, this.designation, this.sId});
+  ExpandedEnabler(
+      {this.about,
+      this.linkedInURL,
+      this.designation,
+      this.sId,
+      this.portfolioURL});
 
   ExpandedEnabler.fromJson(Map<String, dynamic> json) {
     about = json['about'];
     linkedInURL = json['linkedInURL'];
+    linkedInURL = json['portfolioURL'];
     designation = json['designation'] != null
         ? EnablerDesignation.fromJson(json['designation'])
         : null;
@@ -58,6 +65,7 @@ class ExpandedEnabler {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['about'] = about;
     data['linkedInURL'] = linkedInURL;
+    data['portfolioURL'] = portfolioURL;
     if (designation != null) {
       data['designation'] = designation!.toJson();
     }

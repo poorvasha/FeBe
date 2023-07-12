@@ -30,7 +30,7 @@ class UserDetailsFormScreen extends StatefulWidget {
 class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
   final CarouselController controller = CarouselController();
 
-  String currentUserType = "entrepreneur";
+  UserType currentUserType = UserType.enabler;
   String userName = "";
   String linkedinUrl = "";
   String about = "";
@@ -90,17 +90,18 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
   }
 
   void getCurrentUserType() async {
-    String? userType = await AppHelper.getUserType();
+    UserType? userType = await AppHelper.getUserType();
     if (userType == null) {
       return;
     }
+
     setState(() {
       currentUserType = userType;
     });
   }
 
   void assignValuestoCurrentUser() {
-    if (currentUserType == "enabler") {
+    if (currentUserType == UserType.enabler) {
       return assignEnablerValues();
     }
     assignEntrepreneurValues();
@@ -250,38 +251,40 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
                     validateAllInputsToEnableButton();
                   },
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
-                DefaultTextInput(
-                  hint: "Google",
-                  helperText: "This will be used to display on your profile",
-                  label: "Company Name",
-                  value: companyName,
-                  keyboard: TextInputType.text,
-                  onChanged: (value) {
-                    setState(() {
-                      companyName = value;
-                    });
-                    validateAllInputsToEnableButton();
-                  },
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                DefaultTextInput(
-                  hint: "https://google.com",
-                  helperText: "This will be used to display on your profile",
-                  label: "Company Website URL",
-                  value: companyURL,
-                  keyboard: TextInputType.text,
-                  onChanged: (value) {
-                    setState(() {
-                      companyURL = value;
-                    });
-                    validateAllInputsToEnableButton();
-                  },
-                ),
+                if (currentUserType == UserType.entrepreneur) ...[
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  DefaultTextInput(
+                    hint: "Google",
+                    helperText: "This will be used to display on your profile",
+                    label: "Company Name",
+                    value: companyName,
+                    keyboard: TextInputType.text,
+                    onChanged: (value) {
+                      setState(() {
+                        companyName = value;
+                      });
+                      validateAllInputsToEnableButton();
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  DefaultTextInput(
+                    hint: "https://google.com",
+                    helperText: "This will be used to display on your profile",
+                    label: "Company Website URL",
+                    value: companyURL,
+                    keyboard: TextInputType.text,
+                    onChanged: (value) {
+                      setState(() {
+                        companyURL = value;
+                      });
+                      validateAllInputsToEnableButton();
+                    },
+                  ),
+                ],
                 const SizedBox(
                   height: 30,
                 ),
@@ -289,19 +292,20 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
                   width: double.infinity,
                   height: 80,
                   child: SearchableInput(
-                      value:
-                          currentUserType == "enabler" ? designation : industry,
+                      value: currentUserType == UserType.enabler
+                          ? designation
+                          : industry,
                       currentUserType: currentUserType,
                       designations: designations,
                       industries: industries,
                       validator: (x) {
-                        if (currentUserType == "enabler") {
+                        if (currentUserType == UserType.enabler) {
                           if (designation.isEmpty) {
                             return 'Please Enter a valid State';
                           }
                         }
 
-                        if (currentUserType != "enabler") {
+                        if (currentUserType != UserType.entrepreneur) {
                           if (industry.isEmpty) {
                             return 'Please Enter a valid State';
                           }

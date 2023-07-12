@@ -36,7 +36,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
     }
   }
 
-  void navigateToMapScreen() {}
+  void navigateToMapScreen() {} 
 
   @override
   Widget build(BuildContext context) {

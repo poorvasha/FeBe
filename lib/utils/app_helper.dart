@@ -10,7 +10,7 @@ import '../services/secure_local_storage.dart';
 
 enum LocationStatus { turnedOff, denied, blocked, granted, yetToRequest }
 
-enum UserType { enabler, entrepreneur}
+enum UserType { enabler, entrepreneur }
 
 class AppHelper {
   Future<bool> checkIsUserLoggedIn() async {
@@ -36,14 +36,16 @@ class AppHelper {
     await SecureStorage().deleteSecureData('accessToken');
   }
 
-  static Future<String?> getUserType() async {
+  static Future<UserType?> getUserType() async {
     try {
       var isContainsKey =
           await SecureStorage().containsKeyInSecureData('userType');
       if (isContainsKey) {
         var data = await SecureStorage().readSecureData('userType');
         if (data != null && data.isNotEmpty) {
-          return data;
+          return data == UserType.enabler.name
+              ? UserType.enabler
+              : UserType.entrepreneur;
         }
       }
       return null;
@@ -66,10 +68,10 @@ class AppHelper {
     }
   }
 
-  static Future<void> setUserType(String userType) async {
+  static Future<void> setUserType(UserType userType) async {
     try {
-      await SecureStorage()
-          .writeSecureData(LocalStorageItem(key: 'userType', value: userType));
+      await SecureStorage().writeSecureData(
+          LocalStorageItem(key: 'userType', value: userType.name));
     } catch (e) {
       if (kDebugMode) {
         print(e);

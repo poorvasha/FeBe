@@ -7,9 +7,9 @@ class ExpandedUser {
   String? phoneNumber;
   String? type;
   bool? isSignupCompleted;
-  String? createdAt;
-  String? updatedAt;
-  String? dateOfBirth;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  DateTime? dateOfBirth;
   ExpandedEnabler? enabler;
   Location? location;
   String? name;
@@ -33,9 +33,11 @@ class ExpandedUser {
     phoneNumber = json['phoneNumber'];
     type = json['type'];
     isSignupCompleted = json['isSignupCompleted'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    dateOfBirth = json['dateOfBirth'];
+    createdAt = DateTime.parse(json['createdAt']);
+    updatedAt = DateTime.parse(json['updatedAt']);
+    dateOfBirth = json['dateOfBirth'] != null
+        ? DateTime.parse(json['dateOfBirth'])
+        : null;
     enabler = json['enabler'] != null
         ? ExpandedEnabler.fromJson(json['enabler'])
         : null;

@@ -121,7 +121,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
     void resendOTP() async {
       try {
-        String? userType = await AppHelper.getUserType();
+        UserType? userType = await AppHelper.getUserType();
         if (userType == null) {
           AppHelper.showSnackbar(
               "User type was not selected, please go back and select user type",
@@ -129,7 +129,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
           return;
         }
 
-        await AuthService.sendOTP("+91${widget.phoneNumber}", userType);
+        await AuthService.sendOTP("+91${widget.phoneNumber}", userType.name);
         AppHelper.showSnackbar("OTP Sent", context);
 
         setState(() {

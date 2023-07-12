@@ -39,6 +39,13 @@ class UserService {
   static Future<void> updateUser(User user) async {
     var url = ApiRoutes.userBase;
     try {
+      user.location = null;
+      user.phoneNumber = null;
+      user.isSignupCompleted = null;
+      user.type = null;
+      user.createdAt = null;
+      user.updatedAt = null;
+
       var payload = json.encode(user.toJson());
       await HttpClient.put(url, payload);
     } on SocketException {

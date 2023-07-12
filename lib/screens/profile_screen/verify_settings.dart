@@ -1,10 +1,15 @@
+import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
 
 import '../../configs/resources.dart';
+import '../../models/data/expanded_user.dart';
 import '../../widgets/default_text_input.dart';
 
 class VerifyMyProfileSettings extends StatefulWidget {
-  const VerifyMyProfileSettings({super.key});
+  final ExpandedUser user;
+  final UserType userType;
+  const VerifyMyProfileSettings(
+      {super.key, required this.user, required this.userType});
 
   @override
   State<VerifyMyProfileSettings> createState() =>

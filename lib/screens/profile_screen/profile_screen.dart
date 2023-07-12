@@ -63,35 +63,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: "Profile",
       ),
       body: FullScreenContainer(
-        child: Column(children: [
-          ClipOval(
-            child: CircleAvatar(
-              radius: 50,
-              backgroundColor: AppColors.golden,
-              child: Container(
-                margin: const EdgeInsets.only(top: 10),
-                child: Image.asset(
-                  "assets/images/user_avatar.png",
-                  height: 100,
-                  width: 100,
+        child: SingleChildScrollView(
+          child: Column(children: [
+            ClipOval(
+              child: CircleAvatar(
+                radius: 50,
+                backgroundColor: AppColors.golden,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  child: Image.asset(
+                    "assets/images/user_avatar.png",
+                    height: 100,
+                    width: 100,
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          ProfileSettings(),
-          ListTile(
-            onTap: showLogoutConfirmationPopup,
-            contentPadding: EdgeInsets.symmetric(horizontal: 0),
-            title: Text(
-              "Logout",
-              style: AppTextStyles.regularBeVietnamPro16
-                  .copyWith(color: AppColors.red),
+            const SizedBox(
+              height: 16,
             ),
-          )
-        ]),
+            ProfileSettings(),
+            ListTile(
+              onTap: showLogoutConfirmationPopup,
+              contentPadding: EdgeInsets.symmetric(horizontal: 0),
+              title: Text(
+                "Logout",
+                style: AppTextStyles.regularBeVietnamPro16
+                    .copyWith(color: AppColors.red),
+              ),
+            )
+          ]),
+        ),
       ),
     );
   }

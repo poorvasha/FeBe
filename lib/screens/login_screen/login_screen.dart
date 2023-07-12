@@ -23,26 +23,20 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   String phonenumber = "";
   bool enbleButton = false;
-  String userType = "";
+  UserType? userType;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    Future.delayed(const Duration(seconds: 500));
-    getUserType().then((value) {
-      setState(() {
-        userType = value.toString().toLowerCase();
-      });
-    });
-    // AppHelper.getUserType().then((value){
-    //   userType = value.toString();
-    // });
+    fetchUserType();
   }
 
-  Future<String?> getUserType() async {
-    return await AppHelper.getUserType();
+  void fetchUserType() async {
+    UserType? _userType = await AppHelper.getUserType();
+    setState(() {
+      userType = _userType;
+    });
   }
 
   @override
@@ -57,7 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           _isLoading = true;
         });
-        String? userType = await AppHelper.getUserType();
         if (userType == null) {
           AppHelper.showSnackbar(
               "User type was not selected, please go back and select user type",
@@ -65,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
           return;
         }
 
-        await AuthService.sendOTP("+91$phonenumber", userType.toLowerCase());
+        await AuthService.sendOTP("+91$phonenumber", userType!.name);
         Navigator.push(
           context,
           MaterialPageRoute(

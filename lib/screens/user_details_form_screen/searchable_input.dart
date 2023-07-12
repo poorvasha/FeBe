@@ -1,12 +1,13 @@
 import 'package:febe_frontend/models/data/enabler_designation.dart';
 import 'package:febe_frontend/models/data/entrepreneur_industry.dart';
+import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:searchfield/searchfield.dart';
 
 import '../../configs/resources.dart';
 
 class SearchableInput extends StatelessWidget {
-  final String currentUserType;
+  final UserType currentUserType;
   final String value;
   final List<EnablerDesignation> designations;
   final List<EntrepreneurIndustry> industries;
@@ -32,7 +33,7 @@ class SearchableInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (currentUserType == "enabler") {
+    if (currentUserType == UserType.enabler) {
       return SearchField(
           key: Key("SearchkeyEnabler"),
           suggestions: designations
@@ -46,7 +47,7 @@ class SearchableInput extends StatelessWidget {
           ),
           validator: validator,
           scrollbarAlwaysVisible: false,
-          controller: TextEditingController(text: value),
+          controller: TextEditingController()..text = value,
           searchInputDecoration: InputDecoration(
             suffixIcon: InkWell(
                 onTap: onClear,
@@ -61,8 +62,9 @@ class SearchableInput extends StatelessWidget {
             floatingLabelStyle: AppTextStyles.semiBoldBeVietnamPro12.copyWith(
                 color: AppColors.lightBlack,
                 backgroundColor: AppColors.lightGolden.withOpacity(0.50)),
-            labelText:
-                currentUserType == "enabler" ? "Designation" : "Industry",
+            labelText: currentUserType == UserType.enabler
+                ? "Designation"
+                : "Industry",
             floatingLabelBehavior: FloatingLabelBehavior.always,
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
@@ -138,7 +140,8 @@ class SearchableInput extends StatelessWidget {
           floatingLabelStyle: AppTextStyles.semiBoldBeVietnamPro12.copyWith(
               color: AppColors.lightBlack,
               backgroundColor: AppColors.lightGolden.withOpacity(0.50)),
-          labelText: currentUserType == "enabler" ? "Designation" : "Industry",
+          labelText:
+              currentUserType == UserType.enabler ? "Designation" : "Industry",
           floatingLabelBehavior: FloatingLabelBehavior.always,
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),

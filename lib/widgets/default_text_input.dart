@@ -44,15 +44,12 @@ class _DefaultTextInputState extends State<DefaultTextInput> {
         isDirty = true;
       });
     }
-
-    // if (!focus.hasFocus) {
-    //  // if (widget.errorChanged != null) widget.errorChanged!(isValid());
-    // }
   }
 
   @override
   void initState() {
     focus.addListener(onFocused);
+    controller.text = widget.value;
     super.initState();
   }
 
@@ -129,14 +126,14 @@ class _DefaultTextInputState extends State<DefaultTextInput> {
             style: AppTextStyles.regularBeVietnamPro16
                 .copyWith(color: AppColors.extraLightBlack),
             onChanged: (value) {
-              if (widget.onChanged != null) widget.onChanged!(value);
-              //if (widget.errorChanged != null) widget.errorChanged!(isValid());
+              if (widget.onChanged != null) {
+                widget.onChanged!(value);
+              }
             },
             textAlignVertical: TextAlignVertical.center,
             readOnly: widget.type == "date",
             focusNode: focus,
             controller: controller,
-            autofocus: true,
             maxLines: widget.maxLines,
             onTap: widget.type == "date" ? pickDate : null,
             keyboardType: widget.keyboard,
@@ -144,9 +141,11 @@ class _DefaultTextInputState extends State<DefaultTextInput> {
                 labelStyle: AppTextStyles.semiBoldBeVietnamPro12.copyWith(
                   color: AppColors.lightBlack,
                 ),
-                floatingLabelStyle: AppTextStyles.semiBoldBeVietnamPro12.copyWith(
-                    color: AppColors.lightBlack,
-                    backgroundColor: AppColors.lightGolden.withOpacity(0.50)),
+                floatingLabelStyle: AppTextStyles.semiBoldBeVietnamPro12
+                    .copyWith(
+                        color: AppColors.lightBlack,
+                        backgroundColor:
+                            AppColors.lightGolden.withOpacity(0.50)),
                 labelText: widget.label ?? "",
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5),
@@ -155,9 +154,8 @@ class _DefaultTextInputState extends State<DefaultTextInput> {
                     )),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide:
-                                BorderSide(color: AppColors.golden, width: 2)),
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: BorderSide(color: AppColors.golden, width: 2)),
                 errorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5),
                     borderSide: BorderSide(color: AppColors.red)),

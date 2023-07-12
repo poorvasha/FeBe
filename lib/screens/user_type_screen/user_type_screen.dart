@@ -23,7 +23,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    void setUserType(String value) async {
+    void setUserType(UserType value) async {
       AppHelper.setUserType(value);
       bool isUsingForFirstTime = await AppHelper.isUserUsingForFirstTime();
       context.read<AppModel>().setInitialRoute =
@@ -108,9 +108,9 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                       ElevatedButton(
                         onPressed: () {
                           if (enablerRadioSelected) {
-                            setUserType("enabler");
+                            setUserType(UserType.enabler);
                           } else if (entrepreneurRadioSelected) {
-                            setUserType("Entrepreneur");
+                            setUserType(UserType.entrepreneur);
                           }
                         },
                         style: AppResources.buttonStyle,

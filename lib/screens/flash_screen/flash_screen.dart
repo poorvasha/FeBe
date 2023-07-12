@@ -34,12 +34,12 @@ class _FlashScreenState extends State<FlashScreen> {
   }
 
   Future<bool> _isSignupCompleted(User user) async {
-    String? userType = await AppHelper.getUserType();
+    UserType? userType = await AppHelper.getUserType();
     if (userType == null) {
       return false;
     }
 
-    if (userType == "enabler") {
+    if (userType == UserType.enabler) {
       return user.enabler?.about != null;
     }
 

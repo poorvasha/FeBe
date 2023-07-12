@@ -82,12 +82,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   }
 
   void checkUserType() async {
-    var userType;
-    await AppHelper.getUserType().then((value) => userType = value);
+    UserType? userType = await AppHelper.getUserType();
 
     setState(() {
-      carousels =
-          userType == "enabler" ? enablerCarousels : entrepreneurCarousels;
+      carousels = userType == UserType.enabler
+          ? enablerCarousels
+          : entrepreneurCarousels;
     });
   }
 
@@ -118,10 +118,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             fontSize: 16,
                             decoration: TextDecoration.underline,
                             decorationColor: AppColors.lightBlack,
-                            shadows: [const Shadow(
-                              color: AppColors.lightBlack,
-                              offset: Offset(0, -2)
-                            )]),
+                            shadows: [
+                              const Shadow(
+                                  color: AppColors.lightBlack,
+                                  offset: Offset(0, -2))
+                            ]),
                       ),
                     ),
                   ),
@@ -132,7 +133,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                     return GetStartedCarouselItem(carousel: item);
                   }).toList(),
                   options: CarouselOptions(
-                      height: screenSize.height/1.4,
+                      height: screenSize.height / 1.4,
                       enlargeCenterPage: true,
                       enlargeFactor: 1,
                       viewportFraction: 1,
@@ -143,12 +144,13 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                         });
                       }),
                 ),
-                
                 GetStartedCarouselIndicator(
                   total: carousels.length,
                   current: currentCarousel,
                 ),
-                SizedBox(height: 60,),
+                SizedBox(
+                  height: 60,
+                ),
                 SizedBox(
                   height: 50,
                   child: ElevatedButton(
