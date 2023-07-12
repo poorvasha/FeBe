@@ -5,6 +5,9 @@ import 'package:febe_frontend/services/user_service.dart';
 import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
 
+import '../../configs/resources.dart';
+import '../../widgets/default_loader.dart';
+
 class ProfileSettings extends StatefulWidget {
   const ProfileSettings({super.key});
 
@@ -13,26 +16,17 @@ class ProfileSettings extends StatefulWidget {
 }
 
 class _ProfileSettingsState extends State<ProfileSettings> {
-  ExpandedUser user = ExpandedUser();
   UserType? userType;
 
   @override
   void initState() {
-    fetchUser();
     fetchUserType();
     super.initState();
   }
 
-  void fetchUser() async {
-    try {
-      ExpandedUser _user = await UserService.getExpandedUser();
-      setState(() {
-        user = _user;
-      });
-    } catch (e) {
-      AppHelper.showSnackbar(
-          "Couldn't fetch details, please try again later", context);
-    }
+  Future<ExpandedUser?> fetchUser() async {
+    ExpandedUser _user = await UserService.getExpandedUser();
+    return _user;
   }
 
   void fetchUserType() async {
@@ -44,18 +38,45 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        GeneralSettings(
-          user: user,
-          userType: userType!,
-          key: Key("${user.sId}enabler"),
-        ),
-        VerifyMyProfileSettings(
-            user: user,
-            userType: userType!,
-            key: Key("${user.sId}entrepreneur"))
-      ],
+    return FutureBuilder(
+      future: fetchUser(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                "Something went wrong, please try again",
+                style: AppTextStyles.semiBoldBeVietnamPro16
+                    .copyWith(color: AppColors.black),
+              ),
+            );
+          } else if (snapshot.hasData) {
+            final data = snapshot.data as ExpandedUser;
+            return Column(
+              children: [
+                GeneralSettings(
+                  user: data,
+                  userType: userType!,
+                  key: Key("${data.sId}general"),
+                ),
+                if (userType == UserType.enabler)
+                  VerifyMyProfileSettings(
+                      user: data,
+                      userType: userType!,
+                      key: Key("${data.sId}verify"))
+              ],
+            );
+          }
+        }
+
+        // Displaying LoadingSpinner to indicate waiting state
+        return const SizedBox(
+          height: 200,
+          child: Center(
+            child: DefaultLoader(),
+          ),
+        );
+      },
     );
   }
 }

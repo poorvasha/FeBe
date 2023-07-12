@@ -1,8 +1,11 @@
+import 'package:febe_frontend/models/data/enabler.dart';
 import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:flutter/material.dart';
 
 import '../../configs/resources.dart';
 import '../../models/data/expanded_user.dart';
+import '../../models/data/user.dart';
+import '../../services/user_service.dart';
 import '../../widgets/default_text_input.dart';
 
 class VerifyMyProfileSettings extends StatefulWidget {
@@ -17,9 +20,34 @@ class VerifyMyProfileSettings extends StatefulWidget {
 }
 
 class _VerifyMyProfileSettingsState extends State<VerifyMyProfileSettings> {
+  String linkedInURL = "";
+  String portfolioURL = "";
+
   @override
   void initState() {
     super.initState();
+    setDefaultValues();
+  }
+
+  void setDefaultValues() {
+    setState(() {
+      linkedInURL = widget.user.enabler?.linkedInURL ?? "";
+      portfolioURL = widget.user.enabler?.portfolioURL ?? "";
+    });
+  }
+
+  void updateUser() async {
+    try {
+      User user = User.fromExpandedUser(widget.user);
+
+      user.enabler = user.enabler ?? Enabler();
+      user.enabler?.linkedInURL = linkedInURL;
+      user.enabler?.portfolioURL = portfolioURL;
+
+      await UserService.updateUser(user);
+    } catch (e) {
+      AppHelper.showSnackbar("Something went wrong, please try again", context);
+    }
   }
 
   @override
@@ -40,15 +68,25 @@ class _VerifyMyProfileSettingsState extends State<VerifyMyProfileSettings> {
             hint: "Enter your linkedin URL",
             helperText: "This will be your professional referrence",
             label: "LinkedIn URL",
+            value: linkedInURL,
             keyboard: TextInputType.text,
-            onChanged: (value) {},
+            onChanged: (value) {
+              setState(() {
+                linkedInURL = value;
+              });
+            },
           ),
           DefaultTextInput(
             hint: "Enter your portfolio URL",
             helperText: "This will be your work sample referrence",
             label: "Portfolio URL",
             keyboard: TextInputType.text,
-            onChanged: (value) {},
+            value: portfolioURL,
+            onChanged: (value) {
+              setState(() {
+                portfolioURL = value;
+              });
+            },
           ),
           const SizedBox(
             height: 16,
@@ -57,7 +95,7 @@ class _VerifyMyProfileSettingsState extends State<VerifyMyProfileSettings> {
             width: double.infinity,
             height: 50,
             child: ElevatedButton(
-              onPressed: null,
+              onPressed: updateUser,
               style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.golden,
                   disabledBackgroundColor: AppColors.lightWhite,
@@ -66,11 +104,8 @@ class _VerifyMyProfileSettingsState extends State<VerifyMyProfileSettings> {
                   )),
               child: Text(
                 "Request Verification",
-                style: AppTextStyles.boldBeVietnamPro.copyWith(
-                    color: false
-                        ? AppColors.lightBlack
-                        : AppColors.gray.withOpacity(0.50),
-                    fontSize: 18),
+                style: AppTextStyles.boldBeVietnamPro
+                    .copyWith(color: AppColors.black, fontSize: 18),
               ),
             ),
           ),

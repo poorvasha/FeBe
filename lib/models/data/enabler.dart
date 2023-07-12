@@ -54,7 +54,7 @@ class ExpandedEnabler {
   ExpandedEnabler.fromJson(Map<String, dynamic> json) {
     about = json['about'];
     linkedInURL = json['linkedInURL'];
-    linkedInURL = json['portfolioURL'];
+    portfolioURL = json['portfolioURL'];
     designation = json['designation'] != null
         ? EnablerDesignation.fromJson(json['designation'])
         : null;
