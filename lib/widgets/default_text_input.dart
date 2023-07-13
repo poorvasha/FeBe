@@ -166,7 +166,7 @@ class _DefaultTextInputState extends State<DefaultTextInput> {
                 errorText: isValid() ? null : "* required",
                 errorStyle: const TextStyle(height: 0),
                 hintStyle: AppTextStyles.regularBeVietnamPro16
-                    .copyWith(color: AppColors.lightWhite),
+                    .copyWith(color: AppColors.extraLightBlack),
                 helperText: widget.helperText ?? "",
                 helperStyle: AppTextStyles.regularBeVietnamPro12
                     .copyWith(color: AppColors.extraLightBlack)),
