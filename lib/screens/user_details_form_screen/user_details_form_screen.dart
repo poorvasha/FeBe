@@ -153,6 +153,54 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    void moveToNextPart() {
+      controller.nextPage();
+    }
+
+    void updateUser() async {
+      try {
+        setState(() {
+          _isLoading = true;
+        });
+        currentUser.name = userName;
+        if(currentUserType == "entrepreneur"){
+          currentUser.entrepreneur = Entrepreneur();
+        }
+        else {
+           currentUser.enabler = Enabler(linkedInURL: linkedinUrl, designation: designationId);
+        }
+        await UserService.updateUser(currentUser);
+        context.read<AppModel>().setInitialRoute = Routes.homeScreen;
+        
+      } catch (e) {
+        AppHelper.showSnackbar(
+            "Something went wrong, please try again", context);
+      }
+      finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+
+    void onUserDetailChanged(User user) {
+      setState(() {
+        currentUser = user;
+      });
+    }
+
+    bool isValid() {
+
+      bool validity = !(!isOptional && isDirty);
+      return validity;
+    }
+
+    bool isDesignationValid() {
+
+      bool validity = !(!isOptional && isDirty && designation.trim() == "");
+      return validity;
+    }
+
     void onFocused() {
       if (!isDirty && focus.hasFocus) {
         setState(() {
@@ -178,6 +226,7 @@ class _UserDetailsFormScreenState extends State<UserDetailsFormScreen> {
         backgroundColor: AppColors.white,
         body: GestureDetector(
           onTap: () {
+            isDirty = true;
             focus.unfocus();
           },
           child: Container(
