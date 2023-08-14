@@ -172,6 +172,7 @@ class _DefaultTextInputState extends State<DefaultTextInput> {
                     .copyWith(color: AppColors.extraLightBlack)),
           ),
         ),
+      
       ],
     );
   }
