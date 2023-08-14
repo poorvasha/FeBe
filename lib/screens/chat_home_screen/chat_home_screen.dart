@@ -1,9 +1,13 @@
+import 'package:febe_frontend/configs/resources.dart';
 import 'package:febe_frontend/screens/chat_home_screen/chats_list.dart';
+import 'package:febe_frontend/services/chat_service.dart';
 import 'package:febe_frontend/widgets/default_appbar.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/data/user.dart';
+import '../../providers/app_model.dart';
 import '../../services/user_service.dart';
 import '../../utils/app_helper.dart';
 import '../chat_screen/febe_chat_item.dart';
@@ -17,7 +21,8 @@ class ChatHomeScreen extends StatefulWidget {
 }
 
 class _ChatHomeScreenState extends State<ChatHomeScreen> {
-  User? user;
+  User user = User();
+  List<User> chats = [];
 
   @override
   void initState() {
@@ -40,8 +45,9 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: DefaultAppbar(
+    return  Scaffold(
+      backgroundColor: AppColors.white,
+      appBar: const DefaultAppbar(
         title: "Recents",
         goBack: false,
       ),
@@ -52,7 +58,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
             children: [
               FebeChatItem(),
               // EmptyChat(),
-              Expanded(child: ChatsList()),
+              Expanded(child: ChatsList(currentUser: user)),
             ],
           )),
     );

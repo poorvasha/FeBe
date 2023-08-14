@@ -2,11 +2,13 @@ import 'package:febe_frontend/screens/chat_screen/chat_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../configs/resources.dart';
+import '../../models/data/user.dart';
 
 class ChatItem extends StatefulWidget {
   final bool isVerified;
   int selectChatIndex;
-  ChatItem({super.key, this.selectChatIndex = 0, this.isVerified = false});
+  User currentUser;
+  ChatItem({super.key, required this.currentUser, this.selectChatIndex = 0, this.isVerified = false});
 
   @override
   State<ChatItem> createState() => _ChatItemState();
@@ -19,7 +21,8 @@ class _ChatItemState extends State<ChatItem> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => const ChatScreen(
+              builder: (context) =>  ChatScreen(
+                    currentUser : widget.currentUser,
                     name: "",
                     isVerified: false,
                   )));
