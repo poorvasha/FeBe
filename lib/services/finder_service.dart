@@ -17,7 +17,7 @@ class FinderService {
     var url = ApiRoutes.finderBase;
 
     final uri =
-        Uri.http(ApiRoutes.baseUrl.replaceAll("http://", ""), "api/finder", {
+        Uri.http(ApiRoutes.baseUrl.replaceAll("https://", ""), "api/finder", {
       'latitude': userLatitude.toString(),
       'userIdentity': userIdentity.toString(),
       'longitude': userLongitude.toString(),

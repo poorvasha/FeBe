@@ -127,6 +127,7 @@ class _FinderUserSearchScreenState extends State<FinderUserSearchScreen> {
           controller: controller,
           focusNode: focusNode,
           onChanged: onSearch,
+          autofocus: true,
           decoration: AppResources.bareInputDecoration.copyWith(
               hintText: "Search using designation...",
               hintStyle: AppTextStyles.regularBeVietnamPro16

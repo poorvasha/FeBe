@@ -1,5 +1,5 @@
 class ApiRoutes {
-  static const String baseUrl = "http://139.59.77.243:3000";
+  static const String baseUrl = "https://febe-backend.onrender.com";
   static String userBase = "$baseUrl/api/users";
   static String authLogin = "$userBase/login";
   static String authVerifyOTP = "$userBase/verify-otp";
@@ -11,3 +11,4 @@ class ApiRoutes {
   static String finderBase = "$baseUrl/api/finder";
   static String location = "$userBase/location";
 }
+ 

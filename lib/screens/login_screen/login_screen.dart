@@ -153,18 +153,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   validateAllInputsToEnableButton()
                 },
               ),
-              const SizedBox(
-                height: 18,
-              ),
-              DefaultCheckbox(
-                isChecked: isWhatsappNotificationAccepted,
-                label: "Receive Whatsapp notifications",
-                onChanged: (value) => {
-                  setState(() {
-                    isWhatsappNotificationAccepted = value!;
-                  }),
-                },
-              ),
               SizedBox(height: 40),
               SizedBox(
                 width: double.infinity,
