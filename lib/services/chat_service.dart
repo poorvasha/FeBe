@@ -9,13 +9,11 @@ import '../utils/http_client.dart';
 
 class ChatService {
   static Future<List<User>> getChats() async {
-    var url = ApiRoutes.finderBase;
+    var url = ApiRoutes.chatBase;
 
-    final uri =
-        Uri.http(ApiRoutes.chatBase);
     try {
       var response =
-          await HttpClient.get(url, isAuthenticationRequired: true, uri: uri);
+          await HttpClient.get(url, isAuthenticationRequired: true);
       return (response as List).map((dynamic item) {
         return User.fromJson(item);
       }).toList();

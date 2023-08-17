@@ -26,8 +26,8 @@ class _ChatsListState extends State<ChatsList> {
 
   void fetchChats() async {
     try {
-      List<User> currentChats = await ChatService.getChats();
-      context.read<AppModel>().setChats = currentChats;
+      dynamic currentChats = await ChatService.getChats();
+context.read<AppModel>().setChats = currentChats;
     } catch (e) {
       AppHelper.showSnackbar("Something went wrong, please try again", context);
     }
@@ -36,15 +36,17 @@ class _ChatsListState extends State<ChatsList> {
   @override
   Widget build(BuildContext context) {
     return context.watch<AppModel>().getChats.isNotEmpty
-        ? ListView.builder(
-            itemCount: context.watch<AppModel>().getChats.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ChatItem(
-                currentUser: widget.currentUser,
-                selectChatIndex: index,
-                isVerified: false,
-              );
-            },
+        ? FutureBuilder(
+            builder: (context, snapshot) => ListView.builder(
+              itemCount: context.watch<AppModel>().getChats.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ChatItem(
+                  currentUser: widget.currentUser,
+                  selectChatIndex: index,
+                  isVerified: false,
+                );
+              },
+            ),
           )
         : Container(
             padding: EdgeInsets.symmetric(horizontal: 30),
@@ -56,7 +58,8 @@ class _ChatsListState extends State<ChatsList> {
                 Text(
                   "You have no chats right now, find your fellow collegue using the Finder!",
                   textAlign: TextAlign.center,
-                  style: AppTextStyles.regularBeVietnamPro12.copyWith(fontSize: 14),
+                  style: AppTextStyles.regularBeVietnamPro12
+                      .copyWith(fontSize: 14),
                 )
               ],
             ),
