@@ -4,10 +4,15 @@ import 'package:febe_frontend/configs/api_routes.dart';
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:febe_frontend/screens/chat_screen/chat_appbar.dart';
 import 'package:febe_frontend/screens/chat_screen/chat_message.dart';
+import 'package:febe_frontend/services/chat_service.dart';
+import 'package:febe_frontend/utils/app_helper.dart';
 import 'package:febe_frontend/widgets/full_screen_container.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/data/all_chats_data_model.dart';
 import '../../models/data/chat_data.dart';
+import '../../models/data/chat_messages_data_model.dart';
 import '../../models/data/user.dart';
 import '../../services/user_service.dart';
 import '../../widgets/default_appbar.dart';
@@ -20,12 +25,14 @@ class ChatScreen extends StatefulWidget {
   final bool isVerified;
   final bool isFEBE;
   User currentUser;
+  ChatsData? chatDetails;
   ChatScreen(
       {super.key,
       required this.currentUser,
       required this.name,
       required this.isVerified,
-      this.isFEBE = false});
+      this.isFEBE = false,
+      this.chatDetails});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -58,18 +65,46 @@ class _ChatScreenState extends State<ChatScreen> {
     //     messageType: "sender",
     //     dateTime: DateTime.now()),
   ];
-
   IO.Socket? socket;
+  String? userId;
+  String? targetUserId;
 
   @override
   void initState() {
-    getUserData();
     initSocket();
     super.initState();
+
+    userId = widget.currentUser.sId;
+    targetUserId = widget.chatDetails!.targetUser!.sId;
   }
 
-  getUserData() async {
-    User currentUser = await UserService.getUser();
+  @override 
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    fetchMessages();
+  }
+
+  fetchMessages() async {
+    List<ExpandedChatMessage> expandedMessages = await ChatService.getMessages(widget.chatDetails!.room!.sId!);
+    for (int i = expandedMessages.length-1; i >= 0; i--) {
+      ExpandedChatMessage element = expandedMessages[i];
+      messages.add(ChatMessage(
+        userId: element.fromId!.sId!,
+        targetUserId: element.toId!.sId!, 
+        name: widget.currentUser.sId! == element.fromId!.sId! ? element.fromId!.name! : element.toId!.name!, 
+        messageContent: element.text!,
+        messageType: userId == element.fromId!.sId! ? "currentUser" : "targetUser", 
+        dateTime: DateTime.parse(element.createdAt!)));
+    }
+    var mmm = messages.reversed;
+    setState(() {
+        messages.reversed;
+      });
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent + 2000,
+        curve: Curves.easeIn,
+        duration: const Duration(milliseconds: 2000),
+      );
   }
 
   initSocket() {
@@ -89,7 +124,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
     //TODO add data dynamically
     ChatJoinerData chatJoinerData = ChatJoinerData(
-        userId: widget.currentUser.sId, name: "Poorva", targetUserId: "2");
+        userId: userId,  targetUserId: targetUserId);
     socket!.emit('user-joined', chatJoinerData);
 
     socket!.on('chat', (newMessage) {
@@ -97,10 +132,15 @@ class _ChatScreenState extends State<ChatScreen> {
           ChatMessageRecievingData.fromJson(newMessage);
 
       messages.add(ChatMessage(
+          userId: targetUserId!,
+          targetUserId: userId!,
           name: recieveingData.username ?? "Unknown",
           messageContent: recieveingData.message ?? "Opps! empty message",
-          messageType: "receiver",
+          messageType: "targetUser",
           dateTime: DateTime.now()));
+      setState(() {
+        messages;
+      });
     });
   }
 
@@ -110,18 +150,19 @@ class _ChatScreenState extends State<ChatScreen> {
     }
 
     ChatMessageSendingData chatMessageSendingData = ChatMessageSendingData(
-        userId: widget.currentUser.sId,
-        name: widget.currentUser.name,
+        userId: userId,
         message: text,
-        targetUserId: "2");
+        targetUserId: targetUserId);
 
     socket!.emit('chat', chatMessageSendingData.toJson());
 
     setState(() {
       messages.add(ChatMessage(
+          userId: userId!,
+          targetUserId: targetUserId!,
           name: widget.currentUser.name ?? "Unknown",
           messageContent: text,
-          messageType: "sender",
+          messageType: "currentUser",
           dateTime: DateTime.now()));
       textController.text = "";
       _scrollController.animateTo(
@@ -162,7 +203,7 @@ class _ChatScreenState extends State<ChatScreen> {
           title: Align(
             alignment: Alignment.topLeft,
             child: Text(
-              widget.currentUser.name ?? "Unknown",
+              widget.chatDetails!.targetUser!.name ?? "Unknown",
               style: AppTextStyles.semiBoldBeVietnamPro20
                   .copyWith(fontSize: 16, color: AppColors.black),
             ),
@@ -180,18 +221,18 @@ class _ChatScreenState extends State<ChatScreen> {
             itemBuilder: (context, index) {
               return Container(
                 padding: EdgeInsets.only(
-                    left: messages[index].messageType == "receiver" ? 14 : 50,
-                    right: messages[index].messageType == "receiver" ? 50 : 14,
+                    left: messages[index].messageType == "targetUser" ? 14 : 50,
+                    right: messages[index].messageType == "targetUser" ? 50 : 14,
                     top: 10,
                     bottom: 10),
                 child: Align(
-                  alignment: (messages[index].messageType == "receiver"
+                  alignment: (messages[index].messageType == "targetUser"
                       ? Alignment.topLeft
                       : Alignment.topRight),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: (messages[index].messageType == "receiver"
+                      color: (messages[index].messageType == "targetUser"
                           ? Colors.grey.shade200
                           : Colors.blue[200]),
                     ),

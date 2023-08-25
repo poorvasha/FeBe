@@ -1,12 +1,12 @@
 class Location {
   String? type;
-  List<int>? coordinates;
+  List<double>? coordinates;
 
   Location({this.type, this.coordinates});
 
   Location.fromJson(Map<String, dynamic> json) {
     type = json['type'];
-    coordinates = json['coordinates'].cast<int>();
+    coordinates = json['coordinates'].cast<double>();
   }
 
   Map<String, dynamic> toJson() {

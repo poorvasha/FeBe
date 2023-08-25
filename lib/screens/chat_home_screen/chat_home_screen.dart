@@ -1,4 +1,5 @@
 import 'package:febe_frontend/configs/resources.dart';
+import 'package:febe_frontend/models/data/all_chats_data_model.dart';
 import 'package:febe_frontend/screens/chat_home_screen/chats_list.dart';
 import 'package:febe_frontend/services/chat_service.dart';
 import 'package:febe_frontend/widgets/default_appbar.dart';
@@ -22,7 +23,6 @@ class ChatHomeScreen extends StatefulWidget {
 
 class _ChatHomeScreenState extends State<ChatHomeScreen> {
   User user = User();
-  List<User> chats = [];
 
   @override
   void initState() {

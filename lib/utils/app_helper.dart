@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:febe_frontend/configs/constants.dart';
 import 'package:febe_frontend/models/misc/local_storage_item.dart';
 import 'package:febe_frontend/services/user_service.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../models/data/user.dart';
 import '../services/secure_local_storage.dart';
 
 enum LocationStatus { turnedOff, denied, blocked, granted, yetToRequest }
@@ -78,6 +81,56 @@ class AppHelper {
       }
     }
   }
+
+  static Future<String?> getUserType() async {
+    try {
+      var isContainsKey =
+          await SecureStorage().containsKeyInSecureData('userType');
+      if (isContainsKey) {
+        var data = await SecureStorage().readSecureData('userType');
+        if (data != null && data.isNotEmpty) {
+          return data;
+        }
+      }
+      return null;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return null;
+    }
+  }
+
+  static Future<void> setUserDetails(User user) async {
+    try {
+      await SecureStorage().writeSecureData(LocalStorageItem(key: 'userDetails', value: jsonEncode(user)));
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  static Future<User> getUserDetails() async {
+    try {
+      var isContainsKey =
+          await SecureStorage().containsKeyInSecureData('userDetails');
+      if (isContainsKey) {
+        var data = await SecureStorage().readSecureData('userDetails');
+        if (data != null && data.isNotEmpty) {
+          Future<User> decodedData = jsonDecode(data);
+          return decodedData;
+        }
+      }
+      return Future(() => User());
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return Future(() => User());
+    }
+  }
+
 
   static bool validateEmail(String email) {
     if (!RegExp(r'\S+@\S+\.\S+').hasMatch(email)) {
