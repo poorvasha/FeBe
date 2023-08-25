@@ -1,3 +1,4 @@
+import 'package:febe_frontend/models/data/all_chats_data_model.dart';
 import 'package:febe_frontend/models/data/user.dart';
 import 'package:flutter/material.dart';
 

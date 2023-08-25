@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../configs/routes.dart' as routes;
+import '../models/data/all_chats_data_model.dart';
 import '../models/data/user.dart';
 
 class AppModel with ChangeNotifier {
@@ -30,12 +31,12 @@ class AppModel with ChangeNotifier {
 
 
   // Chats
-  List<User> _userChats = [];
-  List<User> get getChats {
+  List<ChatsData> _userChats = [];
+  List<ChatsData> get getChats {
     return _userChats;
   }
 
-  set setChats(List<User> route) {
+  set setChats(List<ChatsData> route) {
     _userChats = route;
     notifyListeners();
   }

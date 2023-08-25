@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:febe_frontend/configs/resources.dart';
 import 'package:febe_frontend/models/data/user.dart';
 import 'package:febe_frontend/services/user_service.dart';
@@ -6,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../configs/routes.dart';
+import '../../models/misc/local_storage_item.dart';
 import '../../providers/app_model.dart';
+import '../../services/secure_local_storage.dart';
 
 class FlashScreen extends StatefulWidget {
   const FlashScreen({super.key});
@@ -55,6 +59,8 @@ class _FlashScreenState extends State<FlashScreen> {
 
     try {
       User user = await UserService.getUser();
+      AppHelper.setUserDetails(user);
+
       bool isSignupCompleted = await _isSignupCompleted(user);
 
       if (isSignupCompleted) {
