@@ -82,25 +82,6 @@ class AppHelper {
     }
   }
 
-  static Future<String?> getUserType() async {
-    try {
-      var isContainsKey =
-          await SecureStorage().containsKeyInSecureData('userType');
-      if (isContainsKey) {
-        var data = await SecureStorage().readSecureData('userType');
-        if (data != null && data.isNotEmpty) {
-          return data;
-        }
-      }
-      return null;
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-      return null;
-    }
-  }
-
   static Future<void> setUserDetails(User user) async {
     try {
       await SecureStorage().writeSecureData(LocalStorageItem(key: 'userDetails', value: jsonEncode(user)));

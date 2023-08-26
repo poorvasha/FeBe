@@ -71,75 +71,90 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    initSocket();
     super.initState();
 
     userId = widget.currentUser.sId;
     targetUserId = widget.chatDetails!.targetUser!.sId;
+    initSocket();
   }
 
-  @override 
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     fetchMessages();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    socket!.disconnect();
+  }
+
   fetchMessages() async {
-    List<ExpandedChatMessage> expandedMessages = await ChatService.getMessages(widget.chatDetails!.room!.sId!);
-    for (int i = expandedMessages.length-1; i >= 0; i--) {
+    List<ExpandedChatMessage> expandedMessages =
+        await ChatService.getMessages(widget.chatDetails!.room!.sId!);
+    for (int i = expandedMessages.length - 1; i >= 0; i--) {
       ExpandedChatMessage element = expandedMessages[i];
       messages.add(ChatMessage(
-        userId: element.fromId!.sId!,
-        targetUserId: element.toId!.sId!, 
-        name: widget.currentUser.sId! == element.fromId!.sId! ? element.fromId!.name! : element.toId!.name!, 
-        messageContent: element.text!,
-        messageType: userId == element.fromId!.sId! ? "currentUser" : "targetUser", 
-        dateTime: DateTime.parse(element.createdAt!)));
+          userId: element.fromId!.sId!,
+          targetUserId: element.toId!.sId!,
+          name: widget.currentUser.sId! == element.fromId!.sId!
+              ? element.fromId!.name!
+              : element.toId!.name!,
+          messageContent: element.text!,
+          messageType:
+              userId == element.fromId!.sId! ? "currentUser" : "targetUser",
+          dateTime: DateTime.parse(element.createdAt!)));
     }
     var mmm = messages.reversed;
     setState(() {
-        messages.reversed;
-      });
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent + 2000,
-        curve: Curves.easeIn,
-        duration: const Duration(milliseconds: 2000),
-      );
+      messages.reversed;
+    });
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent + 2000,
+      curve: Curves.easeIn,
+      duration: const Duration(milliseconds: 2000),
+    );
   }
 
   initSocket() {
     socket = IO.io(ApiRoutes.sockeServertUrl, <String, dynamic>{
-      'autoConnect': false,
       'transports': ['websocket'],
     });
-    socket!.connect();
 
+    socket!.connect();
     // when socket connection has beeen established the onConnect will triggered
     socket!.onConnect((_) {
-      print('Connection established');
+      print("connected");
     });
+
     socket!.onDisconnect((_) => print('Connection Disconnection'));
     socket!.onConnectError((err) => print(err));
     socket!.onError((err) => print(err));
 
-    //TODO add data dynamically
-    ChatJoinerData chatJoinerData = ChatJoinerData(
-        userId: userId,  targetUserId: targetUserId);
+    ChatJoinerData chatJoinerData =
+        ChatJoinerData(userId: userId, targetUserId: targetUserId);
     socket!.emit('user-joined', chatJoinerData);
 
     socket!.on('chat', (newMessage) {
       ChatMessageRecievingData recieveingData =
           ChatMessageRecievingData.fromJson(newMessage);
 
-      messages.add(ChatMessage(
-          userId: targetUserId!,
-          targetUserId: userId!,
-          name: recieveingData.username ?? "Unknown",
-          messageContent: recieveingData.message ?? "Opps! empty message",
-          messageType: "targetUser",
-          dateTime: DateTime.now()));
       setState(() {
-        messages;
+        messages.add(ChatMessage(
+            userId: targetUserId!,
+            targetUserId: userId!,
+            name: recieveingData.username ?? "Unknown",
+            messageContent: recieveingData.message ?? "Opps! empty message",
+            messageType: recieveingData.username == userId
+                ? "currentUser"
+                : "targetUser",
+            dateTime: DateTime.now()));
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent + 2000,
+          curve: Curves.easeIn,
+          duration: const Duration(milliseconds: 0),
+        );
       });
     });
   }
@@ -150,27 +165,20 @@ class _ChatScreenState extends State<ChatScreen> {
     }
 
     ChatMessageSendingData chatMessageSendingData = ChatMessageSendingData(
-        userId: userId,
-        message: text,
-        targetUserId: targetUserId);
+        userId: userId, message: text, targetUserId: targetUserId);
 
     socket!.emit('chat', chatMessageSendingData.toJson());
+    textController.text = "";
+    // setState(() {
+    //   messages.add(ChatMessage(
+    //       userId: userId!,
+    //       targetUserId: targetUserId!,
+    //       name: widget.currentUser.name ?? "Unknown",
+    //       messageContent: text,
+    //       messageType: "currentUser",
+    //       dateTime: DateTime.now()));
 
-    setState(() {
-      messages.add(ChatMessage(
-          userId: userId!,
-          targetUserId: targetUserId!,
-          name: widget.currentUser.name ?? "Unknown",
-          messageContent: text,
-          messageType: "currentUser",
-          dateTime: DateTime.now()));
-      textController.text = "";
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent + 2000,
-        curve: Curves.easeIn,
-        duration: const Duration(milliseconds: 2000),
-      );
-    });
+    // });
   }
 
   @override
@@ -222,7 +230,8 @@ class _ChatScreenState extends State<ChatScreen> {
               return Container(
                 padding: EdgeInsets.only(
                     left: messages[index].messageType == "targetUser" ? 14 : 50,
-                    right: messages[index].messageType == "targetUser" ? 50 : 14,
+                    right:
+                        messages[index].messageType == "targetUser" ? 50 : 14,
                     top: 10,
                     bottom: 10),
                 child: Align(
