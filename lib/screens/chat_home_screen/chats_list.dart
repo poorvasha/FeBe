@@ -31,6 +31,9 @@ class _ChatsListState extends State<ChatsList> {
     try {
       var data = await ChatService.getChats();
       currentChats = data!.isEmpty ? [] : data;
+
+
+      currentChats = currentChats.where((e) => e.recentMessage != null).toList();
       // context.read<AppModel>().setChats = currentChats;
       return currentChats;
     } catch (e) {
@@ -43,9 +46,9 @@ class _ChatsListState extends State<ChatsList> {
   Widget build(BuildContext context) {
     return FutureBuilder<List<ChatsData>>(
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           return ListView.builder(
-              itemCount: 1,
+              itemCount: snapshot.data!.length,
               itemBuilder: (BuildContext context, int index) {
                 //   return ChatItem(
                 //     currentUser: widget.currentUser,
